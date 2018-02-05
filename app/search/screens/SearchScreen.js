@@ -6,26 +6,26 @@ import { colors } from '../../config';
 
 const T_DEGREE = 0, T_SUBJECTS = 1, T_TEACHERS = 2;
 
-const DegreeItem = ({ name, code, goToPath }) => (
+const DegreeItem = ({ name, code, goToPath, index }) => (
 	<ListItem 
 		title={name}
-		onPressRightIcon={() => goToPath('DegreeProfile', { name, code })}
+		onPressRightIcon={() => goToPath('DegreeProfile', index)}
 	/>
 );
 
-const SubjectItem = ({ name, degreeName, code, goToPath }) => (
+const SubjectItem = ({ name, degreeName, code, goToPath, index }) => (
 	<ListItem 
 		title={name}
 		subtitle={degreeName}
-		onPressRightIcon={() => goToPath('SubjectProfile', { name, code } )}
+		onPressRightIcon={() => goToPath('SubjectProfile', index)}
 	/>
 );
 
-const TeacherItem = ({ name, degreeName, code, goToPath }) => (
+const TeacherItem = ({ name, degreeName, code, goToPath, index }) => (
 	<ListItem 
 		title={name}
 		subtitle={degreeName}
-		onPressRightIcon={() => goToPath('TeacherProfile', { name, code } )}
+		onPressRightIcon={() => goToPath('TeacherProfile', index)}
 	/>
 );
 
@@ -71,17 +71,17 @@ export const SearchScreen = ({ onChange, onFinish, updateIndex, buttons, selecte
 			{
 				!loading
 				&& selectedIndex === T_DEGREE
-				&& <List><FlatList data={degrees} renderItem={({ item }) => (<DegreeItem goToPath={goToPath} name={item.name} code={item.code} />)} /></List>
+				&& <List><FlatList data={degrees} renderItem={({ item, index }) => (<DegreeItem goToPath={goToPath} name={item.name} code={item.code} index={index}/>)} /></List>
 			}
 			{
 				!loading
 				&& selectedIndex === T_SUBJECTS
-				&& <List><FlatList data={subjects} renderItem={({ item }) => (<SubjectItem goToPath={goToPath} name={item.name} degreeName={item.degreeName} code={item.code}/>)} /></List>
+				&& <List><FlatList data={subjects} renderItem={({ item, index }) => (<SubjectItem goToPath={goToPath} name={item.name} degreeName={item.degreeName} index={index} code={item.code}/>)} /></List>
 			}
 			{
 				!loading
 				&& selectedIndex === T_TEACHERS
-				&& <List><FlatList data={teachers} renderItem={({ item }) => (<TeacherItem goToPath={goToPath} name={item.name} degreeName={item.degreeName} code={item.code}/>)} /></List>
+				&& <List><FlatList data={teachers} renderItem={({ item, index }) => (<TeacherItem goToPath={goToPath} name={item.name} degreeName={item.degreeName} index={index} code={item.code}/>)} /></List>
 			}
 
 		</View>

@@ -34,10 +34,19 @@ class SearchContainer extends Component{
 		this.setState({ results, loading: false });
 	}
 
-	goToPath = (path, params) => {
+	goToPath = (path, index) => {
+		let selectedItem;
+		if(this.state.selectedIndex === 0){
+			selectedItem = this.props.degrees[index];
+		}else if(this.state.selectedItem === 1){
+			selectedItem = this.props.subjects[index];
+		}else{
+			selectedItem = this.props.teachers[index];
+		};
+
 		this.props.navigation.navigate(path,{
-			title: params.name,
-			code: params.code
+			title: selectedItem.name,
+			params: selectedItem
 		});
 	}
 

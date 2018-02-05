@@ -43,9 +43,9 @@ const sharedRoutes = {
 	},
 	TeacherProfile : {
 		screen: TeacherProfile,
-		navigationOptions: ({ navigation }) => ({
-			title: navigation.state.params.title,
-		}),
+		navigationOptions: {
+			header: null
+		},
 	}
 };
 
