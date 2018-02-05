@@ -1,13 +1,20 @@
-import firebase from 'react-native-firebase';
+import axios from 'axios';
+import { urls } from '../config/';
 
-export const searchText = async (text) => {
-	let results = [];
-	console.log(firebase)
-	const ref = firebase.firestore().collection('subjects');
+const T_DEGREE = 0, T_SUBJECTS = 1, T_TEACHERS = 2;
 
-	const snap = await ref.get().where('name', '==', true);
-	snap.forEach(function(doc){
-		results.push(doc.name);
-	});
-	return results;
+export const searchByName = async (name, type) => {
+	let query;
+	switch(type){
+		case T_SUBJECTS:
+			query = 'subject=null';
+			break;
+		case T_TEACHERS:
+			query = 'teacher=null';
+			break;
+		default:
+			query = ''
+	}	
+	const results = await axios.get(`${urls.firebase}/searchByName?name=${name.toLowerCase()}&${query}`);
+	return results.data;
 };	

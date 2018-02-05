@@ -10,15 +10,73 @@ import { colors } from '.';
 import {
 	Splash,
 	Homepage
-} from '../components/auth';
+} from '../auth';
 
 import {
 	Search
-} from '../components/search';
+} from '../search';
+
+import { 
+	TeacherProfile
+} from '../teacher';
+
+import {
+	DegreeProfile
+} from '../degree';
+
+import {
+	SubjectProfile
+} from '../subject';
+
+const sharedRoutes = {
+	SubjectProfile : {
+		screen: SubjectProfile,
+		navigationOptions: ({ navigation }) => ({
+			title: navigation.state.params.title,
+		}),
+	},
+	DegreeProfile : {
+		screen: DegreeProfile,
+		navigationOptions: ({ navigation }) => ({
+			title: navigation.state.params.title,
+		}),
+	},
+	TeacherProfile : {
+		screen: TeacherProfile,
+		navigationOptions: ({ navigation }) => ({
+			title: navigation.state.params.title,
+		}),
+	}
+};
+
+const SearchStackNavigator = StackNavigator({
+	Search: {
+		screen: Search,
+		navigationOptions: {
+			header: null,
+		}
+	},
+	...sharedRoutes
+},{
+	headerMode: 'screen'
+});
+
+
+const HomeStackNavigator = StackNavigator({
+	Home: {
+		screen: Homepage,
+		navigationOptions: {
+			header: null,
+		}
+	},
+	...sharedRoutes
+},{
+	headerMode: 'screen'
+});
 
 const AnonNavigator = TabNavigator({
 	Home: {
-		screen: Homepage,
+		screen: HomeStackNavigator,
 		navigationOptions: {
 			header: null,
 			tabBarIcon: ({tintColor}) => (
@@ -32,7 +90,7 @@ const AnonNavigator = TabNavigator({
 		}
 	},
 	Search: {
-		screen: Search,
+		screen: SearchStackNavigator,
 		navigationOptions: {
 			header: null,
 			tabBarIcon: ({ tintColor }) => (

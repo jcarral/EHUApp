@@ -19,6 +19,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "expo": "^25.0.0",
     "firebase": "^4.9.1",
     "firebase-admin": "^5.8.2",
@@ -31,6 +32,6 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-promise-middleware": "^5.0.0",
-    "redux-thunk": "^2.2.0"
+		"redux-thunk": "^2.2.0"
   }
 }

@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { SplashScreen } from './screens/';
 
-import { navigateTo, wait } from '../../lib';
+import { navigateTo, wait } from '../lib';
 
 class SplashContainer extends Component{
 	props: {
