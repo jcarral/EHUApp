@@ -3,27 +3,24 @@ import { getTeacherFromFirebase } from '../lib';
 
 export const getTeacher = (teacher) => async (dispatch) => {
 	try {
-		console.log('Buscando...');
 		dispatch({
 			type: START_SEARCHING
 		});
-		console.log('Buscando profesor...');
-		dispatch({
-			type: TEACHER_SEARCHING,
-			payload: teacher
-		});
-		console.log('Obteniendo datos');
 		const data = await getTeacherFromFirebase(teacher);
-		console.log(data);
+		console.log('New Teacher');
 		dispatch({
 			type: TEACHER_FETCH,
 			payload: data
 		});
 	}
 	catch (error) {
-		console.log('Error:', err);
 		dispatch({
 			type: TEACHER_ERROR
 		});
 	}
 };	
+
+
+export const startSearching = () => ({
+	type: START_SEARCHING
+});

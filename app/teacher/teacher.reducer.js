@@ -2,7 +2,7 @@ import { START_SEARCHING, TEACHER_SEARCHING, TEACHER_ERROR, TEACHER_FETCH } from
 
 const initialState = {
 	teacher : {},
-	searching : false,
+	searching : true,
 	teacherData : {},
 	error: false
 };

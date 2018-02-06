@@ -31,15 +31,15 @@ import {
 const sharedRoutes = {
 	SubjectProfile : {
 		screen: SubjectProfile,
-		navigationOptions: ({ navigation }) => ({
-			title: navigation.state.params.title,
-		}),
+		navigationOptions: {
+			header: null,
+		}
 	},
 	DegreeProfile : {
 		screen: DegreeProfile,
-		navigationOptions: ({ navigation }) => ({
-			title: navigation.state.params.title,
-		}),
+		navigationOptions: {
+			header: null,
+		}
 	},
 	TeacherProfile : {
 		screen: TeacherProfile,

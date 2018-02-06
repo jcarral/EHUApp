@@ -25,7 +25,6 @@ class SearchContainer extends Component{
 	}
 
 	updateIndex = async (selectedIndex) => {
-		console.log('Changing');
 		this.props.dispatch(changeTab(this.state.text, selectedIndex));
 	}
 
@@ -36,16 +35,14 @@ class SearchContainer extends Component{
 
 	goToPath = (path, index) => {
 		let selectedItem;
-		if(this.state.selectedIndex === 0){
+		if(this.props.selectedIndex === 0){
 			selectedItem = this.props.degrees[index];
-		}else if(this.state.selectedItem === 1){
+		}else if(this.props.selectedIndex === 1){
 			selectedItem = this.props.subjects[index];
 		}else{
 			selectedItem = this.props.teachers[index];
 		};
-
-		this.props.navigation.navigate(path,{
-			title: selectedItem.name,
+		this.props.navigation.navigate(path, {
 			params: selectedItem
 		});
 	}

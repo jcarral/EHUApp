@@ -8,13 +8,13 @@ class TeacherProfileContainer extends Component{
 		super(props);	
 	}
 	
-	componentWillMount = () =>{
+	componentWillMount = () => {
 		const { params } = this.props.navigation.state;
 		this.props.dispatch(getTeacher(params.params));
 	}
-	
+
 	render(){
-		console.log(this.props.teacher)
+		console.log('Renderizando...',this.props.teacher)
 		return (<TeacherProfileScreen 
 			searching={this.props.searching}
 			data={this.props.teacher}
