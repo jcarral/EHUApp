@@ -105,7 +105,9 @@ const AnonNavigator = TabNavigator({
 	}
 },
 	{
+		tabBarPosition: 'bottom',
 		tabBarOptions: {
+			showIcon: true,
 			showLabel: false,
 			activeTintColor: colors.white,
 			inactiveTintColor: colors.grey,

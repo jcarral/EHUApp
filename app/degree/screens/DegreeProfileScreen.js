@@ -5,7 +5,19 @@ import { CategoryDivider } from '../../components';
 
 import { colors } from '../../config';
 
-export const DegreeProfileScreen = ({ degreeData, teachers, goToPath, searching, error, changeTab, selectedIndex, buttons, filterTeacher, filterSubjects}) => (
+export const DegreeProfileScreen = ({ 
+		degreeData,
+		teachers,
+		subjects, 
+		goToPath, 
+		searching, 
+		error, 
+		changeTab, 
+		selectedIndex, 
+		buttons, 
+		filterTeacher, 
+		filterSubjects
+	}) => (
 	<SafeAreaView style={styles.safe}>
 		<View style={styles.container}>
 			{
@@ -23,6 +35,7 @@ export const DegreeProfileScreen = ({ degreeData, teachers, goToPath, searching,
 				&& (<DegreeView 
 							degreeData={degreeData} 
 							teachers={teachers}
+							subjects={subjects}
 							selectedIndex={selectedIndex} 
 							goToPath={goToPath} 
 							buttons={buttons}
@@ -35,7 +48,17 @@ export const DegreeProfileScreen = ({ degreeData, teachers, goToPath, searching,
 	</SafeAreaView>
 );
 
-const DegreeView = ({ degreeData, teachers, selectedIndex, goToPath, buttons, changeTab, filterTeacher, filterSubjects}) => (
+const DegreeView = ({ 
+	degreeData, 
+	teachers, 
+	subjects,
+	selectedIndex, 
+	goToPath, 
+	buttons, 
+	changeTab, 
+	filterTeacher, 
+	filterSubjects
+}) => (
 	<View style={{flex:1}}>
 		<DegreeHeader name={degreeData.name} />
 		<ButtonGroup buttons={buttons} selectedIndex={selectedIndex} onPress={changeTab}/>
@@ -45,7 +68,7 @@ const DegreeView = ({ degreeData, teachers, selectedIndex, goToPath, buttons, ch
 		}
 		{
 			selectedIndex === 1
-			//&& <SubjectsView subjects={degree.subjects} goToPath={goToPath} filterSubjects={filterSubjects}/>
+			&& <SubjectsView subjects={subjects} goToPath={goToPath} filterSubjects={filterSubjects}/>
 		}
 		{
 			selectedIndex === 2
@@ -69,7 +92,17 @@ const TeachersView = ({ teachers, filterTeacher, goToPath}) => (
 		&& Object.keys(teachers).length > 0
 		&& (
 				<List>
-					<FlatList data={Object.keys(teachers)} renderItem={({ item, i }) => <ListItem title={teachers[item]} onPress={() => goToPath('TeacherProfile', i)} />} />
+					<FlatList 
+						data={Object.keys(teachers)} 
+						renderItem={({ item }) => 
+							(
+							<ListItem 
+								title={teachers[item]} 
+								onPress={() => goToPath('TeacherProfile', item)} 
+							/>
+							)
+						} 
+					/>
 				</List>
 		)
 	}
@@ -109,6 +142,26 @@ const SubjectsView = ({ subjects, goToPath, filterSubjects}) => (
 	<View>
 		<CategoryDivider iconName="import-contacts" title="Asignaturas:" />
 		<SearchBar containerStyle={{ backgroundColor: colors.lightGrey }} inputStyle={{ backgroundColor: colors.white }} onChangeText={filterSubjects} />
+		{
+			Object.keys(subjects).length > 0
+			&& (
+				<List>
+					<FlatList 
+						data={Object.keys(subjects)}
+						renderItem={({item}) => (
+							<ListItem 
+								title={subjects[item]}
+								onPress={() => goToPath('SubjectProfile', item)}
+							/>
+						)}
+					/>
+				</List>
+			)
+		}
+		{
+			Object.keys(subjects).length === 0
+			&& (<Text> No hay asignaturas disponibles </Text>)
+		}
 	</View>
 );
 

@@ -10,7 +10,8 @@ class DegreeProfileContainer extends Component {
 		this.state = {
 			selectedIndex : 0,
 			teachers : {},
-			subjects : {}
+			subjects : {},
+			code: ''
 		};
 	}
 
@@ -18,15 +19,21 @@ class DegreeProfileContainer extends Component {
 		this.setState({selectedIndex: i});
 	}
 
-	goToPath = (path, params) => {
+	goToPath = (path, key) => {
+		if(this.selectedIndex === 0) return;
 
+		this.props.navigation.navigate(path, { params : {
+				code: key,
+				degree: this.state.code
+			}
+		});
 	};
 	
 	filterTeacher = (txt) => {
-		let copy = this.props.degree.teachers;
-		console.log(txt, copy);
-		Object.keys(this.props.degree.teachers).forEach(key => {
-			if(!this.props.degree.teachers[key].toLowerCase().includes(txt.toLowerCase())) delete copy[key];
+		const teachers = this.props.degree.teachers
+		let copy = Object.assign({}, teachers);
+		Object.keys(teachers).forEach(key => {
+			if(!teachers[key].toLowerCase().includes(txt.toLowerCase())) delete copy[key];
 		});
 		
 		this.setState({
@@ -36,7 +43,16 @@ class DegreeProfileContainer extends Component {
 	};
 
 	filterSubjects = (txt) => {
+		const subjects = this.props.degree.subjects;
+		let copy = Object.assign({}, subjects);
+		Object.keys(subjects).forEach(key => {
+			if(!subjects[key].toLowerCase().includes(txt.toLowerCase())) delete copy[key];
+		});
 
+		this.setState({
+			...this.state,
+			subjects: copy
+		});
 	};
 
 	componentWillReceiveProps = (nextProps) => {
@@ -51,6 +67,10 @@ class DegreeProfileContainer extends Component {
 	componentWillMount = () => {
 		const { params } = this.props.navigation.state;
 		this.props.dispatch(getDegree(params.params));
+		this.setState({
+			...this.state,
+			code: params.params.code
+		});
 	}
 
 	render() {
@@ -62,6 +82,7 @@ class DegreeProfileContainer extends Component {
 			error={this.props.error}
 			degreeData={this.props.degree.data}
 			teachers={this.state.teachers}
+			subjects={this.state.subjects}
 			goToPath={this.goToPath}
 			selectedIndex={this.state.selectedIndex}
 			changeTab={this.changeTab}
