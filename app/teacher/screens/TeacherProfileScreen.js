@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
 import { Icon, Avatar, List, ListItem } from 'react-native-elements';
 
+import { EmptyList } from '../../components';
 import { colors } from '../../config';
 import { sortByDate } from '../../lib';
 
@@ -23,6 +24,7 @@ export const TeacherProfileScreen = ({ searching, data, error }) => (
 			}
 			{
 				!searching
+				&& !error
 				&& <TeacherView data={data} />
 			}
 		</View>
@@ -50,9 +52,9 @@ const TeacherView = ({ data }) => (
 			</View>
 		</View>
 		{
-			data.schedule 
-			&&
-			data.schedule.length > 0
+			data
+			&& data.schedule 
+			&& data.schedule.length > 0
 			&&
 			<TeacherSchedule schedule={data.schedule} />
 		}
@@ -60,9 +62,10 @@ const TeacherView = ({ data }) => (
 );
 
 const TeacherSchedule = ({schedule}) => {
-	schedule = sortByDate(schedule);
+	 schedule = sortByDate(schedule);
 	const next = schedule.shift();
-	if (!next) return (<NoTutorships />);
+	
+	if (!next) return (<EmptyList title='No hay tutorias programadas' />);
 
 	return (
 		<View style={styles.scheduleContainer}>
@@ -82,7 +85,7 @@ const TeacherSchedule = ({schedule}) => {
 				}
 				{
 					schedule.length === 0
-					&& (<NoTutorships />)
+					&& (<EmptyList title='No hay tutorias programadas' />)
 				}
 		</View>
 	);

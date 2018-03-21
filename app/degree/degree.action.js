@@ -21,3 +21,7 @@ export const getDegree = (degree) => async (dispatch) => {
 		});
 	}
 };
+
+export const startSearching = () => ({
+	type: START_SEARCHING
+});

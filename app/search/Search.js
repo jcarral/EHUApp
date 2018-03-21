@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 
 import { SearchScreen } from './screens';
 import { search, changeTab } from '.';
+import { startSearching as startSearchingTeacher} from '../teacher/';
+import { startSearching as startSearchingSubject } from '../subject/';
+import { startSearching as startSearchingDegree } from '../degree/';
 
 class SearchContainer extends Component{
 
@@ -39,8 +42,11 @@ class SearchContainer extends Component{
 			selectedItem = this.props.degrees[index];
 		}else if(this.props.selectedIndex === 1){
 			selectedItem = this.props.subjects[index];
+			this.props.dispatch(startSearchingSubject);
 		}else{
 			selectedItem = this.props.teachers[index];
+			console.log('ss')
+			this.props.dispatch(startSearchingTeacher);
 		};
 		this.props.navigation.navigate(path, {
 			params: selectedItem

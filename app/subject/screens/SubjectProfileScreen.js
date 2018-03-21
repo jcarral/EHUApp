@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		fontWeight: 'bold',
 		paddingTop: 5,
-		paddingBottom: 5
+		paddingBottom: 5,
+		textAlign: 'center'
 	},
 	subtitle: {
 		color: colors.grey,

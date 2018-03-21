@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, Text, View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { Icon, SearchBar, ButtonGroup, List, ListItem } from 'react-native-elements';
 
+import { EmptyList } from '../../components/';
 import { colors } from '../../config';
 
 const T_DEGREE = 0, T_SUBJECTS = 1, T_TEACHERS = 2;
@@ -35,12 +36,6 @@ const LoadingList = () => (
 	</View>
 );
 
-const EmptyList = () => (
-	<View>
-		<Text> No hay resultados disponibles. </Text>
-	</View>
-);
-
 export const SearchScreen = ({ onChange, onFinish, updateIndex, buttons, selectedIndex, loading, degrees, subjects, teachers, goToPath }) => (
 	<SafeAreaView style={styles.safe}>
 		<View style={styles.container}>
@@ -54,19 +49,19 @@ export const SearchScreen = ({ onChange, onFinish, updateIndex, buttons, selecte
 				!loading
 				&& selectedIndex === T_DEGREE
 				&& degrees.length === 0
-				&& <EmptyList />
+				&& <EmptyList title="No se han encontrado grados"/>
 			}
 			{
 				!loading
 				&& selectedIndex === T_SUBJECTS
 				&& subjects.length === 0
-				&& <EmptyList />
+				&& <EmptyList title="No se han encontrado asignaturas" />
 			}
 			{
 				!loading
 				&& selectedIndex === T_TEACHERS
 				&& teachers.length === 0
-				&& <EmptyList />
+				&& <EmptyList title="No se han encontrado profesores"/>
 			}
 			{
 				!loading

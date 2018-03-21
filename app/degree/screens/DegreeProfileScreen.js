@@ -1,8 +1,7 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
-import { ButtonGroup, ListItem, List, SearchBar } from 'react-native-elements';
-import { CategoryDivider } from '../../components';
-
+import { ScrollView, View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList, Modal } from 'react-native';
+import { ButtonGroup, ListItem, List, SearchBar, Card, Button, Icon } from 'react-native-elements';
+import { CategoryDivider, EmptyList } from '../../components';
 import { colors } from '../../config';
 
 export const DegreeProfileScreen = ({ 
@@ -16,7 +15,8 @@ export const DegreeProfileScreen = ({
 		selectedIndex, 
 		buttons, 
 		filterTeacher, 
-		filterSubjects
+		filterSubjects,
+		modal
 	}) => (
 	<SafeAreaView style={styles.safe}>
 		<View style={styles.container}>
@@ -42,6 +42,7 @@ export const DegreeProfileScreen = ({
 							changeTab={changeTab}
 							filterTeacher={filterTeacher}
 							filterSubjects={filterSubjects}
+							modal={modal}
 							/>)
 			}
 		</View>
@@ -57,14 +58,15 @@ const DegreeView = ({
 	buttons, 
 	changeTab, 
 	filterTeacher, 
-	filterSubjects
+	filterSubjects,
+	modal
 }) => (
 	<View style={{flex:1}}>
 		<DegreeHeader name={degreeData.name} />
 		<ButtonGroup buttons={buttons} selectedIndex={selectedIndex} onPress={changeTab}/>
 		{
 			selectedIndex === 0
-			&& <SummaryView data={degreeData}/>
+			&& <SummaryView data={degreeData} modal={modal}/>
 		}
 		{
 			selectedIndex === 1
@@ -108,12 +110,12 @@ const TeachersView = ({ teachers, filterTeacher, goToPath}) => (
 	}
 	{
 			Object.keys(teachers).length === 0
-		&& <Text> No hay profesores para este grado ! </Text>
+		&& <EmptyList title="No hay profesores disponibles" />	
 	}
 </View>
 );
 
-const SummaryView = ({data}) => (
+const SummaryView = ({data, modal}) => (
 	<ScrollView style={[styles.scroll]}>
 		{
 			data.summary
@@ -121,22 +123,99 @@ const SummaryView = ({data}) => (
 			<View>
 				<CategoryDivider iconName="assignment" title="Resumen"/>
 				<View style={styles.summaryContainer}>
-					<Text> { data.summary } </Text>
+					<SummaryModal data={data.summary} modal={modal}/>
 				</View>
 			</View>
 			)
 		}
 		{
 			data.contact
+			&& (data.contact.address !== '' || data.contact.email !== '' ||  data.contact.phone !== '' )
 			&& (
 				<View>
 					<CategoryDivider iconName="contacts" title="Contacto" />
-					<Text> {data.contact.address} </Text>
+					<ContactView contact={data.contact} />
 				</View>
 			)
 		}
 	</ScrollView>
 );
+
+const SummaryModal = ({data, modal}) => (
+<View style={{flex: 1}}>
+
+			
+			<Text> { data.substring(0, 240) + '...'} </Text>
+			{
+				data.length > 240
+				&& (
+				<Button
+					onPress={() => modal.openModal()}
+					title="Abrir resumen"
+					buttonStyle={styles.btnReadMore}
+				/>
+				)
+			}
+			<Modal
+				transparent
+				visible={modal.visible}
+				animationType={'slide'}
+				onRequestClose={() => modal.closeModal()}
+				style={styles.modalContainer}
+			>
+				<Card title="Resumen">
+					<ScrollView style={styles.modalContent}>
+						<Text>	{data} </Text>
+					</ScrollView>
+					<Button
+						buttonStyle={{margin:10}}
+						onPress={() => modal.closeModal()}
+						title="Cerrar resumen"
+					/>
+				</Card>
+			</Modal>
+</View>
+);
+
+const ContactView = ({contact}) => (
+	<View style={[styles.contact]} >
+
+		{
+			contact.name
+			&& contact.name !== ''
+			&& (
+				<ListItem
+					rightIcon={(<Icon name="perm-identity" />)}
+					title={contact.name}
+				/>
+			)
+		}
+		{
+			contact.email
+			&& contact.email !== ''
+			&& (
+				<ListItem
+					rightIcon={(<Icon name="email" />)}
+					title={contact.email}
+				/>
+			)
+		}
+
+		{
+			contact.phone
+			&& contact.phone !== ''
+			&& (
+				<ListItem 
+					rightIcon={(<Icon name="contact-phone" />)}
+					title={contact.phone}
+				/>
+			)
+		}
+		
+	
+	</View>
+);
+
 
 const SubjectsView = ({ subjects, goToPath, filterSubjects}) => (
 	<View>
@@ -160,7 +239,7 @@ const SubjectsView = ({ subjects, goToPath, filterSubjects}) => (
 		}
 		{
 			Object.keys(subjects).length === 0
-			&& (<Text> No hay asignaturas disponibles </Text>)
+			&& <EmptyList title="No hay asignaturas disponibles" />	
 		}
 	</View>
 );
@@ -194,5 +273,24 @@ const styles = StyleSheet.create({
 	},
 	summaryContainer: {
 		padding: 10
+	},
+	modalContainer: {
+		
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	btnReadMore : {
+		backgroundColor: colors.darkGrey,
+		marginTop: 20
+	},
+	contact: {
+
+	},
+	row: {
+		flexDirection: 'row'
+	},
+	modalContent: {
+		maxHeight: 400
 	}
 });

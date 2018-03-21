@@ -11,7 +11,8 @@ class DegreeProfileContainer extends Component {
 			selectedIndex : 0,
 			teachers : {},
 			subjects : {},
-			code: ''
+			code: '',
+			modalVisible: false
 		};
 	}
 
@@ -28,6 +29,15 @@ class DegreeProfileContainer extends Component {
 			}
 		});
 	};
+
+
+	openModal = () => {
+		this.setState({ modalVisible: true });
+	}
+
+	closeModal = () => {
+		this.setState({ modalVisible: false });
+	}
 	
 	filterTeacher = (txt) => {
 		const teachers = this.props.degree.teachers
@@ -75,7 +85,11 @@ class DegreeProfileContainer extends Component {
 
 	render() {
 		const buttons = ['Información', 'Asignaturas', 'Profesores'];
-		console.log(this.props.degree.teachers)
+		const modal = {
+			visible: this.state.modalVisible,
+			openModal: this.openModal,
+			closeModal: this.closeModal
+		};
 		return (<DegreeProfileScreen 
 			buttons={buttons}
 			searching={this.props.searching}
@@ -88,6 +102,7 @@ class DegreeProfileContainer extends Component {
 			changeTab={this.changeTab}
 			filterTeacher={this.filterTeacher}
 			filterSubjects={this.filterSubjects}
+			modal={modal}
 		/>);
 	}	
 }

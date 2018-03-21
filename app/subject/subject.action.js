@@ -21,3 +21,8 @@ export const getSubject = (subject) => async (dispatch) => {
 		})
 	}
 };
+
+export const startSearching = () => ({
+	type: START_LOADING
+});
+
