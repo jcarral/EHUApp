@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { SplashScreen } from './screens/';
 
-import { navigateTo } from '../../lib';
+import { navigateTo, wait } from '../lib';
 
 class SplashContainer extends Component{
 	props: {
@@ -10,10 +10,10 @@ class SplashContainer extends Component{
 		navigation: Object,
 	};
 
-	componentDidMount(){
+	async componentDidMount(){
 		const { auth, navigation } = this.props;
-		
-		navigateTo('Homepage', navigation);
+		await wait(1000);
+		navigateTo('AnonNavigator', navigation);
 	}
 
 	render(){

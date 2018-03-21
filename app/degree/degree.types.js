@@ -1,0 +1,3 @@
+export const START_SEARCHING = 'START_SEARCHING_DEGREE';
+export const DEGREE_FETCH = 'DEGREE_FETCH';
+export const DEGREE_ERROR = 'DEGREE_ERROR';

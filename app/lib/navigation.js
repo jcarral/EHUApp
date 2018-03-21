@@ -11,7 +11,7 @@ export const navigateTo = (path, navigation) => {
 	navigation.dispatch(reset);
 };
 
-const wait = (ms) => {
+export const wait = (ms) => {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});

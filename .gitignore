@@ -20,3 +20,6 @@ yarn-error.log*
 # Config files
 config.production.js
 config.development.js
+
+package-lock.json
+.vscode
