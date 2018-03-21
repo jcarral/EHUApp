@@ -13,7 +13,8 @@ class SplashContainer extends Component{
 	async componentDidMount(){
 		const { auth, navigation } = this.props;
 		await wait(1000);
-		navigateTo('AnonNavigator', navigation);
+    if(auth.isAuthenticated) navigateTo('UserNavigator', navigation);
+    else navigateTo('AnonNavigator', navigation);
 	}
 
 	render(){
