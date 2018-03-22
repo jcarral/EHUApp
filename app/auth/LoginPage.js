@@ -27,7 +27,6 @@ class LoginPage extends Component{
     }));
   }
 
-
   componentWillReceiveProps = (newProps) => {
     const { isAuthenticated, navigation } = newProps;
     if (isAuthenticated) navigateTo('UserNavigator', navigation);

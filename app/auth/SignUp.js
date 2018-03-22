@@ -26,7 +26,6 @@ class SignUpPage extends Component {
 
   handleSignUp = () => {
     const { email, password, password2 } = this.state;
-    console.log(password, password2, email, Helper.isEmailValid(email), password === password2);
     if( !Helper.isValidPassword(password, password2) || !Helper.isEmailValid(email)){
       Alert.alert('Invalid parameters', 'Sorry, couldn\'t create the user. Enter correct parameters');
       this.setState({email: '', password: '', password2: ''});

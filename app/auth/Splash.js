@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { SplashScreen } from './screens/';
 
 import { navigateTo, wait } from '../lib';
+import { getUser } from '.';
 
 class SplashContainer extends Component{
 	props: {
@@ -10,12 +11,16 @@ class SplashContainer extends Component{
 		navigation: Object,
 	};
 
-	async componentDidMount(){
-		const { auth, navigation } = this.props;
-		await wait(1000);
-    if(auth.isAuthenticated) navigateTo('UserNavigator', navigation);
+	componentWillMount = () => {
+    this.props.dispatch(getUser());
+  }
+
+  componentWillReceiveProps = async (newProps) => {
+    const { isAuthenticated, navigation } = newProps;
+    await wait(500);
+    if (isAuthenticated) navigateTo('UserNavigator', navigation);
     else navigateTo('AnonNavigator', navigation);
-	}
+  }
 
 	render(){
 		return (<SplashScreen />);
@@ -23,7 +28,8 @@ class SplashContainer extends Component{
 }
 
 const mapStateToProps = (state, action) => ({
-	auth: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
 });
 
 export const Splash = connect(mapStateToProps)(SplashContainer);

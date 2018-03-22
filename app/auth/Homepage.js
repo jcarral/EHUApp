@@ -4,10 +4,14 @@ import { connect } from 'react-redux';
 import {
 	HomepageScreen
 } from './screens';
+import { signOut } from '.';
 
 class HomepageContainer extends Component {
+  handleSignOut = () => {
+    this.props.dispatch(signOut());
+  }
 	render(){
-		return (<HomepageScreen />);
+    return (<HomepageScreen signOut={this.handleSignOut}/>);
 	}
 }
 

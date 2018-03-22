@@ -3,15 +3,10 @@ import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
 import { FormLabel, FormInput, Button } from 'react-native-elements'
 import { colors } from '../../config';
 
-export const HomepageScreen = () => (
+export const HomepageScreen = ({signOut}) => (
 	<SafeAreaView style={styles.safe}>
 		<View style={styles.container}>
-			<FormLabel>Email:</FormLabel>
-			<FormInput />
-			<FormLabel>Password</FormLabel>
-			<FormInput secureTextEntry/>
-			<Button title="Login" buttonStyle={styles.btnLogin}/>
-			<Button title="SignUp" buttonStyle={styles.btnSign}/>
+			<Button title="Salir" buttonStyle={styles.btnSign} onPress={signOut}/>
 		</View>
 	</SafeAreaView>
 );
@@ -26,13 +21,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center'
 	},
-	btnLogin:{
-		margin: 5,
-		marginTop: 10,
-		backgroundColor: colors.green
-	},
 	btnSign:{
-		backgroundColor: colors.lightBlue,
+		backgroundColor: colors.red,
 		margin: 5
 	}
 

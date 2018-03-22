@@ -22,17 +22,14 @@ export const searchByName = async (name, type) => {
 
 
 export const getTeacherFromFirebase = async (teacher) => {
-  console.log('Searching teacher...', teacher);
   const ref = firebase.database().ref(`/ehu/teachers/${teacher.code}_${teacher.degree}`);
   const data = await ref.once('value');
   return data.val();
 };
 
 export const getSubjectFromFirebase = async (subject) => {
-  console.log(`/ehu/subjects/${subject.code}_${subject.degree}`)
   const ref = firebase.database().ref(`/ehu/subjects/${subject.code}_${subject.degree}`);
   const data = await ref.once('value');
-  console.log('respionse', data.val())
   return data.val();
 };
 
@@ -57,7 +54,13 @@ export const signUpOnFirebase = async userDetail => {
   await user.updateProfile({
     displayName : `${userDetail.name} ${userDetail.surname}`,
   });
-  return user;
+  const { email, displayName, emailVerified, uid } = user;
+  return {
+    email,
+    displayName,
+    emailVerified,
+    uid,
+  };
 };
 
 const getFromFirebasePath = async (path) => {
