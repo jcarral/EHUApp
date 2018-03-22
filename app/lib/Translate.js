@@ -12,7 +12,6 @@ export class Translate {
   static getCurrentLocale = async () => {
     const deviceLocale = Translate.getLocale();
     const storageLocale = await AsyncStorage.getItem('locale');
-    console.log('storage locale', storageLocale, deviceLocale)
     return storageLocale || deviceLocale;
   };
 

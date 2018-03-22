@@ -65,5 +65,8 @@ export const en = {
       nextTutorship: 'Next tutorship',
     },
   },
+  settings: {
+    languageTitle: 'Change your language',
+  },
 };
 

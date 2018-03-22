@@ -30,6 +30,14 @@ import {
 	SubjectProfile
 } from '../subject';
 
+import {
+  UserProfile,
+} from '../user';
+
+import {
+ LanguagesSettings,
+} from '../settings';
+
 const sharedRoutes = {
 	SubjectProfile : {
 		screen: SubjectProfile,
@@ -76,6 +84,21 @@ const HomeStackNavigator = StackNavigator({
 	headerMode: 'screen'
 });
 
+const ProfileStackNavigator = StackNavigator({
+ UserProfile: {
+    screen: UserProfile,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Languages: {
+    screen: LanguagesSettings,
+    navigationOptions: {
+      header: null,
+    },
+  },
+});
+
 const UserNavigator = TabNavigator({
 	Home: {
 		screen: HomeStackNavigator,
@@ -104,7 +127,22 @@ const UserNavigator = TabNavigator({
 				/>
 			)
 		}
-	}
+  },
+  Profile: {
+    screen: ProfileStackNavigator,
+    navigationOptions : {
+      header: null,
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+          color={tintColor}
+          type='font-awesome'
+          name='user'
+          size={33}
+        />
+      ),
+    }
+  }
 },
 	{
 		tabBarPosition: 'bottom',
