@@ -1,4 +1,4 @@
-import { getLocale } from '../lib';
+import { Translate } from '../lib';
 import {
   START_LOGIN,
   SUCCESS_LOGIN,
@@ -21,7 +21,7 @@ const initialState = {
 	accessToken: null,
 	user: {},
 	hasInitialUser: false,
-	locale: getLocale(),
+  locale: Translate.getLocale(),
 	error: ''
 };
 

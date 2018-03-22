@@ -5,6 +5,7 @@ import { Icon, Avatar, List, ListItem } from 'react-native-elements';
 import { EmptyList } from '../../components';
 import { colors } from '../../config';
 import { sortByDate } from '../../lib';
+import { Translate } from '../../lib';
 
 export const TeacherProfileScreen = ({ searching, data, error }) => (
 	<SafeAreaView style={styles.safe}>
@@ -17,14 +18,16 @@ export const TeacherProfileScreen = ({ searching, data, error }) => (
 			}
 			{
 				!searching
-				&& error
+        && error
+        && !data
 				&& (<View>
 					<Text> Error </Text>
 				</View>)
 			}
 			{
 				!searching
-				&& !error
+        && !error
+        && data
 				&& <TeacherView data={data} />
 			}
 		</View>
@@ -41,7 +44,7 @@ const TeacherView = ({ data }) => (
 					title={getInitials(data.name || '')}
 					containerStyle={styles.avatar}
 				/>
-				<Text style={styles.name}>{data.name}</Text>
+				<Text style={styles.name}>{data.name || ''}</Text>
 				<View style={styles.email}>
 					<Icon
 						name="email"
@@ -65,13 +68,13 @@ const TeacherSchedule = ({schedule}) => {
 	 schedule = sortByDate(schedule);
 	const next = schedule.shift();
 	
-	if (!next) return (<EmptyList title='No hay tutorias programadas' />);
+	if (!next) return (<EmptyList title={Translate.t('teacher.profile.noTutorships')} />);
 
 	return (
 		<View style={styles.scheduleContainer}>
 			<View style={styles.nextTutorship}>
-				<Text> Próxima tutoria: </Text>
-				<Text style={styles.nextTutorshipTxt}> {next["date-start"] || 'No hay más tutorias'}  </Text>
+				<Text> {Translate.t('teacher.profile.nextTutorship')} </Text>
+				<Text style={styles.nextTutorshipTxt}> {next["date-start"] || Translate.t('teacher.profile.noMore')}  </Text>
 			</View>
 				{
 					schedule.length > 0 &&
@@ -85,7 +88,7 @@ const TeacherSchedule = ({schedule}) => {
 				}
 				{
 					schedule.length === 0
-					&& (<EmptyList title='No hay tutorias programadas' />)
+        && (<EmptyList title={Translate.t('teacher.profile.noTutorships')} />)
 				}
 		</View>
 	);
@@ -93,9 +96,10 @@ const TeacherSchedule = ({schedule}) => {
 
 const NoTutorships = () => (
 	<View>
-		<Text> No hay tutorias </Text>
+    <Text> {Translate.t('teacher.profile.noTutorships')} </Text>
 	</View>
 );
+
 const styles = StyleSheet.create({
 	safe: {
 		backgroundColor: colors.black,

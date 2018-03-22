@@ -23,8 +23,8 @@ import {
 } from '../teacher';
 
 import {
-	DegreeProfile
-} from '../degree';
+	GradeProfile
+} from '../grade';
 
 import {
 	SubjectProfile
@@ -37,8 +37,8 @@ const sharedRoutes = {
 			header: null,
 		}
 	},
-	DegreeProfile : {
-		screen: DegreeProfile,
+	GradeProfile : {
+		screen: GradeProfile,
 		navigationOptions: {
 			header: null,
 		}

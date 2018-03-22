@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as firebase from 'firebase';
 import { urls } from '../config/';
 
-const T_DEGREE = 0, T_SUBJECTS = 1, T_TEACHERS = 2;
+const T_GRADE = 0, T_SUBJECTS = 1, T_TEACHERS = 2;
 
 export const searchByName = async (name, type) => {
   let query;
@@ -22,19 +22,20 @@ export const searchByName = async (name, type) => {
 
 
 export const getTeacherFromFirebase = async (teacher) => {
-  const ref = firebase.database().ref(`/ehu/teachers/${teacher.code}_${teacher.degree}`);
+  console.log(teacher)
+  const ref = firebase.database().ref(`/ehu/teachers/${teacher.code}_${teacher.grade}`);
   const data = await ref.once('value');
   return data.val();
 };
 
 export const getSubjectFromFirebase = async (subject) => {
-  const ref = firebase.database().ref(`/ehu/subjects/${subject.code}_${subject.degree}`);
+  const ref = firebase.database().ref(`/ehu/subjects/${subject.code}_${subject.grade}`);
   const data = await ref.once('value');
   return data.val();
 };
 
-export const getDegreeFromFirebase = (degree, school, campus) => {
-  const path = `/ehu/degrees/${campus}/${school}/${degree}`;
+export const getGradeFromFirebase = (grade, school, campus) => {
+  const path = `/ehu/degrees/${campus}/${school}/${grade}`; //TODO: Update path to /ehu/grades/
   return getFromFirebasePath(path);
 };
 
