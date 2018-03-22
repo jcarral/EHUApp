@@ -9,7 +9,9 @@ import { colors } from '.';
 //Screens
 import {
 	Splash,
-	Homepage
+  Homepage,
+  Login, 
+  SignUp
 } from '../auth';
 
 import {
@@ -74,7 +76,7 @@ const HomeStackNavigator = StackNavigator({
 	headerMode: 'screen'
 });
 
-const AnonNavigator = TabNavigator({
+const UserNavigator = TabNavigator({
 	Home: {
 		screen: HomeStackNavigator,
 		navigationOptions: {
@@ -117,13 +119,19 @@ const AnonNavigator = TabNavigator({
 		}
 	});
 
-const UserNavigator = TabNavigator({
-	Home: {
-		screen: Homepage,
+const AnonNavigator = TabNavigator({
+	Login: {
+		screen: Login,
 		navigationOptions: {
-			header: null
-		}
-	}
+			header: null,
+		},
+  },
+  SignUp : {
+    screen: SignUp,
+    navigationOptions: {
+      header: null,
+    },
+  },
 });
 
 
