@@ -14,7 +14,6 @@ class TeacherProfileContainer extends Component{
 	}
 
 	render(){
-		console.log('Renderizando...',this.props.teacher)
 		return (<TeacherProfileScreen 
 			searching={this.props.searching}
 			data={this.props.teacher}

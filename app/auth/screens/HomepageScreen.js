@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
 import { FormLabel, FormInput, Button } from 'react-native-elements'
 import { colors } from '../../config';
+import { Translate } from '../../lib';
 
 export const HomepageScreen = ({signOut}) => (
 	<SafeAreaView style={styles.safe}>

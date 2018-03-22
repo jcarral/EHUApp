@@ -1,16 +1,16 @@
 import {
-	START_SEARCHING, SUBJECTS_FETCH, TEACHERS_FETCH, DEGREES_FETCH, CHANGE_TAB, START_SEARCHING_TEACHERS, START_SEARCHING_DEGREES, START_SEARCHING_SUBJECTS
+	START_SEARCHING, SUBJECTS_FETCH, TEACHERS_FETCH, GRADES_FETCH, CHANGE_TAB, START_SEARCHING_TEACHERS, START_SEARCHING_GRADES, START_SEARCHING_SUBJECTS
 } from './search.types';
 
 const initialState = {
 	searchSubjectText: '',
 	searchTeacherText: '',
-	searchDegreeText: '',
+	searchGradeText: '',
 	selectedIndex: 0,
 	searching: false,
 	subjects: [],
 	teachers: [],
-	degrees: []
+	grades: []
 };
 
 
@@ -21,10 +21,10 @@ export const searchReducer = (state = initialState, action = {}) => {
 				...state,
 				searching: true
 			};
-		case START_SEARCHING_DEGREES:
+		case START_SEARCHING_GRADES:
 			return {
 				...state,
-				searchDegreeText: action.payload
+				searchGradeText: action.payload
 			};
 		case START_SEARCHING_SUBJECTS:
 			return {
@@ -48,11 +48,11 @@ export const searchReducer = (state = initialState, action = {}) => {
 				searching: false,
 				teachers: action.payload
 			};
-		case DEGREES_FETCH:
+		case GRADES_FETCH:
 			return {
 				...state,
 				searching: false,
-				degrees: action.payload
+				grades: action.payload
 			};
 		case CHANGE_TAB:
 			return {

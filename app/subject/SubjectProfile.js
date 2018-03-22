@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { SubjectProfileScreen } from './screens';
 import { getSubject } from './subject.action';
 import { startSearching } from '../teacher';
+import { Translate } from '../lib';
 
 class SubjectProfileContainer extends Component {
 	constructor(props) {
@@ -21,25 +22,30 @@ class SubjectProfileContainer extends Component {
 		this.setState({selectedIndex: index});
 	}
 
-	goToPath = (code, degree) => {
+	goToPath = (code, grade) => {
 		this.props.dispatch(startSearching());
 		this.props.navigation.navigate('TeacherProfile', {
 			params: {
 				code,
-				degree 
+				grade 
 			}
 		});
 	}
 
 	render() {
-		console.log(this.props.subject, this.props.searching, this.props.error);
-		return (<SubjectProfileScreen 
+    const buttons = [
+      Translate.t('subject.profile.summary'),
+      Translate.t('subject.profile.detail'),
+      Translate.t('subject.profile.schedule'),
+    ];
+    return (<SubjectProfileScreen 
 			searching={this.props.searching}
 			error={this.props.error}
 			subject={this.props.subject}
 			selectedIndex={this.state.selectedIndex}
 			changeTab={this.changeTab}
-			goToPath={this.goToPath}
+      goToPath={this.goToPath}
+      buttons={buttons}
 		/>);
 	}
 }

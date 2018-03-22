@@ -4,28 +4,29 @@ import { Icon, SearchBar, ButtonGroup, List, ListItem } from 'react-native-eleme
 
 import { EmptyList } from '../../components/';
 import { colors } from '../../config';
+import { Translate } from '../../lib';
 
-const T_DEGREE = 0, T_SUBJECTS = 1, T_TEACHERS = 2;
+const T_GRADE = 0, T_SUBJECTS = 1, T_TEACHERS = 2;
 
-const DegreeItem = ({ name, code, goToPath, index }) => (
+const GradeItem = ({ name, code, goToPath, index }) => (
 	<ListItem 
 		title={name}
-		onPressRightIcon={() => goToPath('DegreeProfile', index)}
+		onPressRightIcon={() => goToPath('GradeProfile', index)}
 	/>
 );
 
-const SubjectItem = ({ name, degreeName, code, goToPath, index }) => (
+const SubjectItem = ({ name, gradeName, code, goToPath, index }) => (
 	<ListItem 
 		title={name}
-		subtitle={degreeName}
+		subtitle={gradeName}
 		onPressRightIcon={() => goToPath('SubjectProfile', index)}
 	/>
 );
 
-const TeacherItem = ({ name, degreeName, code, goToPath, index }) => (
+const TeacherItem = ({ name, gradeName, code, goToPath, index }) => (
 	<ListItem 
 		title={name}
-		subtitle={degreeName}
+		subtitle={gradeName}
 		onPressRightIcon={() => goToPath('TeacherProfile', index)}
 	/>
 );
@@ -36,7 +37,7 @@ const LoadingList = () => (
 	</View>
 );
 
-export const SearchScreen = ({ onChange, onFinish, updateIndex, buttons, selectedIndex, loading, degrees, subjects, teachers, goToPath }) => (
+export const SearchScreen = ({ onChange, onFinish, updateIndex, buttons, selectedIndex, loading, grades, subjects, teachers, goToPath }) => (
 	<SafeAreaView style={styles.safe}>
 		<View style={styles.container}>
 			<SearchBar onSubmitEditing={onFinish} onChangeText={onChange} />
@@ -47,36 +48,36 @@ export const SearchScreen = ({ onChange, onFinish, updateIndex, buttons, selecte
 			}
 			{
 				!loading
-				&& selectedIndex === T_DEGREE
-				&& degrees.length === 0
-				&& <EmptyList title="No se han encontrado grados"/>
+				&& selectedIndex === T_GRADE
+				&& grades.length === 0
+				&& <EmptyList title={ Translate.t('search.emptyListGrades')}/>
 			}
 			{
 				!loading
 				&& selectedIndex === T_SUBJECTS
 				&& subjects.length === 0
-				&& <EmptyList title="No se han encontrado asignaturas" />
+				&& <EmptyList title={ Translate.t('search.emptyListSubjects')} />
 			}
 			{
 				!loading
 				&& selectedIndex === T_TEACHERS
 				&& teachers.length === 0
-				&& <EmptyList title="No se han encontrado profesores"/>
+				&& <EmptyList title={ Translate.t('search.emptyListTeachers')}/>
 			}
 			{
 				!loading
-				&& selectedIndex === T_DEGREE
-				&& <List><FlatList data={degrees} renderItem={({ item, index }) => (<DegreeItem goToPath={goToPath} name={item.name} code={item.code} index={index}/>)} /></List>
+				&& selectedIndex === T_GRADE
+				&& <List><FlatList data={grades} renderItem={({ item, index }) => (<GradeItem goToPath={goToPath} name={item.name} code={item.code} index={index}/>)} /></List>
 			}
 			{
 				!loading
 				&& selectedIndex === T_SUBJECTS
-				&& <List><FlatList data={subjects} renderItem={({ item, index }) => (<SubjectItem goToPath={goToPath} name={item.name} degreeName={item.degreeName} index={index} code={item.code}/>)} /></List>
+				&& <List><FlatList data={subjects} renderItem={({ item, index }) => (<SubjectItem goToPath={goToPath} name={item.name} gradeName={item.gradeName} index={index} code={item.code}/>)} /></List>
 			}
 			{
 				!loading
 				&& selectedIndex === T_TEACHERS
-				&& <List><FlatList data={teachers} renderItem={({ item, index }) => (<TeacherItem goToPath={goToPath} name={item.name} degreeName={item.degreeName} index={index} code={item.code}/>)} /></List>
+				&& <List><FlatList data={teachers} renderItem={({ item, index }) => (<TeacherItem goToPath={goToPath} name={item.name} gradeName={item.gradeName} index={index} code={item.code}/>)} /></List>
 			}
 
 		</View>

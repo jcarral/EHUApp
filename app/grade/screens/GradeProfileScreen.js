@@ -3,9 +3,10 @@ import { ScrollView, View, Text, StyleSheet, SafeAreaView, ActivityIndicator, Fl
 import { ButtonGroup, ListItem, List, SearchBar, Card, Button, Icon } from 'react-native-elements';
 import { CategoryDivider, EmptyList } from '../../components';
 import { colors } from '../../config';
+import { Translate } from '../../lib';
 
-export const DegreeProfileScreen = ({ 
-		degreeData,
+export const GradeProfileScreen = ({ 
+		gradeData,
 		teachers,
 		subjects, 
 		goToPath, 
@@ -32,8 +33,8 @@ export const DegreeProfileScreen = ({
 			{
 				!searching
 				&& !error
-				&& (<DegreeView 
-							degreeData={degreeData} 
+				&& (<GradeView 
+							gradeData={gradeData} 
 							teachers={teachers}
 							subjects={subjects}
 							selectedIndex={selectedIndex} 
@@ -49,8 +50,8 @@ export const DegreeProfileScreen = ({
 	</SafeAreaView>
 );
 
-const DegreeView = ({ 
-	degreeData, 
+const GradeView = ({ 
+	gradeData, 
 	teachers, 
 	subjects,
 	selectedIndex, 
@@ -62,11 +63,11 @@ const DegreeView = ({
 	modal
 }) => (
 	<View style={{flex:1}}>
-		<DegreeHeader name={degreeData.name} />
+		<GradeHeader name={gradeData.name} />
 		<ButtonGroup buttons={buttons} selectedIndex={selectedIndex} onPress={changeTab}/>
 		{
 			selectedIndex === 0
-			&& <SummaryView data={degreeData} modal={modal}/>
+			&& <SummaryView data={gradeData} modal={modal}/>
 		}
 		{
 			selectedIndex === 1
@@ -79,7 +80,7 @@ const DegreeView = ({
 	</View>
 );
 
-const DegreeHeader = ({ name }) => (
+const GradeHeader = ({ name }) => (
 	<View style={styles.header} >
 		<Text style={styles.title}> { name } </Text>
 	</View>
@@ -87,7 +88,7 @@ const DegreeHeader = ({ name }) => (
 
 const TeachersView = ({ teachers, filterTeacher, goToPath}) => (
 <View>
-	<CategoryDivider iconName="school" title="Profesores:" />
+	<CategoryDivider iconName="school" title={Translate.t('grade.profile.teachers')} />
 		<SearchBar containerStyle={{backgroundColor: colors.lightGrey}} inputStyle={{backgroundColor: colors.white}} onChangeText={filterTeacher} />
 	{
 		teachers
@@ -110,7 +111,7 @@ const TeachersView = ({ teachers, filterTeacher, goToPath}) => (
 	}
 	{
 			Object.keys(teachers).length === 0
-		&& <EmptyList title="No hay profesores disponibles" />	
+		&& <EmptyList title={Translate.t('grade.profile.emptyTeachersList')} />	
 	}
 </View>
 );
@@ -121,7 +122,7 @@ const SummaryView = ({data, modal}) => (
 			data.summary
 			&& (
 			<View>
-				<CategoryDivider iconName="assignment" title="Resumen"/>
+				<CategoryDivider iconName="assignment" title={Translate.t('grade.profile.summary')}/>
 				<View style={styles.summaryContainer}>
 					<SummaryModal data={data.summary} modal={modal}/>
 				</View>
@@ -133,7 +134,7 @@ const SummaryView = ({data, modal}) => (
 			&& (data.contact.address !== '' || data.contact.email !== '' ||  data.contact.phone !== '' )
 			&& (
 				<View>
-					<CategoryDivider iconName="contacts" title="Contacto" />
+					<CategoryDivider iconName="contacts" title={Translate.t('grade.profile.contact')} />
 					<ContactView contact={data.contact} />
 				</View>
 			)
@@ -151,7 +152,7 @@ const SummaryModal = ({data, modal}) => (
 				&& (
 				<Button
 					onPress={() => modal.openModal()}
-					title="Abrir resumen"
+					title={Translate.t('grade.profile.openModal')}
 					buttonStyle={styles.btnReadMore}
 				/>
 				)
@@ -163,14 +164,14 @@ const SummaryModal = ({data, modal}) => (
 				onRequestClose={() => modal.closeModal()}
 				style={styles.modalContainer}
 			>
-				<Card title="Resumen">
+				<Card title={Translate.t('grade.profile.cardTitle')}>
 					<ScrollView style={styles.modalContent}>
 						<Text>	{data} </Text>
 					</ScrollView>
 					<Button
 						buttonStyle={{margin:10}}
 						onPress={() => modal.closeModal()}
-						title="Cerrar resumen"
+						title={Translate.t('grade.profile.closeBtn')}
 					/>
 				</Card>
 			</Modal>
@@ -219,7 +220,7 @@ const ContactView = ({contact}) => (
 
 const SubjectsView = ({ subjects, goToPath, filterSubjects}) => (
 	<View>
-		<CategoryDivider iconName="import-contacts" title="Asignaturas:" />
+		<CategoryDivider iconName="import-contacts" title={Translate.t('grade.profile.subjects')} />
 		<SearchBar containerStyle={{ backgroundColor: colors.lightGrey }} inputStyle={{ backgroundColor: colors.white }} onChangeText={filterSubjects} />
 		{
 			Object.keys(subjects).length > 0
@@ -239,7 +240,7 @@ const SubjectsView = ({ subjects, goToPath, filterSubjects}) => (
 		}
 		{
 			Object.keys(subjects).length === 0
-			&& <EmptyList title="No hay asignaturas disponibles" />	
+      && <EmptyList title={Translate.t('grade.profile.emptySubjectsList')} />	
 		}
 	</View>
 );

@@ -4,8 +4,9 @@ import { ButtonGroup, List, ListItem } from 'react-native-elements';
 
 import { CategoryDivider } from '../../components';
 import { colors } from '../../config';
+import { Translate } from '../../lib';
 
-export const SubjectProfileScreen = ({ subject, searching, error, changeTab, selectedIndex, goToPath}) => (
+export const SubjectProfileScreen = ({ subject, searching, error, changeTab, selectedIndex, goToPath, buttons}) => (
 	<SafeAreaView style={styles.safe}>
 		<View style={styles.container}>
 		{
@@ -28,11 +29,11 @@ const SubjectView = ({subject, changeTab, selectedIndex, goToPath}) => {
 			<View style={styles.header}>
 				<Text style={styles.title}>{subject.detail.name || ''}</Text>
 				<View style={[styles.rows]}>
-					<Text style={styles.subtitle}>{subject.detail.degree ||  ''}</Text>
+					<Text style={styles.subtitle}>{subject.detail.grade ||  ''}</Text>
 					<Text style={styles.subtitle}>{subject.detail.course ||  ''}</Text>
 				</View>
 			</View>
-			<ButtonGroup  buttons={['Resumen', 'Detalle', 'Horario']} onPress={changeTab} selectedIndex={selectedIndex}/>
+			<ButtonGroup  buttons={buttons} onPress={changeTab} selectedIndex={selectedIndex}/>
 			{
 				selectedIndex === 0
 				&& <SubjectSummary subject={subject} goToPath={goToPath}/>
@@ -67,10 +68,10 @@ const SubjectSummary = ({subject, goToPath}) => (
 		</View>
 		<View>
 			<View>
-				<CategoryDivider iconName="school" title="Profesores"/>
+				<CategoryDivider iconName="school" title={Teachers.t('subject.profile.teachers')}/>
 			</View>
 			<List>
-				<FlatList data={subject.summary.teachers || []} renderItem={({item}) => <ListItem title={item.name} onPress={() => goToPath(item['id_teacher'], item['code_degree'])}/>} />
+				<FlatList data={subject.summary.teachers || []} renderItem={({item}) => <ListItem title={item.name} onPress={() => goToPath(item['id_teacher'], item['code_grade'])}/>} />
 			</List>
 		</View>
 	</View>
@@ -80,21 +81,21 @@ const SubjectDetail = ({subject, accordionIndex}) => (
 	<View>
 
 		<View>
-			<CategoryDivider iconName={'keyboard-arrow-down'} title={'Info'} />
+			<CategoryDivider iconName={'keyboard-arrow-down'} title={Translate.t('subject.profile.info')} />
 			<View>
 				<Text>Non Lorem elit qui proident ea et nulla enim adipisicing amet eiusmod. Consequat officia nostrud id consectetur magna ad nisi nostrud aliqua elit laborum. Nisi eiusmod nulla labore excepteur eu. Aute nostrud ad minim reprehenderit eiusmod ullamco sunt quis ullamco eiusmod aliqua cillum tempor dolore. Et occaecat officia laborum sint sint. Adipisicing officia reprehenderit amet labore eiusmod mollit dolor officia qui nulla enim eu deserunt. Dolore Lorem irure nisi culpa laborum dolor Lorem ut consectetur Lorem enim elit excepteur.</Text>
 			</View>
 		</View>
 		<View>
-			<CategoryDivider iconName={'keyboard-arrow-down'} title={'Competencias'} />
+			<CategoryDivider iconName={'keyboard-arrow-down'} title={Translate.t('subject.profile.competences')} />
 
 		</View>
 		<View>
-			<CategoryDivider iconName={'keyboard-arrow-down'} title={'Evaluacion'} />
+			<CategoryDivider iconName={'keyboard-arrow-down'} title={Translate.t('subject.profile.eval')} />
 
 		</View>
 		<View>
-			<CategoryDivider iconName={'keyboard-arrow-down'} title={'Bibliografia'} />
+			<CategoryDivider iconName={'keyboard-arrow-down'} title={Translate.t('subject.profile.biblio')} />
 
 		</View>
 

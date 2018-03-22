@@ -5,6 +5,7 @@ import { Alert } from 'react-native';
 import { SignUpScreen } from './screens';
 import { Helper, navigateTo } from '../lib';
 import { signup } from '.';
+import { Translate } from '../lib';
 
 class SignUpPage extends Component {
   constructor() {
@@ -27,7 +28,7 @@ class SignUpPage extends Component {
   handleSignUp = () => {
     const { email, password, password2 } = this.state;
     if( !Helper.isValidPassword(password, password2) || !Helper.isEmailValid(email)){
-      Alert.alert('Invalid parameters', 'Sorry, couldn\'t create the user. Enter correct parameters');
+      Alert.alert(Translate.t('auth.signup.errorTitle'), Translate.t('auth.signup.errorMessage'));
       this.setState({email: '', password: '', password2: ''});
     }else{
       this.props.dispatch(signup(this.state));

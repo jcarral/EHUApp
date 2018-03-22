@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DegreeProfileScreen } from './screens';
-import { getDegree } from './degree.action';
+import { GradeProfileScreen } from './screens';
+import { getGrade } from './grade.action';
+import { Translate } from '../lib';
 
-class DegreeProfileContainer extends Component {
+class GradeProfileContainer extends Component {
 
 	constructor(props){
 		super(props);
@@ -25,7 +26,7 @@ class DegreeProfileContainer extends Component {
 
 		this.props.navigation.navigate(path, { params : {
 				code: key,
-				degree: this.state.code
+				grade: this.state.code
 			}
 		});
 	};
@@ -40,7 +41,7 @@ class DegreeProfileContainer extends Component {
 	}
 	
 	filterTeacher = (txt) => {
-		const teachers = this.props.degree.teachers
+		const teachers = this.props.grade.teachers
 		let copy = Object.assign({}, teachers);
 		Object.keys(teachers).forEach(key => {
 			if(!teachers[key].toLowerCase().includes(txt.toLowerCase())) delete copy[key];
@@ -53,7 +54,7 @@ class DegreeProfileContainer extends Component {
 	};
 
 	filterSubjects = (txt) => {
-		const subjects = this.props.degree.subjects;
+		const subjects = this.props.grade.subjects;
 		let copy = Object.assign({}, subjects);
 		Object.keys(subjects).forEach(key => {
 			if(!subjects[key].toLowerCase().includes(txt.toLowerCase())) delete copy[key];
@@ -69,14 +70,14 @@ class DegreeProfileContainer extends Component {
 		console.log(nextProps)
 		this.setState({
 			...this.state,
-			subjects: nextProps.degree.subjects,
-			teachers: nextProps.degree.teachers
+			subjects: nextProps.grade.subjects,
+			teachers: nextProps.grade.teachers
 		});
 	}
 	
 	componentWillMount = () => {
 		const { params } = this.props.navigation.state;
-		this.props.dispatch(getDegree(params.params));
+		this.props.dispatch(getGrade(params.params));
 		this.setState({
 			...this.state,
 			code: params.params.code
@@ -84,17 +85,21 @@ class DegreeProfileContainer extends Component {
 	}
 
 	render() {
-		const buttons = ['Información', 'Asignaturas', 'Profesores'];
+		const buttons = [
+      Translate.t('grade.profile.info'), 
+      Translate.t('grade.profile.subjects'),
+      Translate.t('grade.profile.teachers'),
+    ];
 		const modal = {
 			visible: this.state.modalVisible,
 			openModal: this.openModal,
 			closeModal: this.closeModal
 		};
-		return (<DegreeProfileScreen 
+		return (<GradeProfileScreen 
 			buttons={buttons}
 			searching={this.props.searching}
 			error={this.props.error}
-			degreeData={this.props.degree.data}
+			gradeData={this.props.grade.data}
 			teachers={this.state.teachers}
 			subjects={this.state.subjects}
 			goToPath={this.goToPath}
@@ -108,9 +113,9 @@ class DegreeProfileContainer extends Component {
 }
 
 const mapStateToProps = (state, action) => ({
-	degree: state.degree.degree,
-	error: state.degree.error,
-	searching: state.degree.searching
+	grade: state.grade.grade,
+	error: state.grade.error,
+	searching: state.grade.searching
 });
 
-export const DegreeProfile = connect(mapStateToProps)(DegreeProfileContainer);
+export const GradeProfile = connect(mapStateToProps)(GradeProfileContainer);

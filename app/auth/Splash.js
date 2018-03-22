@@ -16,14 +16,14 @@ class SplashContainer extends Component{
   }
 
   componentWillReceiveProps = async (newProps) => {
-    const { isAuthenticated, navigation } = newProps;
+    const { isAuthenticated, navigation, locale} = newProps;
     await wait(500);
     if (isAuthenticated) navigateTo('UserNavigator', navigation);
     else navigateTo('AnonNavigator', navigation);
   }
 
 	render(){
-		return (<SplashScreen />);
+		return (<SplashScreen/>);
 	}
 }
 

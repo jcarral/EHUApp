@@ -1,5 +1,5 @@
 import {
-	START_SEARCHING, SUBJECTS_FETCH, TEACHERS_FETCH, DEGREES_FETCH, CHANGE_TAB, START_SEARCHING_TEACHERS, START_SEARCHING_DEGREES, START_SEARCHING_SUBJECTS
+	START_SEARCHING, SUBJECTS_FETCH, TEACHERS_FETCH, GRADES_FETCH, CHANGE_TAB, START_SEARCHING_TEACHERS, START_SEARCHING_GRADES, START_SEARCHING_SUBJECTS
 } from './search.types';
 
 import { searchByName } from '../lib';
@@ -9,7 +9,7 @@ export const search = (text) => (dispatch, getState) => {
 
 	switch (selectedIndex) {
 		case 0:
-			changeToDegrees(text, selectedIndex, dispatch, getState);
+			changeToGrades(text, selectedIndex, dispatch, getState);
 			break;
 		case 1:
 			changeToSubjects(text, selectedIndex, dispatch, getState);
@@ -27,7 +27,7 @@ export const changeTab = (text, newTab) => (dispatch, getState) => {
 
 	switch (newTab) {
 		case 0:
-			changeToDegrees(text, newTab, dispatch, getState);
+			changeToGrades(text, newTab, dispatch, getState);
 			break;
 		case 1:
 			changeToSubjects(text, newTab, dispatch, getState);
@@ -80,23 +80,23 @@ const changeToTeachers = async (text, newTab, dispatch, getState) => {
 	});
 };
 
-const changeToDegrees = async (text, newTab, dispatch, getState) => {
-	const { searchDegreeText, selectedIndex } = getState().search;
+const changeToGrades = async (text, newTab, dispatch, getState) => {
+	const { searchGradeText, selectedIndex } = getState().search;
 	
 	if(selectedIndex !== newTab) dispatch({ type: CHANGE_TAB, payload: newTab });
-	if (searchDegreeText === text) return;
+	if (searchGradeText === text) return;
 	dispatch({
 		type: START_SEARCHING
 	});
 	dispatch({
-		type: START_SEARCHING_DEGREES,
+		type: START_SEARCHING_GRADES,
 		payload: text
 	});
 
 	const results = await searchByName(text, newTab);
 
 	dispatch({
-		type: DEGREES_FETCH,
+		type: GRADES_FETCH,
 		payload: results
 	});
 };
