@@ -9,7 +9,8 @@ class UserPage extends Component {
   }
 
   render(){
-    return <UserProfileScreen navigateTo={ this.navigateTo }/>;
+    const { user, } = this.props;
+    return <UserProfileScreen navigateTo={ this.navigateTo } user={user} />;
   }
 }
 

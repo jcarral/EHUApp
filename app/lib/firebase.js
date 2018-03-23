@@ -64,6 +64,15 @@ export const signUpOnFirebase = async userDetail => {
   };
 };
 
+export const getProfileFromFirebase = async uid => {
+  const profile = await firebase.database().ref('users').child(uid);
+  return profile;
+};
+
+export const editProfileOnFirebase = async (uid, profile) => {
+
+};
+
 const getFromFirebasePath = async (path) => {
   const ref = firebase.database().ref(path);
   const data = await ref.once('value');
