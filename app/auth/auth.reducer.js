@@ -1,4 +1,4 @@
-import { getLocale } from '../lib';
+import { Translate } from '../lib';
 import {
   START_LOGIN,
   SUCCESS_LOGIN,
@@ -21,8 +21,13 @@ const initialState = {
 	accessToken: null,
 	user: {},
 	hasInitialUser: false,
+<<<<<<< HEAD
 	locale: getLocale(),
 	error: '',
+=======
+  locale: Translate.getLocale(),
+	error: ''
+>>>>>>> develop
 };
 
 export const authReducer = (state = initialState, action = {}) => {

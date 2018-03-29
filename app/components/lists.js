@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { colors } from '../config';
+import { Translate } from '../lib';
 
-const EMPTY_ITEM = 'No hay elementos disponibles';
+const EMPTY_ITEM = Translate.t('components.emptyList');
 
 export const EmptyList = ({ title = EMPTY_ITEM }) => (
 	<View style={[styles.emptyList]}>

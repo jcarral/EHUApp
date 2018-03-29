@@ -1,7 +1,9 @@
 import React from 'react';
 import {
 	StackNavigator,
-	TabNavigator
+  TabNavigator,
+  TabBarBottom,
+  NavigationActions,
 } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
@@ -24,12 +26,22 @@ import {
 } from '../teacher';
 
 import {
-	DegreeProfile
-} from '../degree';
+	GradeProfile
+} from '../grade';
 
 import {
 	SubjectProfile
 } from '../subject';
+
+import {
+  UserProfile,
+	UserEdit,
+	UserPassword,
+} from '../user';
+
+import {
+ LanguagesSettings,
+} from '../settings';
 
 const sharedRoutes = {
 	SubjectProfile: {
@@ -38,8 +50,13 @@ const sharedRoutes = {
 			header: null,
 		}
 	},
+<<<<<<< HEAD
 	DegreeProfile: {
 		screen: DegreeProfile,
+=======
+	GradeProfile : {
+		screen: GradeProfile,
+>>>>>>> develop
 		navigationOptions: {
 			header: null,
 		}
@@ -120,6 +137,33 @@ const AdminNavigator = TabNavigator({
 		}
 	});
 
+const ProfileStackNavigator = StackNavigator({
+ UserProfile: {
+    screen: UserProfile,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Languages: {
+    screen: LanguagesSettings,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  UserEdit: {
+    screen: UserEdit,
+    navigationOptions: {
+      header: null,
+    },
+	},
+	UserPassword: {
+		screen: UserPassword,
+		navigationOptions: {
+			header: null,
+		},
+	},
+});
+
 const UserNavigator = TabNavigator({
 	Home: {
 		screen: HomeStackNavigator,
@@ -148,7 +192,22 @@ const UserNavigator = TabNavigator({
 				/>
 			)
 		}
-	}
+  },
+  Profile: {
+    screen: ProfileStackNavigator,
+    navigationOptions : {
+      header: null,
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+          color={tintColor}
+          type='font-awesome'
+          name='user'
+          size={33}
+        />
+      ),
+    }
+  }
 },
 	{
 		tabBarPosition: 'bottom',
@@ -159,8 +218,36 @@ const UserNavigator = TabNavigator({
 			inactiveTintColor: colors.grey,
 			style: {
 				backgroundColor: colors.black
-			}
-		}
+			},
+    },
+    tabBarComponent: ({ jumpToIndex, ...props }) => (
+      <TabBarBottom
+        {...props}
+        jumpToIndex={index => {
+          const { dispatch, state } = props.navigation;
+
+          if (state.index === index && state.routes[index].routes.length > 1) {
+            console.log('index', index);
+            const stackRouteName = [
+              'Home',
+              'Search',
+              'UserProfile',
+            ][index];
+
+            dispatch(
+              NavigationActions.reset({
+                index: 0,
+                actions: [
+                  NavigationActions.navigate({ routeName: stackRouteName }),
+                ],
+              })
+            );
+          } else {
+            jumpToIndex(index);
+          }
+        }}
+      />
+    ),
 	});
 
 const AnonNavigator = TabNavigator({

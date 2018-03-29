@@ -5,7 +5,8 @@ import { SearchScreen } from './screens';
 import { search, changeTab } from '.';
 import { startSearching as startSearchingTeacher} from '../teacher/';
 import { startSearching as startSearchingSubject } from '../subject/';
-import { startSearching as startSearchingDegree } from '../degree/';
+import { startSearching as startSearchingGrade } from '../grade/';
+import { Translate } from '../lib';
 
 class SearchContainer extends Component{
 
@@ -31,15 +32,10 @@ class SearchContainer extends Component{
 		this.props.dispatch(changeTab(this.state.text, selectedIndex));
 	}
 
-	searchItems = async () => {
-		const results = await searchByName(this.state.text, this.state.selectedIndex);
-		this.setState({ results, loading: false });
-	}
-
 	goToPath = (path, index) => {
 		let selectedItem;
 		if(this.props.selectedIndex === 0){
-			selectedItem = this.props.degrees[index];
+			selectedItem = this.props.grades[index];
 		}else if(this.props.selectedIndex === 1){
 			selectedItem = this.props.subjects[index];
 			this.props.dispatch(startSearchingSubject);
@@ -47,14 +43,19 @@ class SearchContainer extends Component{
 			selectedItem = this.props.teachers[index];
 			console.log('ss')
 			this.props.dispatch(startSearchingTeacher);
-		};
+    };
+    console.log('params', selectedItem)
 		this.props.navigation.navigate(path, {
 			params: selectedItem
 		});
 	}
 
 	render(){
-		const buttons = ['Grados', 'Asignaturas', 'Profesores'];
+		const buttons = [
+      Translate.t('search.grades'),
+      Translate.t('search.subjects'),
+      Translate.t('search.teachers'),
+    ];
 		
 		return (<SearchScreen 
 			onChange={this.onChange} 
@@ -65,7 +66,7 @@ class SearchContainer extends Component{
 			loading={this.props.searching}
 			subjects={this.props.subjects}
 			teachers={this.props.teachers}
-			degrees={this.props.degrees}
+			grades={this.props.grades}
 			goToPath={this.goToPath}
 			/>);
 	}
@@ -74,7 +75,7 @@ class SearchContainer extends Component{
 const mapStateToProps = (state, action) => ({
 	subjects : state.search.subjects,
 	teachers : state.search.teachers,
-	degrees : state.search.degrees,
+	grades : state.search.grades,
 	searching : state.search.searching,
 	selectedIndex : state.search.selectedIndex
 });
