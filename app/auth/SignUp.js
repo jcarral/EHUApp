@@ -35,9 +35,10 @@ class SignUpPage extends Component {
   }
 
   componentWillReceiveProps = () => {
-    const { isAuthenticated, navigation } = this.props;
-    if (isAuthenticated) navigateTo('UserNavigator', navigation);
-    else navigateTo('AnonNavigator', navigation);
+    const { isAuthenticated, navigation, user, } = this.props;
+		if (isAuthenticated && user.role !== 'admin') navigateTo('UserNavigator', navigation);
+		else if (isAuthenticated) navigateTo('AdminNavigator', navigation);
+		else navigateTo('AnonNavigator', navigation);
   }
 
   render() {
@@ -54,7 +55,8 @@ class SignUpPage extends Component {
   }
 }
 const mapsStateToProps = (state, action) => ({
-  isAuthenticated: state.auth.isAuthenticated
+	isAuthenticated: state.auth.isAuthenticated,
+	user: state.auth.user,
 });
 
 export const SignUp = connect(mapsStateToProps)(SignUpPage);

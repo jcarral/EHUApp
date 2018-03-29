@@ -40,12 +40,15 @@ export const getDegreeFromFirebase = (degree, school, campus) => {
 
 export const loginOnFirebase = async credentials => {
   const user = await firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password);
-  const { email, displayName, emailVerified, uid } = user;
+	const { email, displayName, emailVerified, uid } = user;
+	const profile = await firebase.database().ref('users').child(uid).once('value');
+	const { role, } = profile.val(); //TODO: Add more user data
   return {
     email,
     displayName,
     emailVerified,
-    uid,
+		uid,
+		role,
   };
 };
 

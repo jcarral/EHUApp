@@ -31,7 +31,7 @@ export const login = credentials => async dispatch => {
   } catch (error) {
     dispatch({
       type: ERROR_LOGIN,
-      payload: 'Error: Can\'t login',
+      payload: error,
     })
   }
 };

@@ -22,7 +22,7 @@ const initialState = {
 	user: {},
 	hasInitialUser: false,
 	locale: getLocale(),
-	error: ''
+	error: '',
 };
 
 export const authReducer = (state = initialState, action = {}) => {
