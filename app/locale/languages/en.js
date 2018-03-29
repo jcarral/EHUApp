@@ -65,5 +65,20 @@ export const en = {
       nextTutorship: 'Next tutorship',
     },
   },
+  settings: {
+    languageTitle: 'Change your language',
+	},
+	user: {
+		password: {
+			current: 'Current password',
+			new: 'New password',
+			repeat: 'Repeat the password',
+			btnConfirm: 'Confirm new password',
+			alertSamePassword: 'Sorry, passwords must match',
+			alertShortPassword: 'Sorry, the password is too short',
+			alertWrongPassword: 'Sorry, the old password is wrong',
+			alertTitle: 'Opps, error updating',
+		},
+	},
 };
 

@@ -7,7 +7,6 @@ import { Translate } from '../../lib';
 export const HomepageScreen = ({signOut}) => (
 	<SafeAreaView style={styles.safe}>
 		<View style={styles.container}>
-			<Button title="Salir" buttonStyle={styles.btnSign} onPress={signOut}/>
 		</View>
 	</SafeAreaView>
 );

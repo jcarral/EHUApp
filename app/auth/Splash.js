@@ -30,6 +30,7 @@ class SplashContainer extends Component{
 const mapStateToProps = (state, action) => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
+  locale: state.settings.locale,
 });
 
 export const Splash = connect(mapStateToProps)(SplashContainer);
