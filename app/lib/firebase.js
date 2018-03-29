@@ -66,6 +66,10 @@ export const signUpOnFirebase = async userDetail => {
   };
 };
 
+export const resetPassword = async email => {
+	return await firebase.auth().sendPasswordResetEmail(email);
+};
+
 const getFromFirebasePath = async (path) => {
   const ref = firebase.database().ref(path);
   const data = await ref.once('value');

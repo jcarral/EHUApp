@@ -11,7 +11,8 @@ import {
 	Splash,
 	Homepage,
 	Login,
-	SignUp
+	SignUp,
+	ResetPassword,
 } from '../auth';
 
 import {
@@ -171,6 +172,12 @@ const AnonNavigator = TabNavigator({
 	},
 	SignUp: {
 		screen: SignUp,
+		navigationOptions: {
+			header: null,
+		},
+	},
+	ResetPassword: {
+		screen: ResetPassword,
 		navigationOptions: {
 			header: null,
 		},

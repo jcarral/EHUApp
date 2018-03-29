@@ -34,9 +34,13 @@ class LoginPage extends Component{
 		else navigateTo('AnonNavigator', navigation);
   }
 
+	handleNavigation = () => {
+		const { navigation, } = this.props;
+		navigation.navigate('ResetPassword');
+	}
   render(){
     const { email, password } = this.state;
-    return <LoginScreen handleLogin={this.handleLogin} handleChangeInput={this.handleChangeInput} values={{email, password}}/>;
+    return <LoginScreen handleNavigation={this.handleNavigation} handleLogin={this.handleLogin} handleChangeInput={this.handleChangeInput} values={{email, password}}/>;
   }
 }
 
