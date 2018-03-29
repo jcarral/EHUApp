@@ -23,7 +23,7 @@ export const UserProfileScreen = ({ user, navigateTo, subjects, teachers }) => {
         </View>
       </View>
       <View>
-
+				<Button title="password" onPress={() => navigateTo('UserPassword')}/>
       </View>
     </SafeAreaView>
   );

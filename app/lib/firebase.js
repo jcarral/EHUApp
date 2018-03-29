@@ -65,12 +65,40 @@ export const signUpOnFirebase = async userDetail => {
 };
 
 export const getProfileFromFirebase = async uid => {
-  const profile = await firebase.database().ref('users').child(uid);
-  return profile;
+	const profileRef = firebase.database().ref('users').child(uid);
+	const { data, teachers, subjects, grade, } = (await profileRef.once('value')).val(); 
+  return {
+		data,
+		teachers: teachers || {},
+		subjects: subjects || {},
+		grade: grade || '',
+	};
 };
 
 export const editProfileOnFirebase = async (uid, profile) => {
 
+};
+
+export const addSubscriptionOnFirebase = async (path, data) => {
+	if (firebase.auth().currentUser === null) throw new Error('You must be logged in');
+	const { uid, } = firebase.auth().currentUser;
+	const ref = firebase.database().ref('users').child(uid).child(path);
+	return await ref.update(data);
+};
+
+export const deleteSubscriptionOnFirebase = async (path, key) => {
+	if (firebase.auth().currentUser === null) throw new Error('You must be logged in');
+	const { uid, } = firebase.auth().currentUser;
+	const ref = firebase.database().ref('users').child(uid).child(path).child(key);
+	return await ref.remove();
+};
+
+export const updatePasswordOnFirebase = async (email, oldPass, nextPass) => {
+	console.log(email, oldPass, nextPass)
+	const credential = firebase.auth.EmailAuthProvider.credential(email, oldPass);
+	const user = firebase.auth().currentUser;
+	await user.reauthenticateWithCredential(credential);
+	return user.updatePassword(nextPass);
 };
 
 const getFromFirebasePath = async (path) => {

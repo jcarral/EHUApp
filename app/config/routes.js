@@ -34,7 +34,8 @@ import {
 
 import {
   UserProfile,
-  UserEdit,
+	UserEdit,
+	UserPassword,
 } from '../user';
 
 import {
@@ -105,7 +106,13 @@ const ProfileStackNavigator = StackNavigator({
     navigationOptions: {
       header: null,
     },
-  },
+	},
+	UserPassword: {
+		screen: UserPassword,
+		navigationOptions: {
+			header: null,
+		},
+	},
 });
 
 const UserNavigator = TabNavigator({
