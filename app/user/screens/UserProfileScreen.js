@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import { Translate } from '../../lib';
 import { colors } from '../../config';
 
-export const UserProfileScreen = ({ user, navigateTo, subjects, teachers }) => {
+export const UserProfileScreen = ({ user, handleNavigation, subjects, teachers, handleLogout }) => {
   const avatar = (user.avatar)? { uri : user.avatar } : require('../../assets/images/defaultAvatar.png');
   console.log(user)
   return (
@@ -18,12 +18,13 @@ export const UserProfileScreen = ({ user, navigateTo, subjects, teachers }) => {
         <View style={[styles.btnArea,]}>
           <Icon onPress={() => { }} name='book' type='font-awesome' raised />
           <Icon onPress={() => { }} name='graduation-cap' type='font-awesome' raised />
-          <Icon onPress={() => { navigateTo('UserEdit') }} name='edit' type='font-awesome' raised />
-          <Icon onPress={() => navigateTo('Languages')} name='flag' type='font-awesome' raised />
+          <Icon onPress={() => { handleNavigation('UserEdit') }} name='edit' type='font-awesome' raised />
+          <Icon onPress={() => handleNavigation('Languages')} name='flag' type='font-awesome' raised />
         </View>
       </View>
       <View>
-				<Button title="password" onPress={() => navigateTo('UserPassword')}/>
+				<Button title="logout" onPress={() => handleLogout()}/>
+				<Button title="password" onPress={() => handleNavigation('UserPassword')}/>
       </View>
     </SafeAreaView>
   );
