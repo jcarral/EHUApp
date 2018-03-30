@@ -48,18 +48,13 @@ const sharedRoutes = {
 		screen: SubjectProfile,
 		navigationOptions: {
 			header: null,
-		}
+		},
 	},
-<<<<<<< HEAD
-	DegreeProfile: {
-		screen: DegreeProfile,
-=======
 	GradeProfile : {
 		screen: GradeProfile,
->>>>>>> develop
 		navigationOptions: {
 			header: null,
-		}
+		},
 	},
 	TeacherProfile: {
 		screen: TeacherProfile,
@@ -250,7 +245,7 @@ const UserNavigator = TabNavigator({
     ),
 	});
 
-const AnonNavigator = TabNavigator({
+const AnonNavigator = StackNavigator({
 	Login: {
 		screen: Login,
 		navigationOptions: {

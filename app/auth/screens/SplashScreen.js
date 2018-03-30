@@ -15,11 +15,11 @@ export const SplashScreen = () => (
 
 
 const styles = StyleSheet.create({
-	container : {
+	container: {
 		backgroundColor: colors.black,
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	title: {
 		color: colors.white,

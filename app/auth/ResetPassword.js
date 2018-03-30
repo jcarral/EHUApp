@@ -16,7 +16,7 @@ export class ResetPassword extends Component {
 		this.setState({email: text});
 	}
 
-	handleResetPassword = () => {
+	handleResetPassword = async () => {
 		try{
 			const { navigation, } = this.props;
 			await resetPassword(this.state.email);

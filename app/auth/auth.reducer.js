@@ -21,13 +21,8 @@ const initialState = {
 	accessToken: null,
 	user: {},
 	hasInitialUser: false,
-<<<<<<< HEAD
-	locale: getLocale(),
-	error: '',
-=======
   locale: Translate.getLocale(),
-	error: ''
->>>>>>> develop
+	error: '',
 };
 
 export const authReducer = (state = initialState, action = {}) => {

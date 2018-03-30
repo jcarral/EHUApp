@@ -16,11 +16,7 @@ class SplashContainer extends Component{
   }
 
   componentWillReceiveProps = async (newProps) => {
-<<<<<<< HEAD
-    const { isAuthenticated, navigation, user,  } = newProps;
-=======
     const { isAuthenticated, navigation, locale} = newProps;
->>>>>>> develop
     await wait(500);
 		if (isAuthenticated && user.role !== 'admin') navigateTo('UserNavigator', navigation);
 		else if (isAuthenticated) navigateTo('AdminNavigator', navigation);
@@ -34,12 +30,8 @@ class SplashContainer extends Component{
 
 const mapStateToProps = (state, action) => ({
   isAuthenticated: state.auth.isAuthenticated,
-<<<<<<< HEAD
-	user: state.auth.user,
-=======
   user: state.auth.user,
   locale: state.settings.locale,
->>>>>>> develop
 });
 
 export const Splash = connect(mapStateToProps)(SplashContainer);
