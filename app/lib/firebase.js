@@ -35,7 +35,7 @@ export const getSubjectFromFirebase = async (subject) => {
 };
 
 export const getGradeFromFirebase = (grade, school, campus) => {
-  const path = `/ehu/degrees/${campus}/${school}/${grade}`; //TODO: Update path to /ehu/grades/
+  const path = `/ehu/grades/${campus}/${school}/${grade}`; //TODO: Update path to /ehu/grades/
   return getFromFirebasePath(path);
 };
 
