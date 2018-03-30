@@ -1,10 +1,6 @@
 import React from 'react';
-import { SafeAreaView, View, Text, TextInput, } from 'react-native';
+import { SafeAreaView, View, Text, TextInput } from 'react-native';
 
-export const UserEditScreen = ({}) => {
-  return (
-    <SafeAreaView>
-      
-    </SafeAreaView>
-  );
-};
+export const UserEditScreen = () => (
+  <SafeAreaView />
+);

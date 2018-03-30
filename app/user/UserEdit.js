@@ -1,11 +1,12 @@
-import React, { Component, } from 'react';
-import { connect, } from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { UserEditScreen } from './screens';
 import { editProfile } from './user.action';
 
-class UserEditPage extends Component{
-  render(){
+class UserEditPage extends Component {
+  handleUpdateProfile = () => {}
+  render() {
     return (<UserEditScreen />);
   }
 }

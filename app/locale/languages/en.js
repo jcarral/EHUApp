@@ -44,7 +44,7 @@ export const en = {
     teachers: 'Teachers',
     emptyListTeachers: 'No teachers avalaible',
     emptyListSubjects: 'No subjects avalaible',
-    emptyListGrades: 'No grades avalaible', 
+    emptyListGrades: 'No grades avalaible',
   },
   subject: {
     profile: {
@@ -67,18 +67,18 @@ export const en = {
   },
   settings: {
     languageTitle: 'Change your language',
-	},
-	user: {
-		password: {
-			current: 'Current password',
-			new: 'New password',
-			repeat: 'Repeat the password',
-			btnConfirm: 'Confirm new password',
-			alertSamePassword: 'Sorry, passwords must match',
-			alertShortPassword: 'Sorry, the password is too short',
-			alertWrongPassword: 'Sorry, the old password is wrong',
-			alertTitle: 'Opps, error updating',
-		},
-	},
+  },
+  user: {
+    password: {
+      current: 'Current password',
+      new: 'New password',
+      repeat: 'Repeat the password',
+      btnConfirm: 'Confirm new password',
+      alertSamePassword: 'Sorry, passwords must match',
+      alertShortPassword: 'Sorry, the password is too short',
+      alertWrongPassword: 'Sorry, the old password is wrong',
+      alertTitle: 'Opps, error updating',
+    },
+  },
 };
 

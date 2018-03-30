@@ -5,20 +5,25 @@ import { signOut } from '../auth';
 import { navigateTo } from '../lib';
 
 class UserPage extends Component {
-  handleNavigation = path => {
+  handleNavigation = (path) => {
     const { navigation } = this.props;
     navigation.navigate(path);
-	}
-	
-	logout = async () => {
-		const { logout, navigation, } = this.props;
-		await logout();
-		navigateTo('AnonNavigator', navigation);
-	}
+  }
 
-  render(){
-    const { user, } = this.props;
-    return <UserProfileScreen handleNavigation={ this.handleNavigation } user={user} handleLogout={this.logout}/>;
+  logout = async () => {
+    const { logout, navigation } = this.props;
+    await logout();
+    navigateTo('AnonNavigator', navigation);
+  }
+
+  render() {
+    const { user } = this.props;
+    return (
+      <UserProfileScreen
+        handleNavigation={this.handleNavigation}
+        user={user}
+        handleLogout={this.logout}
+      />);
   }
 }
 
@@ -27,7 +32,7 @@ const mapStateToProps = (state, action) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	logout : () => dispatch(signOut()),
+  logout: () => dispatch(signOut()),
 });
 
 

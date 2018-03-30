@@ -6,7 +6,6 @@ import {
   SUCCESS_SIGNUP,
   START_SIGNUP,
   ERROR_SIGNUP,
-  START_LOGOUT,
   SUCCESS_LOGOUT,
   ERROR_LOGOUT,
   START_GETTING_USER,
@@ -15,46 +14,55 @@ import {
 } from './auth.types';
 
 const initialState = {
-	isAuthenticated: false,
-	isLoggingIn: false,
-	isLoggingOut: false,
-	accessToken: null,
-	user: {},
-	hasInitialUser: false,
+  isAuthenticated: false,
+  isLoggingIn: false,
+  isLoggingOut: false,
+  accessToken: null,
+  user: {},
+  hasInitialUser: false,
   locale: Translate.getLocale(),
-	error: '',
+  error: '',
 };
 
 export const authReducer = (state = initialState, action = {}) => {
-	switch (action.type) {
+  switch (action.type) {
     case START_LOGIN:
     case START_SIGNUP:
     case START_GETTING_USER:
-			return {
-				...state,
-				isAuthenticated: false,
-				isLoggingIn: true,
-			};
+      return {
+        ...state,
+        isAuthenticated: false,
+        isLoggingIn: true,
+      };
     case SUCCESS_LOGIN:
     case SUCCESS_SIGNUP:
     case SUCCESS_GETTING_USER:
-			return {
-				...state,
-				isAuthenticated: (Object.keys(action.payload).length > 0),
-				isLoggingIn: false,
-				user: action.payload,
-			};
+      return {
+        ...state,
+        isAuthenticated: (Object.keys(action.payload).length > 0),
+        isLoggingIn: false,
+        user: action.payload,
+      };
     case ERROR_LOGIN:
     case ERROR_SIGNUP:
     case ERROR_GETTING_USER:
-			return {
-				...state,
-				isAuthenticated: false,
-				isLoggingIn: false,
-				user: {},
-				error: action.payload,
+    case ERROR_LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        isLoggingIn: false,
+        user: {},
+        error: action.payload,
       };
-		default:
-			return state;
-	}
+    case SUCCESS_LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        error: null,
+        user: {},
+        isLoggingIn: false,
+      };
+    default:
+      return state;
+  }
 };
