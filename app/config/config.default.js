@@ -1,8 +1,6 @@
-'use strict';
-
 module.exports = {
-	firebase: {},
-	common: {
-		defaultLocale: 'en'
-	}
+  firebase: {},
+  common: {
+    defaultLocale: 'en',
+  },
 };

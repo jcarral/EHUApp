@@ -5,18 +5,17 @@ import { changeLocale } from './settings.action';
 import { navigateTo } from '../lib';
 
 class LanguagesPage extends Component {
-
-  handleChangeLocale = locale => {
-    this.props.updateLocale(locale);
-  };
-
   componentWillReceiveProps = (nextProps) => {
     const { locale, navigation } = this.props;
     if (locale !== nextProps.locale) navigateTo('Splash', navigation);
   }
 
+  handleChangeLocale = (locale) => {
+    this.props.updateLocale(locale);
+  };
+
   render() {
-    return <LanguagesScreen handleChangeLocale={ this.handleChangeLocale }/>;
+    return <LanguagesScreen handleChangeLocale={this.handleChangeLocale} />;
   }
 }
 
