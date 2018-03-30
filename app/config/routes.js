@@ -11,16 +11,17 @@ import { colors } from '.';
 //Screens
 import {
 	Splash,
-  Homepage,
-  Login, 
-  SignUp
+	Homepage,
+	Login,
+	SignUp,
+	ResetPassword,
 } from '../auth';
 
 import {
 	Search
 } from '../search';
 
-import { 
+import {
 	TeacherProfile
 } from '../teacher';
 
@@ -43,19 +44,19 @@ import {
 } from '../settings';
 
 const sharedRoutes = {
-	SubjectProfile : {
+	SubjectProfile: {
 		screen: SubjectProfile,
 		navigationOptions: {
 			header: null,
-		}
+		},
 	},
 	GradeProfile : {
 		screen: GradeProfile,
 		navigationOptions: {
 			header: null,
-		}
+		},
 	},
-	TeacherProfile : {
+	TeacherProfile: {
 		screen: TeacherProfile,
 		navigationOptions: {
 			header: null
@@ -71,9 +72,9 @@ const SearchStackNavigator = StackNavigator({
 		}
 	},
 	...sharedRoutes
-},{
-	headerMode: 'screen'
-});
+}, {
+		headerMode: 'screen'
+	});
 
 
 const HomeStackNavigator = StackNavigator({
@@ -84,9 +85,52 @@ const HomeStackNavigator = StackNavigator({
 		}
 	},
 	...sharedRoutes
-},{
-	headerMode: 'screen'
-});
+}, {
+		headerMode: 'screen'
+	});
+
+const AdminNavigator = TabNavigator({
+	Home: {
+		screen: HomeStackNavigator,
+		navigationOptions: {
+			header: null,
+			tabBarIcon: ({ tintColor }) => (
+				<Icon
+					containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+					color={tintColor}
+					name="home"
+					size={33}
+				/>
+			)
+		}
+	},
+	Search: {
+		screen: SearchStackNavigator,
+		navigationOptions: {
+			header: null,
+			tabBarIcon: ({ tintColor }) => (
+				<Icon
+					containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+					color={tintColor}
+					name="search"
+					size={33}
+				/>
+			)
+		}
+	}
+},
+	{
+		tabBarPosition: 'bottom',
+		tabBarOptions: {
+			showIcon: true,
+			showLabel: false,
+			activeTintColor: colors.white,
+			inactiveTintColor: colors.grey,
+			style: {
+				backgroundColor: colors.black
+			}
+		}
+	});
 
 const ProfileStackNavigator = StackNavigator({
  UserProfile: {
@@ -120,7 +164,7 @@ const UserNavigator = TabNavigator({
 		screen: HomeStackNavigator,
 		navigationOptions: {
 			header: null,
-			tabBarIcon: ({tintColor}) => (
+			tabBarIcon: ({ tintColor }) => (
 				<Icon
 					containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
 					color={tintColor}
@@ -201,19 +245,25 @@ const UserNavigator = TabNavigator({
     ),
 	});
 
-const AnonNavigator = TabNavigator({
+const AnonNavigator = StackNavigator({
 	Login: {
 		screen: Login,
 		navigationOptions: {
 			header: null,
 		},
-  },
-  SignUp : {
-    screen: SignUp,
-    navigationOptions: {
-      header: null,
-    },
-  },
+	},
+	SignUp: {
+		screen: SignUp,
+		navigationOptions: {
+			header: null,
+		},
+	},
+	ResetPassword: {
+		screen: ResetPassword,
+		navigationOptions: {
+			header: null,
+		},
+	},
 });
 
 
@@ -223,7 +273,7 @@ const EHUApp = StackNavigator({
 		navigationOptions: {
 			header: null,
 		}
-	}, 
+	},
 	AnonNavigator: {
 		screen: AnonNavigator,
 		navigationOptions: {
@@ -235,7 +285,13 @@ const EHUApp = StackNavigator({
 		navigationOptions: {
 			header: null
 		}
-	}
+	},
+	AdminNavigator: {
+		screen: AdminNavigator,
+		navigationOptions: {
+			header: null
+		}
+	},
 });
 
 module.exports = EHUApp;

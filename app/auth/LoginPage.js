@@ -28,20 +28,26 @@ class LoginPage extends Component{
   }
 
   componentWillReceiveProps = (newProps) => {
-    const { isAuthenticated, navigation } = newProps;
-    if (isAuthenticated) navigateTo('UserNavigator', navigation);
-    else navigateTo('AnonNavigator', navigation);
+    const { isAuthenticated, navigation, user, } = newProps;
+		if (isAuthenticated && user.role !== 'admin') navigateTo('UserNavigator', navigation);
+		else if (isAuthenticated) navigateTo('AdminNavigator', navigation);
+		else navigateTo('AnonNavigator', navigation);
   }
 
+	handleNavigation = () => {
+		const { navigation, } = this.props;
+		navigation.navigate('ResetPassword');
+	}
   render(){
     const { email, password } = this.state;
-    return <LoginScreen handleLogin={this.handleLogin} handleChangeInput={this.handleChangeInput} values={{email, password}}/>;
+    return <LoginScreen handleNavigation={this.handleNavigation} handleLogin={this.handleLogin} handleChangeInput={this.handleChangeInput} values={{email, password}}/>;
   }
 }
 
 const mapStateToProps = (state, action) => ({
   isLoggingIn: state.auth.isLoggingIn,
-  isAuthenticated: state.auth.isAuthenticated,
+	isAuthenticated: state.auth.isAuthenticated,
+	user: state.auth.user,
 });
 
 export const Login = connect(mapStateToProps)(LoginPage);

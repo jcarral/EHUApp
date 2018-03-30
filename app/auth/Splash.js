@@ -18,7 +18,8 @@ class SplashContainer extends Component{
   componentWillReceiveProps = async (newProps) => {
     const { isAuthenticated, navigation, locale} = newProps;
     await wait(500);
-    if (isAuthenticated) navigateTo('UserNavigator', navigation);
+		if (isAuthenticated && user.role !== 'admin') navigateTo('UserNavigator', navigation);
+		else if (isAuthenticated) navigateTo('AdminNavigator', navigation);
     else navigateTo('AnonNavigator', navigation);
   }
 

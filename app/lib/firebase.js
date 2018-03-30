@@ -41,12 +41,15 @@ export const getGradeFromFirebase = (grade, school, campus) => {
 
 export const loginOnFirebase = async credentials => {
   const user = await firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password);
-  const { email, displayName, emailVerified, uid } = user;
+	const { email, displayName, emailVerified, uid } = user;
+	const profile = await firebase.database().ref('users').child(uid).once('value');
+	const { role, } = profile.val(); //TODO: Add more user data
   return {
     email,
     displayName,
     emailVerified,
-    uid,
+		uid,
+		role,
   };
 };
 
@@ -63,6 +66,8 @@ export const signUpOnFirebase = async userDetail => {
     uid,
   };
 };
+
+export const resetPassword = async email => await firebase.auth().sendPasswordResetEmail(email);
 
 export const getProfileFromFirebase = async uid => {
 	const profileRef = firebase.database().ref('users').child(uid);
