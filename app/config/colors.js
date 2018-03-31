@@ -20,4 +20,5 @@ export const colors = {
   turquoise: '#00cec9',
   lightOrange: '#fab1a0',
   orange: '#e17055',
+  dark: '#000000',
 };

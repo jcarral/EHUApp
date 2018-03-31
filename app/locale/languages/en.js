@@ -1,9 +1,17 @@
 export const en = {
   auth: {
+    resetTitle: 'Reset password',
+    resetSub: 'Send an email to reset the password',
+    btnReset: 'Reset password',
+    resetPlaceholder: 'Email',
     login: {
       loginBtn: 'Login',
+      signUpBtn: 'SignUp',
       email: 'Email',
       password: 'Password',
+      resetPassword: 'Forgot your password? Click here!',
+      alertTitle: 'Error, login :(',
+      alertMssg: 'You must verify your email',
     },
     signup: {
       confirmBtn: 'Confirm register',

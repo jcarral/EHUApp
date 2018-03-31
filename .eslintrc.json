@@ -12,6 +12,7 @@
     "dot-notation": 0,
     "jsx-quotes": 0,
     "no-restricted-syntax": 0,
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    "no-case-declarations": 0
 	}
 }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import { LoginScreen } from './screens';
+import { LoadingScreen } from '../components';
 import { login } from '.';
-import { navigateTo } from '../lib';
+import { navigateTo, Translate } from '../lib';
 
 class LoginPage extends Component {
   constructor() {
@@ -16,14 +18,17 @@ class LoginPage extends Component {
 
   componentWillReceiveProps = (newProps) => {
     const { isAuthenticated, navigation, user } = newProps;
-    if (isAuthenticated && user.role !== 'admin') navigateTo('UserNavigator', navigation);
-    else if (isAuthenticated) navigateTo('AdminNavigator', navigation);
-    else navigateTo('AnonNavigator', navigation);
+    if ('emailVerified' in user && user.emailverified) return Alert.alert(Translate.t('auth.login.alertTitle'), Translate.t('auth.login.alertMssg'));
+    if (isAuthenticated && user.role !== 'admin') return navigateTo('UserNavigator', navigation);
+    else if (isAuthenticated) return navigateTo('AdminNavigator', navigation);
+    return navigateTo('AnonNavigator', navigation);
   }
+
   handleChangeInput = (text, type) => {
     if (type === 'password') this.setState({ password: text });
     else this.setState({ email: text });
   }
+
   handleLogin = () => {
     const { email, password } = this.state;
     this.props.dispatch(login({
@@ -31,12 +36,16 @@ class LoginPage extends Component {
       password,
     }));
   }
-  handleNavigation = () => {
+
+  handleNavigation = (path) => {
     const { navigation } = this.props;
-    navigation.navigate('ResetPassword');
+    navigation.navigate(path);
   }
+
   render() {
     const { email, password } = this.state;
+    const { isLoggingIn } = this.props;
+    if (isLoggingIn) return (<LoadingScreen />);
     return (
       <LoginScreen
         handleNavigation={this.handleNavigation}

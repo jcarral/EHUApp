@@ -28,9 +28,7 @@ const defaultState = {
 };
 
 export const userReducer = (state = defaultState, action) => {
-  const {
-    data, subjects, teachers, grade,
-  } = action.payload;
+  
   switch (action.type) {
     case START_FETCHING_PROFILE:
     case START_NEW_SUBSCRIPTION:
@@ -43,6 +41,9 @@ export const userReducer = (state = defaultState, action) => {
         error: '',
       };
     case SUCCESS_FETCHING_PROFILE:
+      const {
+        data, subjects, teachers, grade,
+      } = action.payload;
       return {
         ...state,
         data,

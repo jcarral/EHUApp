@@ -253,7 +253,8 @@ const AnonNavigator = StackNavigator({
   ResetPassword: {
     screen: ResetPassword,
     navigationOptions: {
-      header: null,
+      headerStyle: { backgroundColor: colors.black },
+      headerTintColor: colors.white,
     },
   },
 });
