@@ -9,4 +9,7 @@ export const safearea = StyleSheet.create({
   blackSafe: {
     backgroundColor: colors.black,
   },
+  whitesafe: {
+    backgroundColor: colors.white,
+  },
 });

@@ -44,12 +44,12 @@ export const fetchProfile = uid => async (dispatch) => {
   }
 };
 
-export const editProfile = (uid, profile) => async (dispatch) => {
+export const editProfile = profile => async (dispatch) => {
   try {
     dispatch({
       type: START_EDITING_PROFILE,
     });
-    await editProfile(uid, profile);
+    await editProfileOnFirebase(profile);
     return dispatch({
       type: SUCCESS_EDITING_PROFILE,
       payload: profile,
