@@ -42,7 +42,6 @@ class TeacherProfileContainer extends Component {
     } else {
       await deleteSubscriptionAction('teachers', teacherCode);
     }
-    getTeacherAction(params.params);
   }
 
   render() {

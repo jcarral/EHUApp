@@ -33,7 +33,8 @@ export const searchByName = async (name, type) => {
 export const getTeacherFromFirebase = async (teacher) => {
   const ref = firebase.database().ref(`/ehu/teachers/${teacher.code}_${teacher.grade}`);
   const data = await ref.once('value');
-  return data.val();
+  const res = data.val();
+  return res;
 };
 
 export const getSubjectFromFirebase = async (subject) => {
@@ -131,3 +132,6 @@ export const updatePasswordOnFirebase = async (email, oldPass, nextPass) => {
   return user.updatePassword(nextPass);
 };
 
+export const getFirebaseUID = () => firebase.auth().currentUser.uid;
+
+export const logoutFromFirebase = async () => firebase.auth().signOut();

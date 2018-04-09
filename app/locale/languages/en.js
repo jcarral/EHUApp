@@ -110,6 +110,7 @@ export const en = {
     },
     subs: {
       emptyList: 'There are not subscriptions :(',
+      header: 'My subscriptions',
     },
   },
 };

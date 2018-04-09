@@ -14,6 +14,7 @@ export const teacherReducer = (state = initialState, action) => {
         ...state,
         error: false,
         searching: true,
+        teacherData: null,
       };
     case TEACHER_SEARCHING:
       return {

@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export const subjectReducer = (state = initialState, action) => {
-  console.log(action.type, action.payload);
 
   switch (action.type) {
     case START_LOADING:

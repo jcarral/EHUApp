@@ -3,7 +3,6 @@ import { colors } from '../../config';
 
 export const safearea = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
     flex: 1,
   },
   blackSafe: {

@@ -7,15 +7,17 @@ import { navigateTo, Translate } from '../lib';
 import { fetchProfile } from './user.action';
 
 class UserPage extends Component {
-  componentWillMount = () => {
-    this.props.handleFetchProfile();
+  componentWillMount = async () => {
+    const { user, fetchProfileAction, fetching } = this.props;
+    if ((!user || Object.keys(user).length === 0) && !fetching) {
+      await fetchProfileAction();
+    }
   }
 
   handleNavigation = (path) => {
     const { navigation } = this.props;
     navigation.navigate(path);
   }
-  
   logout = async () => {
     const { logout, navigation } = this.props;
     Alert.alert(
@@ -40,7 +42,6 @@ class UserPage extends Component {
 
   render() {
     const { user } = this.props;
-    console.log('user', user)
     return (
       <UserProfileScreen
         handleNavigation={this.handleNavigation}
@@ -52,11 +53,12 @@ class UserPage extends Component {
 
 const mapStateToProps = (state, action) => ({
   user: state.profile.data,
+  fetching: state.profile.fetching,
 });
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(signOut()),
-  handleFetchProfile: () => dispatch(fetchProfile()),
+  fetchProfileAction: () => dispatch(fetchProfile()),
 });
 
 export const UserProfile = connect(mapStateToProps, mapDispatchToProps)(UserPage);

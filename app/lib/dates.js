@@ -11,9 +11,10 @@ const customDateToDate = (date) => {
 
 export const sortByDate = (inDates) => {
   let dates = inDates.map((obj) => {
-    obj['date-start'] = customDateToDate(obj['date-start']);
-    obj['date-end'] = customDateToDate(obj['date-end']);
-    return obj;
+    const copy = Object.assign({}, obj);
+    copy['date-start'] = customDateToDate(copy['date-start']);
+    copy['date-end'] = customDateToDate(copy['date-end']);
+    return copy;
   });
   dates = dates.filter(obj => (obj['date-start'] !== '-1' && obj['date-end'] !== '-1'));
   const oldDates = dates;
