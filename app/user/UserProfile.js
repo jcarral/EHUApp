@@ -7,9 +7,11 @@ import { navigateTo, Translate } from '../lib';
 import { fetchProfile } from './user.action';
 
 class UserPage extends Component {
-  componentWillMount = () => {
-    const { user, fetchProfileAction } = this.props;
-    if (!user || Object.keys(user).length === 0) fetchProfileAction();
+  componentWillMount = async () => {
+    const { user, fetchProfileAction, fetching } = this.props;
+    if ((!user || Object.keys(user).length === 0) && !fetching) {
+      await fetchProfileAction();
+    }
   }
 
   handleNavigation = (path) => {
@@ -40,7 +42,6 @@ class UserPage extends Component {
 
   render() {
     const { user } = this.props;
-    console.log('user', user)
     return (
       <UserProfileScreen
         handleNavigation={this.handleNavigation}
@@ -52,6 +53,7 @@ class UserPage extends Component {
 
 const mapStateToProps = (state, action) => ({
   user: state.profile.data,
+  fetching: state.profile.fetching,
 });
 
 const mapDispatchToProps = dispatch => ({

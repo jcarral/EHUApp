@@ -28,13 +28,17 @@ import {
 } from '../lib/firebase';
 import { signOut } from '../auth';
 
-export const fetchProfile = id => async (dispatch) => {
+export const fetchProfile = id => async (dispatch, getState) => {
   try {
     dispatch({
-      type: START_EDITING_PROFILE,
+      type: START_FETCHING_PROFILE,
     });
-    const uid = id || getFirebaseUID();
-    console.log(id, uid);
+    const { uid } = getState().auth.user;
+    let userid;
+    if (id) userid = id;
+    else if (uid) userid = uid;
+    else if (getFirebaseUID()) userid = getFirebaseUID().uid;
+    
     if (!uid) return dispatch(signOut());
     const profile = await getProfileFromFirebase(uid);
     return dispatch({

@@ -14,10 +14,12 @@ class SplashContainer extends Component {
 
   componentWillReceiveProps = async (newProps) => {
     const {
-      isAuthenticated, navigation, user, fetchProfileAction,
+      isAuthenticated, navigation, user, fetchProfileAction, fetching, profile,
     } = newProps;
     await wait(500);
-    await fetchProfileAction();
+    if ((!profile || Object.keys(profile).length === 0) && !fetching) {
+      await fetchProfileAction();
+    }
     if (isAuthenticated && user.role !== 'admin') navigateTo('UserNavigator', navigation);
     else if (isAuthenticated) navigateTo('AdminNavigator', navigation);
     else navigateTo('AnonNavigator', navigation);
@@ -32,6 +34,8 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
   locale: state.settings.locale,
+  fetching: state.profile.fetching,
+  profile: state.profile.data,
 });
 
 const mapDispatchToProps = dispatch => ({
