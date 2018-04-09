@@ -33,6 +33,7 @@ import {
 } from '../user';
 
 import { LanguagesSettings } from '../settings';
+import { AdminPage, AdminCalendar } from '../admin';
 
 const sharedRoutes = {
   SubjectProfile: {
@@ -113,6 +114,20 @@ const ProfileStackNavigator = StackNavigator({
   },
 });
 
+const AdminStackNavigator = StackNavigator({
+  AdminPage: {
+    screen: AdminPage,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  AdminCalendar: {
+    screen: AdminCalendar,
+    navigationOptions: {
+      header: null,
+    },
+  },
+});
 
 const AdminNavigator = TabNavigator(
   {
@@ -139,6 +154,21 @@ const AdminNavigator = TabNavigator(
             containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
             color={tintColor}
             name="search"
+            size={33}
+          />
+        ),
+      },
+    },
+    Admin: {
+      screen: AdminStackNavigator,
+      navigationOptions: {
+        header: null,
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+            color={tintColor}
+            name="unlock-alt"
+            type="font-awesome"
             size={33}
           />
         ),

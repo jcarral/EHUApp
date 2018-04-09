@@ -135,3 +135,9 @@ export const updatePasswordOnFirebase = async (email, oldPass, nextPass) => {
 export const getFirebaseUID = () => firebase.auth().currentUser.uid;
 
 export const logoutFromFirebase = async () => firebase.auth().signOut();
+
+export const getCalendarFromFirebase = async (path) => {
+  const ref = firebase.database().ref('ehu').child('calendars').child(path);
+  const calendarSnap = await ref.once('value');
+  return calendarSnap.val();
+};

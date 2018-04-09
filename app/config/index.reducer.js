@@ -6,6 +6,7 @@ import { subjectReducer } from '../subject/subject.reducer';
 import { gradeReducer } from '../grade/grade.reducer';
 import { settingsReducer } from '../settings/settings.reducer';
 import { userReducer } from '../user/user.reducer';
+import { calendarReducer } from '../calendar';
 
 export default combineReducers({
   auth: authReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   grade: gradeReducer,
   settings: settingsReducer,
   profile: userReducer,
+  calendar: calendarReducer,
 });

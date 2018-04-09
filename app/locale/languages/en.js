@@ -113,5 +113,12 @@ export const en = {
       header: 'My subscriptions',
     },
   },
+  admin: {
+    calendar: {
+      editCalendar: 'Edit calendar',
+      header: 'Calendar',
+      labelDrop: 'Select type of calendar',
+    }
+  }
 };
 
