@@ -33,7 +33,8 @@ export const searchByName = async (name, type) => {
 export const getTeacherFromFirebase = async (teacher) => {
   const ref = firebase.database().ref(`/ehu/teachers/${teacher.code}_${teacher.grade}`);
   const data = await ref.once('value');
-  return data.val();
+  const res = data.val();
+  return res;
 };
 
 export const getSubjectFromFirebase = async (subject) => {

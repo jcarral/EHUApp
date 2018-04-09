@@ -150,7 +150,8 @@ const TeacherView = ({ data, handleToggleSubscription, following }) => (
 );
 
 const TeacherSchedule = ({ schedule }) => {
-  const sortSchedule = sortByDate(schedule);
+  const copy = [...schedule];
+  const sortSchedule = sortByDate(copy);
   const next = sortSchedule.shift();
   if (!next) return (<EmptyList title={Translate.t('teacher.profile.noTutorships')} />);
 
@@ -161,7 +162,7 @@ const TeacherSchedule = ({ schedule }) => {
         <Text style={styles.nextTutorshipTxt}> {next['date-start'] || Translate.t('teacher.profile.noMore')}  </Text>
       </View>
       {
-        schedule.length > 0 &&
+        copy.length > 0 &&
         (
           <View>
             <List>
@@ -171,7 +172,7 @@ const TeacherSchedule = ({ schedule }) => {
         )
       }
       {
-        schedule.length === 0
+        copy.length === 0
         && (<EmptyList title={Translate.t('teacher.profile.noTutorships')} />)
       }
     </View>

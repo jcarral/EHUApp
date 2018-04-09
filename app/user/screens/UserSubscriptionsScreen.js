@@ -4,6 +4,7 @@ import { SafeAreaView, ListView, View, Text, StyleSheet, TextInput } from 'react
 import { SectionDivider, EmptyList, SectionListHeader, ListRow } from '../../components';
 import { Translate } from '../../lib';
 import { safearea } from '../../assets';
+import { colors } from '../../config';
 
 const styles = StyleSheet.create({
   separator: {
@@ -13,10 +14,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#C1C1C1',
+    backgroundColor: colors.white,
   },
   input: {
     height: 30,
@@ -26,40 +24,50 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 2,
   },
+  header: {
+    padding: 20,
+    backgroundColor: colors.black,
+  },
+  headerText: {
+    color: colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
 });
 
 export const UserSubscriptionsScreen = ({ dataSource, handleNavigateTo }) => (
-  <SafeAreaView style={[safearea.whitesafe, safearea.container]}>
-    {
-      !dataSource
+  <SafeAreaView style={[safearea.blackSafe, safearea.container]}>
+    <View style={[styles.container]}>
+      {
+      (!dataSource || dataSource.getRowCount() === 0)
       && (<EmptyList title={Translate.t('user.subs.emptyList')} />)
-    }
-    {
-      dataSource
-      && <ListView
-        dataSource={dataSource}
-        renderRow={data => (
-          <ListRow
-            onPress={() => handleNavigateTo(data.type, data.key)}
-          >
-            { data.name }
-          </ListRow>
-          )
-        }
-        renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-        renderHeader={() => <Header />}
-        renderSectionHeader={(data, category) => <SectionListHeader>{category}</SectionListHeader>}
-      />
-    }
+      }
+      {
+        (dataSource && dataSource.getRowCount() > 0)
+        && <ListView
+          dataSource={dataSource}
+          renderRow={data => (
+            <ListRow
+              onPress={() => handleNavigateTo(data.type, data.key)}
+            >
+              { data.name }
+            </ListRow>
+            )
+          }
+          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+          renderHeader={() => <Header />}
+          renderSectionHeader={(data, category) =>
+            <SectionListHeader>{category}</SectionListHeader>
+          }
+        />
+      }
+    </View>
   </SafeAreaView>
 );
 
 const Header = props => (
-  <View style={styles.container}>
-    <TextInput
-      style={styles.input}
-      placeholder="Search..."
-      onChangeText={text => console.log('searching for ', text)}
-    />
+  <View style={[styles.header]}>
+    <Text style={[styles.headerText]}> { Translate.t('user.subs.header')} </Text>
   </View>
 );

@@ -38,7 +38,7 @@ export const fetchProfile = id => async (dispatch, getState) => {
     if (id) userid = id;
     else if (uid) userid = uid;
     else if (getFirebaseUID()) userid = getFirebaseUID().uid;
-    
+
     if (!uid) return dispatch(signOut());
     const profile = await getProfileFromFirebase(uid);
     return dispatch({
