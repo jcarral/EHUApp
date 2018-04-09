@@ -52,6 +52,13 @@ export const userReducer = (state = defaultState, action) => {
         fetching: false,
         error: '',
       };
+    case SUCCESS_EDITING_PROFILE:
+      return {
+        ...state,
+        error: null,
+        fetching: false,
+        data: action.payload,
+      };
     case SUCCESS_NEW_SUBSCRIPTION_SUBJECTS:
       return {
         ...state,
@@ -68,7 +75,7 @@ export const userReducer = (state = defaultState, action) => {
         error: '',
       };
     case SUCCESS_DELETING_SUBSCRIPTION_SUBJECTS:
-      const tmpStateSubjects = Object.assign({}, state);
+      const tmpStateSubjects = Object.assign({}, state.subjects);
       delete tmpStateSubjects[action.payload];
       return {
         ...state,
@@ -77,7 +84,7 @@ export const userReducer = (state = defaultState, action) => {
         error: '',
       };
     case SUCCESS_DELETING_SUBSCRIPTION_TEACHERS:
-      const tmpStateTeachers = Object.assign({}, state);
+      const tmpStateTeachers = Object.assign({}, state.teachers);
       delete tmpStateTeachers[action.payload];
       return {
         ...state,

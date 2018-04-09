@@ -8,14 +8,14 @@ import { fetchProfile } from './user.action';
 
 class UserPage extends Component {
   componentWillMount = () => {
-    this.props.handleFetchProfile();
+    const { user, fetchProfileAction } = this.props;
+    if (!user || Object.keys(user).length === 0) fetchProfileAction();
   }
 
   handleNavigation = (path) => {
     const { navigation } = this.props;
     navigation.navigate(path);
   }
-  
   logout = async () => {
     const { logout, navigation } = this.props;
     Alert.alert(
@@ -56,7 +56,7 @@ const mapStateToProps = (state, action) => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(signOut()),
-  handleFetchProfile: () => dispatch(fetchProfile()),
+  fetchProfileAction: () => dispatch(fetchProfile()),
 });
 
 export const UserProfile = connect(mapStateToProps, mapDispatchToProps)(UserPage);

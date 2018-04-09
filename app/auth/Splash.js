@@ -4,17 +4,20 @@ import { SplashScreen } from './screens/';
 
 import { navigateTo, wait } from '../lib';
 import { getUser } from '.';
+import { fetchProfile } from '../user';
 
 class SplashContainer extends Component {
-  componentWillMount = () => {
-    this.props.dispatch(getUser());
+  componentWillMount = async () => {
+    const { getUserAction } = this.props;
+    await getUserAction();
   }
 
   componentWillReceiveProps = async (newProps) => {
     const {
-      isAuthenticated, navigation, user,
+      isAuthenticated, navigation, user, fetchProfileAction,
     } = newProps;
     await wait(500);
+    await fetchProfileAction();
     if (isAuthenticated && user.role !== 'admin') navigateTo('UserNavigator', navigation);
     else if (isAuthenticated) navigateTo('AdminNavigator', navigation);
     else navigateTo('AnonNavigator', navigation);
@@ -31,4 +34,9 @@ const mapStateToProps = state => ({
   locale: state.settings.locale,
 });
 
-export const Splash = connect(mapStateToProps)(SplashContainer);
+const mapDispatchToProps = dispatch => ({
+  fetchProfileAction: () => dispatch(fetchProfile()),
+  getUserAction: () => dispatch(getUser()),
+});
+
+export const Splash = connect(mapStateToProps, mapDispatchToProps)(SplashContainer);

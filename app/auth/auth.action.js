@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { loginOnFirebase, signUpOnFirebase, Helper } from '../lib';
+import { loginOnFirebase, signUpOnFirebase, Helper, logoutFromFirebase } from '../lib';
 
 import {
   START_LOGIN,
@@ -61,6 +61,7 @@ export const signOut = () => async (dispatch) => {
       type: START_LOGOUT,
     });
     await AsyncStorage.clear();
+    await logoutFromFirebase();
     return dispatch({
       type: SUCCESS_LOGOUT,
     });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 import { colors } from '../config';
 import { Translate } from '../lib';
@@ -17,6 +17,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
   },
+  listHeader: {
+    backgroundColor: colors.lightGrey,
+    padding: 15,
+  },
+  listHeaderText: {
+    fontWeight: '700',
+  },
+  listRow: {
+    backgroundColor: colors.white,
+    padding: 15,
+  },
 });
 
 export const EmptyList = ({ title = EMPTY_ITEM }) => (
@@ -24,3 +35,27 @@ export const EmptyList = ({ title = EMPTY_ITEM }) => (
     <Text style={[styles.emptyText]}> { title } </Text>
   </View>
 );
+
+export const SectionListHeader = ({ children, containerStyle = [], textStyle = [] }) => (
+  <View style={containerStyle.concat([styles.listHeader])}>
+    <Text style={textStyle.concat([styles.listHeaderText])}> { children.toUpperCase() } </Text>
+  </View>
+);
+
+export const ListRow = ({ children, containerStyle = [], onPress }) => {
+  if (onPress) {
+    return (
+      <TouchableHighlight
+        style={containerStyle.concat([styles.listRow])}
+        onPress={onPress}
+      >
+        <Text> {(typeof children === typeof {}) ? '' : children } </Text>
+      </TouchableHighlight>
+    );
+  }
+  return (
+    <View style={containerStyle.concat([styles.listRow])}>
+      <Text> {(typeof children === typeof {}) ? '' : children } </Text>
+    </View>
+  );
+};

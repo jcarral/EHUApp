@@ -24,13 +24,18 @@ import {
   addSubscriptionOnFirebase,
   deleteSubscriptionOnFirebase,
   updatePasswordOnFirebase,
+  getFirebaseUID,
 } from '../lib/firebase';
+import { signOut } from '../auth';
 
-export const fetchProfile = uid => async (dispatch) => {
+export const fetchProfile = id => async (dispatch) => {
   try {
     dispatch({
       type: START_EDITING_PROFILE,
     });
+    const uid = id || getFirebaseUID();
+    console.log(id, uid);
+    if (!uid) return dispatch(signOut());
     const profile = await getProfileFromFirebase(uid);
     return dispatch({
       type: SUCCESS_FETCHING_PROFILE,

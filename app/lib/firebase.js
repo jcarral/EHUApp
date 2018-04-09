@@ -131,3 +131,6 @@ export const updatePasswordOnFirebase = async (email, oldPass, nextPass) => {
   return user.updatePassword(nextPass);
 };
 
+export const getFirebaseUID = () => firebase.auth().currentUser.uid;
+
+export const logoutFromFirebase = async () => firebase.auth().signOut();

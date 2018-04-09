@@ -17,4 +17,5 @@ export class Helper {
       return false;
     }
   }
+  static hasProperty = (object, prop) => Object.keys(object).includes(prop);
 }

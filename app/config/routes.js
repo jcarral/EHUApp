@@ -223,9 +223,8 @@ const UserNavigator = TabNavigator(
           const { dispatch, state } = props.navigation;
 
           if (state.index === index && state.routes[index].routes.length > 1) {
-            console.log('index', index);
             const stackRouteName = [
-              'Home',
+              'UserProfile',
               'Search',
               'UserProfile',
             ][index];
