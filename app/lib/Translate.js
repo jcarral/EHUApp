@@ -15,13 +15,12 @@ export class Translate {
     return storageLocale || deviceLocale;
   };
 
-  static configureLocale = locale => {
+  static configureLocale = (locale) => {
     I18n.locale = locale;
   };
-  
-  static saveLocale = async locale => {
+
+  static saveLocale = async (locale) => {
     await AsyncStorage.setItem('locale', locale);
     return true;
   };
-
 }

@@ -6,11 +6,12 @@ import { subjectReducer } from '../subject/subject.reducer';
 import { gradeReducer } from '../grade/grade.reducer';
 import { settingsReducer } from '../settings/settings.reducer';
 import { userReducer } from '../user/user.reducer';
+
 export default combineReducers({
-	auth: authReducer,
-	search: searchReducer,
-	teacher: teacherReducer,
-	subject: subjectReducer,
+  auth: authReducer,
+  search: searchReducer,
+  teacher: teacherReducer,
+  subject: subjectReducer,
   grade: gradeReducer,
   settings: settingsReducer,
   profile: userReducer,
