@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
-import { Icon, Avatar, List, ListItem } from 'react-native-elements';
+import { Icon, Avatar, List, ListItem, Button } from 'react-native-elements';
 
 import { EmptyList } from '../../components';
 import { colors } from '../../config';
@@ -74,7 +74,13 @@ const getInitials = (completeName) => {
   return initials.toUpperCase();
 };
 
-export const TeacherProfileScreen = ({ searching, data, error }) => (
+export const TeacherProfileScreen = ({
+  searching,
+  data,
+  error,
+  handleToggleSubscription,
+  following,
+}) => (
   <SafeAreaView style={styles.safe}>
     <View style={styles.container}>
       {
@@ -96,13 +102,17 @@ export const TeacherProfileScreen = ({ searching, data, error }) => (
         !searching
         && !error
         && data
-        && <TeacherView data={data} />
+        && <TeacherView
+          data={data}
+          handleToggleSubscription={handleToggleSubscription}
+          following={following}
+        />
       }
     </View>
   </SafeAreaView>
 );
 
-const TeacherView = ({ data }) => (
+const TeacherView = ({ data, handleToggleSubscription, following }) => (
   <View>
     <View>
       <View style={styles.header}>
@@ -120,6 +130,13 @@ const TeacherView = ({ data }) => (
           />
           <Text style={styles.emailText}> {data.email} </Text>
         </View>
+        <Icon
+          name={following ? 'user-times' : 'user-plus'}
+          type='font-awesome'
+          raised
+          color={following ? colors.red : colors.blue}
+          onPress={() => handleToggleSubscription()}
+        />
       </View>
     </View>
     {
@@ -135,7 +152,6 @@ const TeacherView = ({ data }) => (
 const TeacherSchedule = ({ schedule }) => {
   const sortSchedule = sortByDate(schedule);
   const next = sortSchedule.shift();
-
   if (!next) return (<EmptyList title={Translate.t('teacher.profile.noTutorships')} />);
 
   return (

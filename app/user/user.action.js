@@ -44,12 +44,12 @@ export const fetchProfile = uid => async (dispatch) => {
   }
 };
 
-export const editProfile = (uid, profile) => async (dispatch) => {
+export const editProfile = profile => async (dispatch) => {
   try {
     dispatch({
       type: START_EDITING_PROFILE,
     });
-    await editProfile(uid, profile);
+    await editProfileOnFirebase(profile);
     return dispatch({
       type: SUCCESS_EDITING_PROFILE,
       payload: profile,
@@ -67,20 +67,19 @@ export const addNewSub = (subsType, data) => async (dispatch) => {
     dispatch({
       type: START_NEW_SUBSCRIPTION,
     });
-    await addSubscriptionOnFirebase(subsType, data);
-    let type;
-
-    if (type === 'subjects') type = SUCCESS_NEW_SUBSCRIPTION_SUBJECTS;
-    else if (type === 'teachers') type = SUCCESS_NEW_SUBSCRIPTION_TEACHERS;
+    let actionType;
+    if (subsType === 'subjects') actionType = SUCCESS_NEW_SUBSCRIPTION_SUBJECTS;
+    else if (subsType === 'teachers') actionType = SUCCESS_NEW_SUBSCRIPTION_TEACHERS;
     else {
       return dispatch({
         type: ERROR_NEW_SUBSCRIPTION,
         payload: 'Invalid subscription type',
       });
     }
+    await addSubscriptionOnFirebase(subsType, data);
 
     return dispatch({
-      type,
+      type: actionType,
       payload: data,
     });
   } catch (error) {
@@ -96,18 +95,18 @@ export const deleteSubscription = (subsType, key) => async (dispatch) => {
     dispatch({
       type: START_DELETING_SUBSCRIPTION,
     });
-    await deleteSubscriptionOnFirebase(subsType, key);
-    let type;
-    if (type === 'subjects') type = SUCCESS_NEW_SUBSCRIPTION_SUBJECTS;
-    else if (type === 'teachers') type = SUCCESS_NEW_SUBSCRIPTION_TEACHERS;
+    let actionType;
+    if (subsType === 'subjects') actionType = SUCCESS_DELETING_SUBSCRIPTION_SUBJECTS;
+    else if (subsType === 'teachers') actionType = SUCCESS_DELETING_SUBSCRIPTION_TEACHERS;
     else {
       return dispatch({
         type: ERROR_DELETING_SUBSCRIPTION,
         payload: 'Invalid subscription type',
       });
     }
+    await deleteSubscriptionOnFirebase(subsType, key);
     return dispatch({
-      type,
+      type: actionType,
       payload: key,
     });
   } catch (error) {

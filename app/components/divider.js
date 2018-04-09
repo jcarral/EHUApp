@@ -38,3 +38,8 @@ export const CategoryDivider = ({
   </View>
 );
 
+export const SectionDivider = ({ text }) => (
+  <View>
+    <Text>{text}</Text>
+  </View>
+);

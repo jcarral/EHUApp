@@ -1,9 +1,17 @@
 export const en = {
   auth: {
+    resetTitle: 'Reset password',
+    resetSub: 'Send an email to reset the password',
+    btnReset: 'Reset password',
+    resetPlaceholder: 'Email',
     login: {
       loginBtn: 'Login',
+      signUpBtn: 'SignUp',
       email: 'Email',
       password: 'Password',
+      resetPassword: 'Forgot your password? Click here!',
+      alertTitle: 'Error, login :(',
+      alertMssg: 'You must verify your email',
     },
     signup: {
       confirmBtn: 'Confirm register',
@@ -69,6 +77,11 @@ export const en = {
     languageTitle: 'Change your language',
   },
   user: {
+    btnPassword: 'Change your password',
+    btnLogout: 'Logout',
+    btnSubs: 'View subscriptions',
+    btnEdit: 'Edit profile',
+    logoutAlert: 'Are you sure?',
     password: {
       current: 'Current password',
       new: 'New password',
@@ -78,6 +91,25 @@ export const en = {
       alertShortPassword: 'Sorry, the password is too short',
       alertWrongPassword: 'Sorry, the old password is wrong',
       alertTitle: 'Opps, error updating',
+      title: 'Reset your password?',
+    },
+    edit: {
+      male: 'Male',
+      female: 'Female',
+      other: 'Other',
+      title: 'Edit your profile',
+      passwordBtn: 'Change your password',
+      saveBtn: 'Save changes !',
+      displayName: 'User\'s name and surname',
+      placeholderDate: 'Select date',
+      confirmDate: 'Ok',
+      cancelDate: 'Cancel',
+      displayNameLabel: 'User\'s name and surname',
+      dateLabel: 'Enter your birthdate',
+      genderLabel: 'Select your gender',
+    },
+    subs: {
+      emptyList: 'There are not subscriptions :(',
     },
   },
 };
