@@ -94,7 +94,6 @@ export const getProfileFromFirebase = async (uid) => {
   const {
     data, teachers, subjects, grade,
   } = (await profileRef.once('value')).val();
-  console.log(data, teachers, subjects, grade);
   return {
     data,
     teachers: teachers || {},
@@ -104,7 +103,6 @@ export const getProfileFromFirebase = async (uid) => {
 };
 
 export const editProfileOnFirebase = async (profile) => {
-  console.log(profile)
   if (firebase.auth().currentUser === null) throw new Error('You must be logged in');
   const { uid } = firebase.auth().currentUser;
   const ref = firebase.database().ref('users').child(uid).child('data');

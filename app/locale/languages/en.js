@@ -108,6 +108,9 @@ export const en = {
       dateLabel: 'Enter your birthdate',
       genderLabel: 'Select your gender',
     },
+    subs: {
+      emptyList: 'There are not subscriptions :(',
+    },
   },
 };
 

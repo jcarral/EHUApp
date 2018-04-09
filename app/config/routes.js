@@ -29,6 +29,7 @@ import {
   UserProfile,
   UserEdit,
   UserPassword,
+  UserSubscriptions,
 } from '../user';
 
 import { LanguagesSettings } from '../settings';
@@ -79,10 +80,44 @@ const HomeStackNavigator = StackNavigator({
   headerMode: 'screen',
 });
 
+const ProfileStackNavigator = StackNavigator({
+  UserProfile: {
+    screen: UserProfile,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Languages: {
+    screen: LanguagesSettings,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  UserEdit: {
+    screen: UserEdit,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  UserPassword: {
+    screen: UserPassword,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  UserSubscriptions: {
+    screen: UserSubscriptions,
+    navigationOptions: {
+      header: null,
+    },
+  },
+});
+
+
 const AdminNavigator = TabNavigator(
   {
     Home: {
-      screen: HomeStackNavigator,
+      screen: ProfileStackNavigator,
       navigationOptions: {
         header: null,
         tabBarIcon: ({ tintColor }) => (
@@ -124,37 +159,10 @@ const AdminNavigator = TabNavigator(
   },
 );
 
-const ProfileStackNavigator = StackNavigator({
-  UserProfile: {
-    screen: UserProfile,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  Languages: {
-    screen: LanguagesSettings,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  UserEdit: {
-    screen: UserEdit,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  UserPassword: {
-    screen: UserPassword,
-    navigationOptions: {
-      header: null,
-    },
-  },
-});
-
 const UserNavigator = TabNavigator(
   {
     Home: {
-      screen: HomeStackNavigator,
+      screen: ProfileStackNavigator,
       navigationOptions: {
         header: null,
         tabBarIcon: ({ tintColor }) => (

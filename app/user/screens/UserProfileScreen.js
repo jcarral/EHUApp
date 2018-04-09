@@ -72,8 +72,8 @@ export const UserProfileScreen = ({
           <Image source={avatar} style={[styles.avatar]} />
           <Text style={[styles.username]}> {user.displayName} </Text>
         </View>
-        <View style={[styles.bottomContainer]}> 
-          <TouchableHighlight style={[styles.btn]}>
+        <View style={[styles.bottomContainer]}>
+          <TouchableHighlight style={[styles.btn]} onPress={() => handleNavigation('UserSubscriptions')}>
             <View>
               <Icon name='graduation-cap' type='font-awesome' iconStyle={{ color: colors.green, fontSize: 40 }} />
               <Text style={[styles.btnText]}> {Translate.t('user.btnSubs')} </Text>
@@ -93,7 +93,7 @@ export const UserProfileScreen = ({
         iconRight={{ name: 'sign-out', type: 'font-awesome', color: colors.red }}
         textStyle={{ color: colors.red }}
         buttonStyle={[styles.btnLogout]}
-        />
+      />
     </SafeAreaView>
   );
 };

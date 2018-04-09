@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList, Animated, Dimensions } from 'react-native';
-import { ButtonGroup, List, ListItem } from 'react-native-elements';
+import { ButtonGroup, List, ListItem, Icon } from 'react-native-elements';
 
 import { CategoryDivider } from '../../components';
 import { colors } from '../../config';
@@ -63,7 +63,15 @@ const styles = StyleSheet.create({
 });
 
 export const SubjectProfileScreen = ({
-  subject, searching, error, changeTab, selectedIndex, goToPath, buttons,
+  subject,
+  searching,
+  error,
+  changeTab,
+  selectedIndex,
+  goToPath,
+  buttons,
+  handleToggleSubscription,
+  following,
 }) => (
   <SafeAreaView style={styles.safe}>
     <View style={styles.container}>
@@ -82,6 +90,8 @@ export const SubjectProfileScreen = ({
           selectedIndex={selectedIndex}
           goToPath={goToPath}
           buttons={buttons}
+          handleToggleSubscription={handleToggleSubscription}
+          following={following}
         />
       }
     </View>
@@ -89,7 +99,13 @@ export const SubjectProfileScreen = ({
 );
 
 const SubjectView = ({
-  subject, changeTab, selectedIndex, goToPath, buttons,
+  subject,
+  changeTab,
+  selectedIndex,
+  goToPath,
+  buttons,
+  handleToggleSubscription,
+  following,
 }) => (
   <View>
     <View style={styles.header}>
@@ -98,6 +114,13 @@ const SubjectView = ({
         <Text style={styles.subtitle}>{subject.detail.grade || ''}</Text>
         <Text style={styles.subtitle}>{subject.detail.course || ''}</Text>
       </View>
+      <Icon
+        name={following ? 'user-times' : 'user-plus'}
+        type='font-awesome'
+        raised
+        color={following ? colors.red : colors.blue}
+        onPress={() => handleToggleSubscription()}
+      />
     </View>
     <ButtonGroup buttons={buttons} onPress={changeTab} selectedIndex={selectedIndex} />
     {

@@ -28,7 +28,6 @@ const defaultState = {
 };
 
 export const userReducer = (state = defaultState, action) => {
-  
   switch (action.type) {
     case START_FETCHING_PROFILE:
     case START_NEW_SUBSCRIPTION:
@@ -61,23 +60,28 @@ export const userReducer = (state = defaultState, action) => {
         error: '',
       };
     case SUCCESS_NEW_SUBSCRIPTION_TEACHERS:
+      const nextTeacher = Object.assign({}, state.teachers, action.payload);
       return {
         ...state,
-        teachers: Object.assign({}, state.teachers, action.payload),
+        teachers: nextTeacher,
         fetching: false,
         error: '',
       };
     case SUCCESS_DELETING_SUBSCRIPTION_SUBJECTS:
+      const tmpStateSubjects = Object.assign({}, state);
+      delete tmpStateSubjects[action.payload];
       return {
         ...state,
-        subjects: Object.assign({}, delete state.subjects[action.payload]),
+        subjects: tmpStateSubjects,
         fetching: false,
         error: '',
       };
     case SUCCESS_DELETING_SUBSCRIPTION_TEACHERS:
+      const tmpStateTeachers = Object.assign({}, state);
+      delete tmpStateTeachers[action.payload];
       return {
         ...state,
-        teachers: Object.assign({}, delete state.teachers[action.payload]),
+        teachers: tmpStateTeachers,
         fetching: false,
         error: '',
       };

@@ -9,8 +9,8 @@ const customDateToDate = (date) => {
   }
 };
 
-export const sortByDate = (dates) => {
-  dates = dates.map((obj) => {
+export const sortByDate = (inDates) => {
+  let dates = inDates.map((obj) => {
     obj['date-start'] = customDateToDate(obj['date-start']);
     obj['date-end'] = customDateToDate(obj['date-end']);
     return obj;
