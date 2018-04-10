@@ -37,8 +37,8 @@ export const EmptyList = ({ title = EMPTY_ITEM }) => (
 );
 
 export const SectionListHeader = ({ children, containerStyle = [], textStyle = [] }) => (
-  <View style={containerStyle.concat([styles.listHeader])}>
-    <Text style={textStyle.concat([styles.listHeaderText])}> { children.toUpperCase() } </Text>
+  <View style={[styles.listHeader].concat(containerStyle)}>
+    <Text style={[styles.listHeaderText].concat(textStyle)}> { children.toUpperCase() } </Text>
   </View>
 );
 

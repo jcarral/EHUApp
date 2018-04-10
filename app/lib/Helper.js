@@ -18,4 +18,9 @@ export class Helper {
     }
   }
   static hasProperty = (object, prop) => Object.keys(object).includes(prop);
+  static hasProperties = (object = {}, props = []) => {
+    const keys = Object.keys(object);
+    return props.reduce((included, num) => included && keys.includes(num), true);
+  }
+  static isNaN = x => typeof x === 'number';
 }

@@ -66,7 +66,6 @@ const changeToGrades = async (text, newTab, dispatch, getState) => {
 
 export const search = (text, index) => (dispatch, getState) => {
   const selectedIndex = index || getState().search.selectedIndex;
-console.log('lll', selectedIndex)
   switch (selectedIndex) {
     case 0:
       return changeToGrades(text, selectedIndex, dispatch, getState);

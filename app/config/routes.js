@@ -33,7 +33,11 @@ import {
 } from '../user';
 
 import { LanguagesSettings } from '../settings';
-import { AdminPage, AdminCalendar } from '../admin';
+import {
+  AdminPage,
+  AdminCalendar,
+  AdminDatesList,
+} from '../admin';
 
 const sharedRoutes = {
   SubjectProfile: {
@@ -126,6 +130,9 @@ const AdminStackNavigator = StackNavigator({
     navigationOptions: {
       header: null,
     },
+  },
+  AdminDatesList: {
+    screen: AdminDatesList,
   },
 });
 

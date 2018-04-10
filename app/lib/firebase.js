@@ -141,3 +141,23 @@ export const getCalendarFromFirebase = async (path) => {
   const calendarSnap = await ref.once('value');
   return calendarSnap.val();
 };
+
+export const addDateOnFirebase = async (date, name, type) => {
+  const ref = firebase.database()
+    .ref('ehu')
+    .child('calendars')
+    .child(name)
+    .child(type);
+  const { key } = ref.push();
+  await ref.child(key).set(date);
+  return key;
+};
+
+export const deleteDateFromFirebase = async (calendar, type, id) =>
+  firebase.database()
+    .ref('ehu')
+    .child('calendars')
+    .child(calendar)
+    .child(type)
+    .child(id)
+    .remove();

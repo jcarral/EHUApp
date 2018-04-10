@@ -118,7 +118,19 @@ export const en = {
       editCalendar: 'Edit calendar',
       header: 'Calendar',
       labelDrop: 'Select type of calendar',
-    }
-  }
+      goToList: 'Go to list with dates',
+      holidayLabel: 'Holiday name:',
+      holidayPlaceholder: 'Holiday name',
+      weekStartLabel: 'Number of the week:',
+      weekStartPlaceholder: 'Number of the week',
+      tabHoliday: 'Holiday',
+      tabWeek: 'Week number',
+      formLabel: 'Select type of date:',
+      listTitle: 'View dates of',
+      defaultHoliday: 'Holiday',
+      weekStartListTitle: 'Week number',
+      lisAlert: 'Deleting date. Are you sure?',
+    },
+  },
 };
 
