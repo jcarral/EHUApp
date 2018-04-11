@@ -39,6 +39,9 @@ const selectColor = (key) => {
 const flatten = arr =>
   arr.reduce((acc, next) => acc.concat(Array.isArray(next) ? flatten(next) : next), []);
 
+const getHour = date => date.split('T')[1];
+const getDay = date => date.split('T')[0];
+
 export class Dates {
   static calendarToDate = calendar =>
     new Date(calendar.year, calendar.month, calendar.day, calendar.hour, calendar.minutes);
@@ -82,6 +85,24 @@ export class Dates {
     });
     const flattenList = Object.assign({}, ...calendarsByType);
     return flattenList;
+  };
+  static scheduleToCalendar = (schedule = []) => {
+    const calendar = {};
+    schedule.forEach((item) => {
+      const day = getDay(item['date-start']);
+      const tutorship = {
+        start: getHour(item['date-start']),
+        end: getHour(item['date-end']),
+        day,
+      };
+      if (Helper.hasProperty(calendar, day)) {
+        calendar[day] = [...calendar[day], tutorship];
+      } else {
+        calendar[day] = [tutorship];
+      }
+    });
+    console.log(calendar);
+    return calendar;
   };
 }
 

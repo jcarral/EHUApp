@@ -68,7 +68,7 @@ export const en = {
   },
   teacher: {
     profile: {
-      noTutorships: 'There are no scheduled tutorships',
+      noTutorships: 'No tutoships for this day :(',
       noMore: 'No more tutorships',
       nextTutorship: 'Next tutorship',
     },
