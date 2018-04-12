@@ -98,7 +98,7 @@ const mapStateToProps = (state, action) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchCalendarAction: () => dispatch(fetchCalendar()),
-  searchGradesAction: () => dispatch(search('Gr', 0)),
+  searchGradesAction: () => dispatch(search('Gra', 0)),
   fetchGradeCalendarAction: code => dispatch(fetchGradeCalendar(code)),
   addDateToCalendarAction: (date, code, type) => dispatch(addDateToCalendar(date, code, type)),
 });

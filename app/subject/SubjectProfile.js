@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SubjectProfileScreen } from './screens';
+import Modal from 'react-native-modal';
+import { SubjectProfileScreen, SubscribeModal } from './screens';
 import { getSubject } from './subject.action';
 import { startSearching } from '../teacher';
 import { Translate } from '../lib';
@@ -13,6 +14,8 @@ class SubjectProfileContainer extends Component {
       selectedIndex: 0,
       following: false,
       subjectCode: '',
+      isVisible: false,
+      selectedGroup: null,
     };
   }
 
@@ -25,10 +28,10 @@ class SubjectProfileContainer extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const { userSubjects = {} } = nextProps;
+    const { userSubjects = {}, subject } = nextProps;
     const { following, subjectCode } = this.state;
-
-    this.setState({ following: Object.keys(userSubjects).includes(subjectCode) });
+    const selectedGroup = subject.schedule.groups[0].code || '';
+    this.setState({ following: Object.keys(userSubjects).includes(subjectCode), selectedGroup });
   }
 
 
@@ -53,34 +56,69 @@ class SubjectProfileContainer extends Component {
       deleteSubscriptionAction,
       subject,
     } = this.props;
-    const { following, subjectCode } = this.state;
+    const {
+      following,
+      subjectCode,
+      selectedGroup,
+    } = this.state;
     const tmpSub = {};
     if (!following) {
-      tmpSub[subjectCode] = (subject.detail) ? subject.detail.name : '';
+      const name = (subject.detail) ? subject.detail.name : '';
+      tmpSub[subjectCode] = {
+        name,
+        group: selectedGroup,
+      };
       await addNewSubAction('subjects', tmpSub);
+      this.handleToggleModal();
     } else {
       await deleteSubscriptionAction('subjects', subjectCode);
     }
   }
 
+  handleToggleModal = () => {
+    this.setState({ isVisible: !this.state.isVisible });
+  }
+
+  handleChangeGroup = (group) => {
+    this.setState({ selectedGroup: group });
+  }
+
   render() {
-    const { following } = this.state;
+    const {
+      following,
+      isVisible,
+      selectedGroup,
+    } = this.state;
     const buttons = [
       Translate.t('subject.profile.summary'),
       Translate.t('subject.profile.detail'),
       Translate.t('subject.profile.schedule'),
     ];
-    return (<SubjectProfileScreen
-      searching={this.props.searching}
-      error={this.props.error}
-      subject={this.props.subject}
-      selectedIndex={this.state.selectedIndex}
-      changeTab={this.changeTab}
-      goToPath={this.goToPath}
-      buttons={buttons}
-      handleToggleSubscription={this.handleToggleSubscription}
-      following={following}
-    />);
+    let groups = (this.props.subject.schedule) ? this.props.subject.schedule.groups : [];
+    groups = groups.map(group => ({ value: group.code, name: group.code }));
+    return (
+      <SubjectProfileScreen
+        searching={this.props.searching}
+        error={this.props.error}
+        subject={this.props.subject}
+        selectedIndex={this.state.selectedIndex}
+        changeTab={this.changeTab}
+        goToPath={this.goToPath}
+        buttons={buttons}
+        handleToggleModal={(following) ? this.handleToggleSubscription : this.handleToggleModal}
+        following={following}
+      >
+        <Modal isVisible={isVisible && groups.length > 0}>
+          <SubscribeModal
+            handleToggleSubscription={this.handleToggleSubscription}
+            handleToggleModal={this.handleToggleModal}
+            groups={groups}
+            selectedGroup={selectedGroup}
+            handleChange={this.handleChangeGroup}
+          />
+        </Modal>
+      </SubjectProfileScreen>
+    );
   }
 }
 

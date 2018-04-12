@@ -39,6 +39,7 @@
     "react-native-firebase": "^3.2.4",
     "react-native-i18n": "^2.0.11",
     "react-native-material-dropdown": "^0.11.1",
+    "react-native-modal": "^5.4.0",
     "react-native-read-more-text": "^1.0.0",
     "react-navigation": "^1.0.0-beta.27",
     "react-redux": "^5.0.6",

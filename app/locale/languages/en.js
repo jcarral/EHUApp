@@ -64,6 +64,9 @@ export const en = {
       biblio: 'Bibliography',
       info: 'Info',
       eval: 'Evaluation',
+      modalTitle: 'Select subject group',
+      modalConfirm: 'Confirm',
+      modalCancel: 'Cancel',
     },
   },
   teacher: {

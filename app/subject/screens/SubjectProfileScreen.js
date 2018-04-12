@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList, Animated, Dimensions } from 'react-native';
-import { ButtonGroup, List, ListItem, Icon } from 'react-native-elements';
+import { ScrollView, View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList, Animated, Dimensions, TouchableOpacity } from 'react-native';
+import { ButtonGroup, List, ListItem, Icon, Button } from 'react-native-elements';
+import { Dropdown } from 'react-native-material-dropdown';
 
 import { CategoryDivider } from '../../components';
 import { colors } from '../../config';
@@ -60,6 +61,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.darkGrey,
   },
+  modalContainer: {
+    backgroundColor: colors.white,
+    padding: 10,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  modalBtn: {
+    flex: 1,
+  },
 });
 
 export const SubjectProfileScreen = ({
@@ -70,8 +84,9 @@ export const SubjectProfileScreen = ({
   selectedIndex,
   goToPath,
   buttons,
-  handleToggleSubscription,
+  handleToggleModal,
   following,
+  children,
 }) => (
   <SafeAreaView style={styles.safe}>
     <View style={styles.container}>
@@ -90,11 +105,12 @@ export const SubjectProfileScreen = ({
           selectedIndex={selectedIndex}
           goToPath={goToPath}
           buttons={buttons}
-          handleToggleSubscription={handleToggleSubscription}
+          handleToggleModal={handleToggleModal}
           following={following}
         />
       }
     </View>
+    { children }
   </SafeAreaView>
 );
 
@@ -104,7 +120,7 @@ const SubjectView = ({
   selectedIndex,
   goToPath,
   buttons,
-  handleToggleSubscription,
+  handleToggleModal,
   following,
 }) => (
   <View>
@@ -119,7 +135,7 @@ const SubjectView = ({
         type='font-awesome'
         raised
         color={following ? colors.red : colors.blue}
-        onPress={() => handleToggleSubscription()}
+        onPress={() => handleToggleModal()}
       />
     </View>
     <ButtonGroup buttons={buttons} onPress={changeTab} selectedIndex={selectedIndex} />
@@ -198,3 +214,34 @@ const SubjectDetail = ({ subject, accordionIndex }) => (
 );
 
 const addNewLine = text => text.replace('. ', '.\n');
+
+export const SubscribeModal = ({
+  groups,
+  selectedGroup,
+  handleChange,
+  handleToggleSubscription,
+  handleToggleModal,
+}) => (
+  <View style={[styles.modalContainer]}>
+    <Dropdown
+      label={Translate.t('subject.profile.modalTitle')}
+      data={groups}
+      value={selectedGroup}
+      onChangeText={e => handleChange(e)}
+    />
+    <View style={[styles.modalButtons]}>
+      <Button
+        title={Translate.t('subject.profile.modalConfirm')}
+        onPress={handleToggleSubscription}
+        buttonStyle={[{ backgroundColor: colors.blue }]}
+        containerViewStyle={[styles.modalBtn]}
+      />
+      <Button
+        title={Translate.t('subject.profile.modalCancel')}
+        onPress={handleToggleModal}
+        buttonStyle={[{ backgroundColor: colors.red }]}
+        containerViewStyle={[styles.modalBtn]}
+      />
+    </View>
+  </View>
+);

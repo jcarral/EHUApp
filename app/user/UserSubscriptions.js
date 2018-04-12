@@ -24,7 +24,7 @@ class UserSubscriptionContainer extends Component {
 
   updateDataSource = (props) => {
     const { subjects = {}, teachers = {} } = props;
-    const subjectsList = Object.keys(subjects).map(key => ({ name: subjects[key], type: 'subject', key }));
+    const subjectsList = Object.keys(subjects).map(key => ({ name: subjects[key].name, type: 'subject', key }));
     const teachersList = Object.keys(teachers).map(key => ({ name: teachers[key], type: 'teacher', key }));
     const categoryMap = {
       subjects: subjectsList,

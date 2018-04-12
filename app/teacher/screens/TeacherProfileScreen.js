@@ -186,15 +186,15 @@ const TeacherView = ({ data, handleToggleSubscription, following }) => (
 );
 
 const CalendarRow = ({ item }) => (
-    <View style={[styles.row]}>
-      <View style={[styles.rowSpace]} />
-      <View style={[styles.rowContainer]}>
-        <Text style={[styles.rowTextTitle]}> {item.start} - {item.end} </Text>
-        <Text style={[styles.rowTextSubTitle]}> {item.day} </Text>
-      </View>
-      <View style={[styles.rowEnd]} />
+  <View style={[styles.row]}>
+    <View style={[styles.rowSpace]} />
+    <View style={[styles.rowContainer]}>
+      <Text style={[styles.rowTextTitle]}> {item.start} - {item.end} </Text>
+      <Text style={[styles.rowTextSubTitle]}> {item.day} </Text>
     </View>
-  );
+    <View style={[styles.rowEnd]} />
+  </View>
+);
 
 const EmptyData = () => (
   <View style={[styles.empty]}>
