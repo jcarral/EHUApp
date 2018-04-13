@@ -5,3 +5,5 @@ export * from './dates';
 export * from './Helper';
 export * from './Translate';
 export * from './Text';
+export * from './calendar';
+export * from './Color';

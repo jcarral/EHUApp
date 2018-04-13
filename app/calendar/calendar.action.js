@@ -9,13 +9,17 @@ import {
   ERROR_DELETE_DATE,
   START_DELETE_DATE,
   SUCCESS_DELETE_DATE,
+  ERROR_LOAD_SCHEDULE,
+  START_LOAD_SCHEDULE,
+  SUCCESS_LOAD_SCHEDULE,
 } from './calendar.types';
 import {
   getCalendarFromFirebase,
   addDateOnFirebase,
   deleteDateFromFirebase,
+  getSubjectSchedulesFromFirebase,
 } from '../lib/firebase';
-import { Dates } from '../lib';
+import { Dates, Helper } from '../lib';
 
 export const fetchCalendar = () => async (dispatch) => {
   try {
@@ -102,6 +106,29 @@ export const deleteDate = (calendar, type, id) => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: ERROR_DELETE_DATE,
+      payload: e,
+    });
+  }
+};
+
+export const fetchSchedules = list => async (dispatch) => {
+  try {
+    const random = Math.random();
+    dispatch({
+      type: START_LOAD_SCHEDULE,
+      payload: list,
+    });
+    const schedules = await getSubjectSchedulesFromFirebase(list);
+    dispatch({
+      type: SUCCESS_LOAD_SCHEDULE,
+      payload: {
+        schedules,
+        codes: Helper.unique(list.map(sub => sub.code)),
+      },
+    });
+  } catch (e) {
+    dispatch({
+      type: ERROR_LOAD_SCHEDULE,
       payload: e,
     });
   }

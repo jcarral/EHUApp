@@ -9,12 +9,18 @@ import {
   START_DELETE_DATE,
   ERROR_DELETE_DATE,
   SUCCESS_DELETE_DATE,
+  START_LOAD_SCHEDULE,
+  SUCCESS_LOAD_SCHEDULE,
+  ERROR_LOAD_SCHEDULE,
 } from './calendar.types';
+import { Helper } from '../lib';
 
 const defaultState = {
   ehu: {},
   grades: {},
   loadedCalendars: [],
+  loadedSchedules: [],
+  schedules: {},
   fetching: false,
   error: null,
 };
@@ -40,10 +46,19 @@ export const calendarReducer = (state = defaultState, action) => {
     case START_FETCH_CALENDAR:
     case START_ADD_DATE:
     case START_DELETE_DATE:
+    case START_LOAD_SCHEDULE:
       return {
         ...state,
         fetching: true,
         error: null,
+      };
+    case SUCCESS_LOAD_SCHEDULE:
+      return {
+        ...state,
+        fetching: false,
+        error: null,
+        schedules: Object.assign({}, state.schedules, action.payload.schedules),
+        loadedSchedules: Helper.unique([...state.loadedSchedules, ...action.payload.codes]),
       };
     case SUCCESS_FETCH_CALENDAR:
       return {
@@ -104,6 +119,7 @@ export const calendarReducer = (state = defaultState, action) => {
         error: null,
         grades: Object.assign({}, state.grades, tmpDeleteGrade),
       };
+    case ERROR_LOAD_SCHEDULE:
     case ERROR_DELETE_DATE:
     case ERROR_FETCH_CALENDAR:
     case ERROR_ADD_DATE:

@@ -2,8 +2,10 @@ import React from 'react';
 import { ScrollView, View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList, Animated, Dimensions, TouchableOpacity } from 'react-native';
 import { ButtonGroup, List, ListItem, Icon, Button } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
+import { Agenda } from 'react-native-calendars';
 
 import { CategoryDivider } from '../../components';
+import { DayItem } from '../../calendar';
 import { colors } from '../../config';
 import { Translate } from '../../lib';
 
@@ -87,6 +89,8 @@ export const SubjectProfileScreen = ({
   handleToggleModal,
   following,
   children,
+  dates = {},
+  generateCalendar,
 }) => (
   <SafeAreaView style={styles.safe}>
     <View style={styles.container}>
@@ -111,9 +115,29 @@ export const SubjectProfileScreen = ({
       }
     </View>
     { children }
+    {
+      selectedIndex === 2
+      && <Agenda
+        items={dates}
+        renderItem={(item, firstItemInDay) => ((<DayItem day={item} />))}
+        renderEmptyDate={() => <View />}
+        rowHasChanged={(r1, r2) => r1.start !== r2.start}
+        renderEmptyData={() => <EmptyData generateCalendar={generateCalendar} />}
+      />
+    }
   </SafeAreaView>
 );
 
+const EmptyData = ({ generateCalendar }) => (
+  <View style={[styles.empty]}>
+    <Text h4> {Translate.t('calendar.empty')} </Text>
+    <Icon
+      name='loop'
+      raised
+      onPress={() => generateCalendar()}
+    />
+  </View>
+);
 const SubjectView = ({
   subject,
   changeTab,
@@ -147,6 +171,7 @@ const SubjectView = ({
       selectedIndex === 1
       && <SubjectDetail subject={subject} />
     }
+    
   </View>
 );
 

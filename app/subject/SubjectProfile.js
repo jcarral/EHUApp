@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import { SubjectProfileScreen, SubscribeModal } from './screens';
 import { getSubject } from './subject.action';
+import { fetchGradeCalendar } from '../calendar';
 import { startSearching } from '../teacher';
-import { Translate } from '../lib';
+import { Translate, Calendar } from '../lib';
 import { addNewSub, deleteSubscription } from '../user';
 
 class SubjectProfileContainer extends Component {
@@ -16,15 +17,17 @@ class SubjectProfileContainer extends Component {
       subjectCode: '',
       isVisible: false,
       selectedGroup: null,
+      dates: {},
     };
   }
 
   componentWillMount = () => {
     const { params } = this.props.navigation.state;
-    const { getSubjectAction } = this.props;
+    const { getSubjectAction, fetchGradeCalendarAction } = this.props;
     const subjectCode = `${params.params.code}_${params.params.grade}`;
     this.setState({ subjectCode });
     getSubjectAction(params.params);
+    fetchGradeCalendarAction(subjectCode);
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -83,11 +86,29 @@ class SubjectProfileContainer extends Component {
     this.setState({ selectedGroup: group });
   }
 
+  generateCalendar = () => {
+    const {
+      ehuCalendar,
+      gradesCalendar,
+      subject,
+    } = this.props;
+    const { subjectCode } = this.state;
+    const schedules = {};
+    schedules[subjectCode] = subject.schedule.groups.find(a => a).schedule;
+    const subjects = {};
+    subjects[subjectCode] = {
+      name: subject.detail.name,
+    };
+    const dates = Calendar.createUserSchedule(ehuCalendar, gradesCalendar, schedules, subjects);
+    this.setState({ dates });
+  }
+
   render() {
     const {
       following,
       isVisible,
       selectedGroup,
+      dates,
     } = this.state;
     const buttons = [
       Translate.t('subject.profile.summary'),
@@ -107,6 +128,8 @@ class SubjectProfileContainer extends Component {
         buttons={buttons}
         handleToggleModal={(following) ? this.handleToggleSubscription : this.handleToggleModal}
         following={following}
+        dates={dates}
+        generateCalendar={this.generateCalendar}
       >
         <Modal isVisible={isVisible && groups.length > 0}>
           <SubscribeModal
@@ -127,6 +150,9 @@ const mapStateToProps = (state, action) => ({
   searching: state.subject.searching,
   error: state.subject.error,
   userSubjects: state.profile.subjects,
+  ehuCalendar: state.calendar.ehu,
+  gradesCalendar: state.calendar.grades,
+
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -134,6 +160,7 @@ const mapDispatchToProps = dispatch => ({
   deleteSubscriptionAction: (type, key) => dispatch(deleteSubscription(type, key)),
   startSearchingAction: () => dispatch(startSearching()),
   getSubjectAction: params => dispatch(getSubject(params)),
+  fetchGradeCalendarAction: code => dispatch(fetchGradeCalendar(code)),
 });
 
 export const SubjectProfile = connect(mapStateToProps, mapDispatchToProps)(SubjectProfileContainer);

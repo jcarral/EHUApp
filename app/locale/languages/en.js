@@ -135,5 +135,9 @@ export const en = {
       lisAlert: 'Deleting date. Are you sure?',
     },
   },
+  calendar: {
+    empty: 'The schedule is not available',
+    holiday: 'Holidays',
+  },
 };
 

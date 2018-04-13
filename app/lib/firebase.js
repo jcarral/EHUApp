@@ -161,3 +161,29 @@ export const deleteDateFromFirebase = async (calendar, type, id) =>
     .child(type)
     .child(id)
     .remove();
+
+export const getSubjectScheduleFromFirebase = async (subject, code) => {
+  const ref = firebase.database()
+    .ref('ehu')
+    .child('subjects')
+    .child(subject)
+    .child('schedule')
+    .child('groups')
+    .orderByChild('code')
+    .equalTo(code);
+  const scheduleSnap = await ref.once('value');
+  let schedule = scheduleSnap.val();
+  schedule = (schedule && schedule.length) ? schedule.find(a => a).schedule : {};
+  const tmpSchedule = {};
+  tmpSchedule[subject] = schedule;
+  return tmpSchedule;
+};
+
+export const getSubjectSchedulesFromFirebase = async (list) => {
+  let data = {};
+  for (const subject of list) {
+    const subData = await getSubjectScheduleFromFirebase(subject.code, subject.group);
+    data = Object.assign({}, data, subData);
+  }
+  return data;
+};
