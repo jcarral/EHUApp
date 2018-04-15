@@ -67,6 +67,8 @@ export const en = {
       modalTitle: 'Select subject group',
       modalConfirm: 'Confirm',
       modalCancel: 'Cancel',
+      evaluation: 'Evaluation',
+      description: 'Description',
     },
   },
   teacher: {

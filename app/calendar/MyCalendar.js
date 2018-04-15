@@ -22,7 +22,8 @@ class MyCalendarContainer extends Component {
     // const { loadedCalendars, schedules, loadedSchedules } = nextProps;
 
     // console.log(loadedSchedules, schedules);
-    // console.log('Son iguales', Helper.equalsArray(loadedSchedules, Object.keys(this.props.schedules)));
+    // console.log('Son iguales', Helper.equalsArray(loadedSchedules,
+    // Object.keys(this.props.schedules)));
   }
 
   loadSchedules = async () => {
