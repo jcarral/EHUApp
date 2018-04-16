@@ -1,9 +1,12 @@
 import React from 'react';
-import { ScrollView, View, Text, SafeAreaView, ActivityIndicator, StyleSheet, FlatList, Animated, Dimensions, TouchableOpacity } from 'react-native';
-import { ButtonGroup, List, ListItem, Icon, Button } from 'react-native-elements';
+import { ScrollView, View, SafeAreaView, ActivityIndicator, StyleSheet, FlatList, Animated, Dimensions, TouchableOpacity } from 'react-native';
+import { ButtonGroup, List, Text, ListItem, Icon, Button } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
+import { Agenda } from 'react-native-calendars';
+import Accordion from 'react-native-collapsible/Accordion';
 
 import { CategoryDivider } from '../../components';
+import { DayItem } from '../../calendar';
 import { colors } from '../../config';
 import { Translate } from '../../lib';
 
@@ -74,7 +77,39 @@ const styles = StyleSheet.create({
   modalBtn: {
     flex: 1,
   },
+  empty: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    padding: 10,
+  },
+  contentText: {
+    fontSize: 13,
+  },
 });
+
+const createSectionList = (detail = {}) => {
+  let list = [];
+  if (detail.description) list = [...list, { title: 'description', content: detail.description }];
+  if (detail.competences) list = [...list, { title: 'competences', content: detail.competences }];
+  if (detail['ordinary_announcement']) list = [...list, { title: 'evaluation', content: detail['ordinary_announcement'] }];
+  // if (detail.bibliography) list = [...list, { title: 'bibliography', content: detail.bibliography }];
+  console.log(list);
+  return list;
+};
+
+const renderSectionTitle = section => (<View />);
+
+const renderSectionHeader = section => (
+  <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t(`subject.profile.${section.title}`)} />
+);
+
+const renderSectionContent = section => (
+  <View style={styles.content}>
+    <Text styule={styles.contentText}>{section.content}</Text>
+  </View>
+);
 
 export const SubjectProfileScreen = ({
   subject,
@@ -87,6 +122,8 @@ export const SubjectProfileScreen = ({
   handleToggleModal,
   following,
   children,
+  dates = {},
+  generateCalendar,
 }) => (
   <SafeAreaView style={styles.safe}>
     <View style={styles.container}>
@@ -110,10 +147,31 @@ export const SubjectProfileScreen = ({
         />
       }
     </View>
-    { children }
+    {children}
+    {
+      selectedIndex === 2
+      && <Agenda
+        items={dates}
+        renderItem={(item, firstItemInDay) => ((<DayItem day={item} />))}
+        renderEmptyDate={() => <View />}
+        rowHasChanged={(r1, r2) => r1.start !== r2.start}
+        renderEmptyData={() => <EmptyData generateCalendar={generateCalendar} />}
+        style={{ marginTop: -100 }}
+      />
+    }
   </SafeAreaView>
 );
 
+const EmptyData = ({ generateCalendar }) => (
+  <View style={[styles.empty]}>
+    <Text h4> {Translate.t('calendar.empty')} </Text>
+    <Icon
+      name='loop'
+      raised
+      onPress={() => generateCalendar()}
+    />
+  </View>
+);
 const SubjectView = ({
   subject,
   changeTab,
@@ -147,6 +205,7 @@ const SubjectView = ({
       selectedIndex === 1
       && <SubjectDetail subject={subject} />
     }
+
   </View>
 );
 
@@ -183,9 +242,14 @@ const SubjectSummary = ({ subject, goToPath }) => (
 );
 
 const SubjectDetail = ({ subject, accordionIndex }) => (
-  <View>
-
-    <View>
+  <ScrollView>
+    <Accordion
+      sections={createSectionList(subject.detail)}
+      renderSectionTitle={renderSectionTitle}
+      renderHeader={renderSectionHeader}
+      renderContent={renderSectionContent}
+    />
+    {/* <View>
       <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t('subject.profile.info')} />
       <View>
         <Text>
@@ -208,9 +272,9 @@ const SubjectDetail = ({ subject, accordionIndex }) => (
     <View>
       <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t('subject.profile.biblio')} />
 
-    </View>
+    </View> */}
 
-  </View>
+  </ScrollView>
 );
 
 const addNewLine = text => text.replace('. ', '.\n');
@@ -222,26 +286,26 @@ export const SubscribeModal = ({
   handleToggleSubscription,
   handleToggleModal,
 }) => (
-  <View style={[styles.modalContainer]}>
-    <Dropdown
-      label={Translate.t('subject.profile.modalTitle')}
-      data={groups}
-      value={selectedGroup}
-      onChangeText={e => handleChange(e)}
-    />
-    <View style={[styles.modalButtons]}>
-      <Button
-        title={Translate.t('subject.profile.modalConfirm')}
-        onPress={handleToggleSubscription}
-        buttonStyle={[{ backgroundColor: colors.blue }]}
-        containerViewStyle={[styles.modalBtn]}
+    <View style={[styles.modalContainer]}>
+      <Dropdown
+        label={Translate.t('subject.profile.modalTitle')}
+        data={groups}
+        value={selectedGroup}
+        onChangeText={e => handleChange(e)}
       />
-      <Button
-        title={Translate.t('subject.profile.modalCancel')}
-        onPress={handleToggleModal}
-        buttonStyle={[{ backgroundColor: colors.red }]}
-        containerViewStyle={[styles.modalBtn]}
-      />
+      <View style={[styles.modalButtons]}>
+        <Button
+          title={Translate.t('subject.profile.modalConfirm')}
+          onPress={handleToggleSubscription}
+          buttonStyle={[{ backgroundColor: colors.blue }]}
+          containerViewStyle={[styles.modalBtn]}
+        />
+        <Button
+          title={Translate.t('subject.profile.modalCancel')}
+          onPress={handleToggleModal}
+          buttonStyle={[{ backgroundColor: colors.red }]}
+          containerViewStyle={[styles.modalBtn]}
+        />
+      </View>
     </View>
-  </View>
-);
+  );

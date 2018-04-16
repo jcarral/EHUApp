@@ -39,6 +39,8 @@ import {
   AdminDatesList,
 } from '../admin';
 
+import { MyCalendar } from '../calendar';
+
 const sharedRoutes = {
   SubjectProfile: {
     screen: SubjectProfile,
@@ -136,36 +138,63 @@ const AdminStackNavigator = StackNavigator({
   },
 });
 
+const CalendarStackNavigator = StackNavigator({
+  Calendar: {
+    screen: MyCalendar,
+    navigationOptions: {
+      header: null,
+    },
+  },
+});
+
+const sharedTabs = {
+  Home: {
+    screen: ProfileStackNavigator,
+    navigationOptions: {
+      header: null,
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+          color={tintColor}
+          name="home"
+          size={33}
+        />
+      ),
+    },
+  },
+  Search: {
+    screen: SearchStackNavigator,
+    navigationOptions: {
+      header: null,
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+          color={tintColor}
+          name="search"
+          size={33}
+        />
+      ),
+    },
+  },
+  Calendar: {
+    screen: CalendarStackNavigator,
+    navigationOptions: {
+      header: null,
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+          color={tintColor}
+          name="date-range"
+          size={33}
+        />
+      ),
+    },
+  },
+};
+
 const AdminNavigator = TabNavigator(
   {
-    Home: {
-      screen: ProfileStackNavigator,
-      navigationOptions: {
-        header: null,
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
-            color={tintColor}
-            name="home"
-            size={33}
-          />
-        ),
-      },
-    },
-    Search: {
-      screen: SearchStackNavigator,
-      navigationOptions: {
-        header: null,
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
-            color={tintColor}
-            name="search"
-            size={33}
-          />
-        ),
-      },
-    },
+    ...sharedTabs,
     Admin: {
       screen: AdminStackNavigator,
       navigationOptions: {
@@ -193,54 +222,37 @@ const AdminNavigator = TabNavigator(
         backgroundColor: colors.black,
       },
     },
+    tabBarComponent: ({ jumpToIndex, ...props }) => (
+      <TabBarBottom
+        {...props}
+        jumpToIndex={(index) => {
+          const { dispatch, state } = props.navigation;
+          if (state.index === index && state.routes[index].routes.length > 1) {
+            const stackRouteName = [
+              'UserProfile',
+              'Search',
+              'Calendar',
+              'AdminPage',
+            ][index];
+
+            dispatch(NavigationActions.reset({
+              index: 0,
+              actions: [
+                NavigationActions.navigate({ routeName: stackRouteName }),
+              ],
+            }));
+          } else {
+            jumpToIndex(index);
+          }
+        }}
+      />
+    ),
   },
 );
 
 const UserNavigator = TabNavigator(
   {
-    Home: {
-      screen: ProfileStackNavigator,
-      navigationOptions: {
-        header: null,
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
-            color={tintColor}
-            name="home"
-            size={33}
-          />
-        ),
-      },
-    },
-    Search: {
-      screen: SearchStackNavigator,
-      navigationOptions: {
-        header: null,
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
-            color={tintColor}
-            name="search"
-            size={33}
-          />
-        ),
-      },
-    },
-    Profile: {
-      screen: ProfileStackNavigator,
-      navigationOptions: {
-        header: null,
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            containerStyle={{ justifyContent: 'center', alignItems: 'center' }}
-            color={tintColor}
-            type="font-awesome"
-            name="user"
-            size={33}
-          />
-        ),
-      },
-    },
+    ...sharedTabs,
   },
   {
     tabBarPosition: 'bottom',
@@ -263,7 +275,7 @@ const UserNavigator = TabNavigator(
             const stackRouteName = [
               'UserProfile',
               'Search',
-              'UserProfile',
+              'Calendar',
             ][index];
 
             dispatch(NavigationActions.reset({

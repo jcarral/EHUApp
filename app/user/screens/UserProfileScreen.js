@@ -40,9 +40,7 @@ const styles = StyleSheet.create({
   languageBtn: {
     fontSize: 50,
     textAlign: 'right',
-    color: colors.darkGrey,
     alignSelf: 'flex-end',
-    marginRight: 20,
     marginTop: 20,
   },
   username: {
@@ -51,6 +49,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     color: colors.darkGrey,
+  },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
   },
 });
 
@@ -61,12 +65,22 @@ export const UserProfileScreen = ({
 
   return (
     <SafeAreaView style={[safearea.whitesafe, safearea.container]}>
-      <Icon
-        name='globe'
-        type='font-awesome'
-        iconStyle={[styles.languageBtn]}
-        onPress={() => handleNavigation('Languages')}
-      />
+      <View style={[styles.topContainer]} >
+        <Icon
+          name='sign-out'
+          type='font-awesome'
+          iconStyle={[styles.languageBtn]}
+          onPress={() => handleLogout()}
+          color={colors.red}
+        />
+        <Icon
+          name='globe'
+          type='font-awesome'
+          iconStyle={[styles.languageBtn]}
+          onPress={() => handleNavigation('Languages')}
+          color={colors.lightBlue}
+        />
+      </View>
       <View style={styles.container}>
         <View>
           <Image source={avatar} style={[styles.avatar]} />
@@ -87,13 +101,6 @@ export const UserProfileScreen = ({
           </TouchableHighlight>
         </View>
       </View>
-      <Button
-        title={Translate.t('user.btnLogout')}
-        onPress={() => handleLogout()}
-        iconRight={{ name: 'sign-out', type: 'font-awesome', color: colors.red }}
-        textStyle={{ color: colors.red }}
-        buttonStyle={[styles.btnLogout]}
-      />
     </SafeAreaView>
   );
 };

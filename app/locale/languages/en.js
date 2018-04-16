@@ -67,6 +67,8 @@ export const en = {
       modalTitle: 'Select subject group',
       modalConfirm: 'Confirm',
       modalCancel: 'Cancel',
+      evaluation: 'Evaluation',
+      description: 'Description',
     },
   },
   teacher: {
@@ -134,6 +136,10 @@ export const en = {
       weekStartListTitle: 'Week number',
       lisAlert: 'Deleting date. Are you sure?',
     },
+  },
+  calendar: {
+    empty: 'The schedule is not available',
+    holiday: 'Holidays',
   },
 };
 
