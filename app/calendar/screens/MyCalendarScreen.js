@@ -16,7 +16,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   day: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightGrey,
+    //alignItems: 'center',
+    justifyContent: 'center',
     // borderBottomWidth: 1,
     // borderBottomColor: colors.lightGrey,
   },
@@ -34,6 +36,8 @@ const styles = StyleSheet.create({
   hourContainer: {
     padding: 10,
     borderWidth: 1,
+    borderColor: colors.lightGrey,
+    marginTop: 5,
   },
   empty: {
     flex: 1,
@@ -102,7 +106,7 @@ export const DayItem = ({ day }) => {
                 [
                   {
                     backgroundColor: l.color.background,
-                    borderColor: Color.lighten(l.color.background, -0.1),
+                    // borderColor: Color.lighten(l.color.background, -0.1),
                   },
                  styles.hourContainer,
                 ]
