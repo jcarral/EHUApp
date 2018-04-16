@@ -111,7 +111,7 @@ export const es = {
       confirmDate: 'Ok',
       cancelDate: 'Cancelar',
       displayNameLabel: 'Nombe y apellido',
-      dateLabel: 'Introduce tu cumpleaños,
+      dateLabel: 'Introduce tu cumpleaños',
       genderLabel: 'Selecciona tu genero',
     },
     subs: {
