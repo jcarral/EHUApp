@@ -6,11 +6,11 @@
 
   Si quieres repotar un error, por favor consulta la plantilla en el siguiente enlace:
 
-  https://github.com/jcarral/EHUApp/docs/templates/new?template=BUG_REPORT.md
+  https://github.com/jcarral/EHUApp/issues/new?template=BUG_REPORT.md
 
   Si lo que quieres es proponer una funcionalidad sigue el siguiente link:
   
-  https://github.com/jcarral/EHUApp/docs/templates/new?template=FEATURE_REQUEST.md
+  https://github.com/jcarral/EHUApp/issues/new?template=FEATURE_REQUEST.md
 
   Gracias!
 -->
