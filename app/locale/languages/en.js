@@ -69,6 +69,7 @@ export const en = {
       modalCancel: 'Cancel',
       evaluation: 'Evaluation',
       description: 'Description',
+      bibliography: 'Bibliography',
     },
   },
   teacher: {

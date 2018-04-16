@@ -87,6 +87,12 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 13,
   },
+  biblioRow: {
+    flexDirection: 'row',
+    padding: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.lightGrey,
+  },
 });
 
 const createSectionList = (detail = {}) => {
@@ -104,11 +110,30 @@ const renderSectionHeader = section => (
   <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t(`subject.profile.${section.title}`)} />
 );
 
-const renderSectionContent = section => (
-  <View style={styles.content}>
-    <Text styule={styles.contentText}>{section.content}</Text>
-  </View>
-);
+const renderSectionContent = (section = {}) => {
+  if (typeof section.content === typeof 'string') {
+    return (
+      <View style={styles.content}>
+        <Text styule={styles.contentText}>{section.content}</Text>
+      </View>
+    );
+  } else if (typeof section.content === typeof []) {
+    return (
+      <View style={styles.content}>
+        {
+          section.content.map(item =>
+          (
+            <View style={[styles.biblioRow]}>
+              <Text>{'\u2022'}</Text>
+              <Text styule={styles.contentText}> {item}</Text>
+            </View>
+          ))
+        }
+      </View>
+    );
+  }
+  return (<View />);
+};
 
 export const SubjectProfileScreen = ({
   subject,
