@@ -6,14 +6,12 @@ export const getGrade = grade => async (dispatch) => {
     dispatch({
       type: START_SEARCHING,
     });
-    console.log(grade);
     const result = await getGradeFromFirebase(grade.code, grade.school.code, grade.campus);
     dispatch({
       type: GRADE_FETCH,
       payload: result,
     });
   } catch (err) {
-    console.log(err);
     dispatch({
       type: GRADE_ERROR,
     });

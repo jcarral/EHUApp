@@ -101,7 +101,6 @@ export class Dates {
         calendar[day] = [tutorship];
       }
     });
-    console.log(calendar);
     return calendar;
   };
 }

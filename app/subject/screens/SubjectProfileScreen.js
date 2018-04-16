@@ -94,8 +94,7 @@ const createSectionList = (detail = {}) => {
   if (detail.description) list = [...list, { title: 'description', content: detail.description }];
   if (detail.competences) list = [...list, { title: 'competences', content: detail.competences }];
   if (detail['ordinary_announcement']) list = [...list, { title: 'evaluation', content: detail['ordinary_announcement'] }];
-  // if (detail.bibliography) list = [...list, { title: 'bibliography', content: detail.bibliography }];
-  console.log(list);
+  if (detail.bibliography) list = [...list, { title: 'bibliography', content: detail.bibliography }];
   return list;
 };
 
@@ -249,31 +248,6 @@ const SubjectDetail = ({ subject, accordionIndex }) => (
       renderHeader={renderSectionHeader}
       renderContent={renderSectionContent}
     />
-    {/* <View>
-      <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t('subject.profile.info')} />
-      <View>
-        <Text>
-          Non Lorem elit qui proident ea et nulla enim adipisicing amet eiusmod.
-          Consequat officia nostrud id consectetur magna ad nisi nostrud aliqua elit laborum.
-          Nisi eiusmod nulla labore excepteur eu.
-          Dolore Lorem irure nisi culpa laborum dolor.
-          Lorem ut consectetur Lorem enim elit excepteur.
-        </Text>
-      </View>
-    </View>
-    <View>
-      <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t('subject.profile.competences')} />
-
-    </View>
-    <View>
-      <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t('subject.profile.eval')} />
-
-    </View>
-    <View>
-      <CategoryDivider iconName='keyboard-arrow-down' title={Translate.t('subject.profile.biblio')} />
-
-    </View> */}
-
   </ScrollView>
 );
 
@@ -286,26 +260,26 @@ export const SubscribeModal = ({
   handleToggleSubscription,
   handleToggleModal,
 }) => (
-    <View style={[styles.modalContainer]}>
-      <Dropdown
-        label={Translate.t('subject.profile.modalTitle')}
-        data={groups}
-        value={selectedGroup}
-        onChangeText={e => handleChange(e)}
+  <View style={[styles.modalContainer]}>
+    <Dropdown
+      label={Translate.t('subject.profile.modalTitle')}
+      data={groups}
+      value={selectedGroup}
+      onChangeText={e => handleChange(e)}
+    />
+    <View style={[styles.modalButtons]}>
+      <Button
+        title={Translate.t('subject.profile.modalConfirm')}
+        onPress={handleToggleSubscription}
+        buttonStyle={[{ backgroundColor: colors.blue }]}
+        containerViewStyle={[styles.modalBtn]}
       />
-      <View style={[styles.modalButtons]}>
-        <Button
-          title={Translate.t('subject.profile.modalConfirm')}
-          onPress={handleToggleSubscription}
-          buttonStyle={[{ backgroundColor: colors.blue }]}
-          containerViewStyle={[styles.modalBtn]}
-        />
-        <Button
-          title={Translate.t('subject.profile.modalCancel')}
-          onPress={handleToggleModal}
-          buttonStyle={[{ backgroundColor: colors.red }]}
-          containerViewStyle={[styles.modalBtn]}
-        />
-      </View>
+      <Button
+        title={Translate.t('subject.profile.modalCancel')}
+        onPress={handleToggleModal}
+        buttonStyle={[{ backgroundColor: colors.red }]}
+        containerViewStyle={[styles.modalBtn]}
+      />
     </View>
-  );
+  </View>
+);

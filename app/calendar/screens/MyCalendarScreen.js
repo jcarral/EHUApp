@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   day: {
     backgroundColor: colors.lightGrey,
-    //alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
     // borderBottomWidth: 1,
     // borderBottomColor: colors.lightGrey,

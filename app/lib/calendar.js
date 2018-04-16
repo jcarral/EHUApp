@@ -12,7 +12,6 @@ const createOrAddDate = (weekDate, days, tmp, gap) => {
   const tmpDate = new Date(weekDate.year, weekDate.month - 1, weekDate.day);
   tmpDate.setDate(tmpDate.getDate() + gap);
   const dateString = `${tmpDate.getFullYear()}-${Dates.getStringTime(tmpDate.getUTCMonth() + 1)}-${Dates.getStringTime(tmpDate.getDate())}`;
-  //console.log(dateString, weekDate, gap, tmpDate.getFullYear(), tmpDate.getUTCMonth(), tmpDate.getDate(), tmpDate);
   if (tmp[dateString]) {
     tmp[dateString].hours = tmp[dateString].hours.concat(days.map(day => getEventObject(day)));
   } else {
@@ -69,7 +68,6 @@ export class Calendar {
       // Calendario de una asignatura. Una lista de objetos por semanas
       const schedule = schedules[key];
       // Lista de objetos donde cada uno esta formado por los días con sus horas
-      console.log('aaa', schedule)
       const parsedSchedule = schedule
         .map(weeksRange => getDatesByRange(weeksRange, gradesCalendar[grade].weekStart));
       // Objeto con todos los días juntos y la información añadida,
@@ -121,7 +119,6 @@ export class Calendar {
     try {
       return Calendar.createUserScheduleAux(ehu, gradesCalendar, schedules, subjects);
     } catch (e) {
-      console.warn(e);
       return {};
     }
   }

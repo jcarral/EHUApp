@@ -58,7 +58,6 @@ class UserEditPage extends Component {
       },
     ];
     if (fetching) return (<LoadingScreen />);
-    console.log(this.props)
     return (
       <UserEditScreen
         genders={genders}

@@ -145,7 +145,7 @@ export const TeacherProfileScreen = ({
       <Agenda
         items={parsedSchedule}
         renderItem={(item, first) => <CalendarRow item={item} />}
-        renderEmptyDate={() => <View/>}
+        renderEmptyDate={() => <View />}
         rowHasChanged={(r1, r2) => r1.start !== r2.start}
         renderEmptyData={() => <EmptyData />}
       />
@@ -181,7 +181,7 @@ const TeacherView = ({ data, handleToggleSubscription, following }) => (
           onPress={() => handleToggleSubscription()}
         />
       </View>
-    </View>  
+    </View>
   </View>
 );
 
