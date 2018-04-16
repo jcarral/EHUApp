@@ -12,17 +12,15 @@ export class Translate {
   static getCurrentLocale = async () => {
     const deviceLocale = Translate.getLocale();
     const storageLocale = await AsyncStorage.getItem('locale');
-    console.log('storage locale', storageLocale, deviceLocale)
     return storageLocale || deviceLocale;
   };
 
-  static configureLocale = locale => {
+  static configureLocale = (locale) => {
     I18n.locale = locale;
   };
-  
-  static saveLocale = async locale => {
+
+  static saveLocale = async (locale) => {
     await AsyncStorage.setItem('locale', locale);
     return true;
   };
-
 }
