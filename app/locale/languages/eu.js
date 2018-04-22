@@ -5,12 +5,12 @@ export const eu = {
     btnReset: 'Pasahitza berrezarri',
     resetPlaceholder: 'Emaila',
     login: {
-      loginBtn: 'Sarbidea',
+      loginBtn: 'Sartu',
       signUpBtn: 'Erregistratu',
       email: 'Emaila',
       password: 'Pasahitza',
       resetPassword: 'Pasahitza ahaztu duzu? Klikatu hemen!',
-      alertTitle: 'Error, login :(',
+      alertTitle: 'Errorea sarbidean, login :(',
       alertMssg: 'Zure kontua egiaztatu behar duzu.',
     },
     signup: {
@@ -85,9 +85,9 @@ export const eu = {
   user: {
     btnPassword: 'Pasahitza Aldatu',
     btnLogout: 'Irten',
-    btnSubs: 'Ikusi harpidedunak',
+    btnSubs: 'Harpidedunak ikusi',
     btnEdit: 'Profila aldatu',
-    logoutAlert: ' Ziur aldaketak gorde nahi dituzula?',
+    logoutAlert: 'Ziur aldaketak gorde nahi dituzula ?',
     password: {
       current: 'Egungo pasahitza',
       new: 'Pasahitz berria',
@@ -139,7 +139,7 @@ export const eu = {
     },
   },
   calendar: {
-    empty: 'Ordutegia ez dago eskuragarriEl horario no está disponibles.',
+    empty: 'Ordutegia ez dago eskuragarri.',
     holiday: 'Oporraldia',
   },
 };
