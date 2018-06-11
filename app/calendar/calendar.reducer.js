@@ -2,7 +2,7 @@ import {
   ERROR_FETCH_CALENDAR,
   START_FETCH_CALENDAR,
   SUCCESS_FETCH_CALENDAR,
-  SUCCESS_FETCH_GRADE_CALENDAR,
+  SUCCESS_FETCH_DEGREE_CALENDAR,
   START_ADD_DATE,
   ERROR_ADD_DATE,
   SUCCESS_ADD_DATE,
@@ -67,7 +67,7 @@ export const calendarReducer = (state = defaultState, action) => {
         error: null,
         ehu: action.payload,
       };
-    case SUCCESS_FETCH_GRADE_CALENDAR:
+    case SUCCESS_FETCH_DEGREE_CALENDAR:
       const tmpCalendar = {};
       tmpCalendar[action.payload.name] = action.payload.calendar;
       return {

@@ -1,4 +1,4 @@
-import { GRADE_ERROR, GRADE_FETCH, START_SEARCHING } from './degree.types';
+import { DEGREE_ERROR, DEGREE_FETCH, START_SEARCHING } from './degree.types';
 import { getDegreeFromFirebase } from '../lib';
 
 export const getDegree = degree => async (dispatch) => {
@@ -8,12 +8,12 @@ export const getDegree = degree => async (dispatch) => {
     });
     const result = await getDegreeFromFirebase(degree.code, degree.school.code, degree.campus);
     dispatch({
-      type: GRADE_FETCH,
+      type: DEGREE_FETCH,
       payload: result,
     });
   } catch (err) {
     dispatch({
-      type: GRADE_ERROR,
+      type: DEGREE_ERROR,
     });
   }
 };

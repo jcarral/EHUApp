@@ -2,7 +2,7 @@ import {
   ERROR_FETCH_CALENDAR,
   START_FETCH_CALENDAR,
   SUCCESS_FETCH_CALENDAR,
-  SUCCESS_FETCH_GRADE_CALENDAR,
+  SUCCESS_FETCH_DEGREE_CALENDAR,
   ERROR_ADD_DATE,
   START_ADD_DATE,
   SUCCESS_ADD_DATE,
@@ -46,7 +46,7 @@ export const fetchDegreeCalendar = degree => async (dispatch) => {
     });
     const calendar = await getCalendarFromFirebase(degree) || {};
     dispatch({
-      type: SUCCESS_FETCH_GRADE_CALENDAR,
+      type: SUCCESS_FETCH_DEGREE_CALENDAR,
       payload: {
         calendar,
         name: degree,

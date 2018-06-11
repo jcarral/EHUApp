@@ -6,7 +6,7 @@ import { EmptyList } from '../../components/';
 import { colors } from '../../config';
 import { Translate } from '../../lib';
 
-const T_GRADE = 0;
+const T_DEGREE = 0;
 const T_SUBJECTS = 1;
 const T_TEACHERS = 2;
 
@@ -78,7 +78,7 @@ export const SearchScreen = ({
       }
       {
         !loading
-        && selectedIndex === T_GRADE
+        && selectedIndex === T_DEGREE
         && degrees.length === 0
         && <EmptyList title={Translate.t('search.emptyListDegrees')} />
       }
@@ -96,7 +96,7 @@ export const SearchScreen = ({
       }
       {
         !loading
-        && selectedIndex === T_GRADE
+        && selectedIndex === T_DEGREE
         &&
         <List>
           <FlatList

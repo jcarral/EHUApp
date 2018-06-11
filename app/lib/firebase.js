@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as firebase from 'firebase';
 import { urls } from '../config/';
 
-const T_GRADE = 0;
+const T_DEGREE = 0;
 const T_SUBJECTS = 1;
 const T_TEACHERS = 2;
 

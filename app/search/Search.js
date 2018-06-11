@@ -5,7 +5,7 @@ import { SearchScreen } from './screens';
 import { search, changeTab } from '.';
 import { startSearching as startSearchingTeacher } from '../teacher/';
 import { startSearching as startSearchingSubject } from '../subject/';
-import { startSearching as startSearchingDegree } from '../degree/';
+import { startSearching as startSearchingDegree } from '../degree';
 import { Translate } from '../lib';
 
 class SearchContainer extends Component {

@@ -1,4 +1,4 @@
-import { START_SEARCHING, SUBJECTS_FETCH, TEACHERS_FETCH, GRADES_FETCH, CHANGE_TAB, START_SEARCHING_TEACHERS, START_SEARCHING_GRADES, START_SEARCHING_SUBJECTS } from './search.types';
+import { START_SEARCHING, SUBJECTS_FETCH, TEACHERS_FETCH, DEGREES_FETCH, CHANGE_TAB, START_SEARCHING_TEACHERS, START_SEARCHING_DEGREES, START_SEARCHING_SUBJECTS } from './search.types';
 
 const initialState = {
   searchSubjectText: '',
@@ -19,7 +19,7 @@ export const searchReducer = (state = initialState, action = {}) => {
         ...state,
         searching: true,
       };
-    case START_SEARCHING_GRADES:
+    case START_SEARCHING_DEGREES:
       return {
         ...state,
         searchDegreeText: action.payload,
@@ -46,7 +46,7 @@ export const searchReducer = (state = initialState, action = {}) => {
         searching: false,
         teachers: action.payload,
       };
-    case GRADES_FETCH:
+    case DEGREES_FETCH:
       return {
         ...state,
         searching: false,
