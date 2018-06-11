@@ -58,7 +58,12 @@ const removeHolidays = (calendar = {}, holidays = {}) => {
 };
 
 export class Calendar {
-  static createUserScheduleAux = (ehu = {}, degreesCalendar = {}, schedules = {}, subjects = {}) => {
+  static createUserScheduleAux = (
+    ehu = {},
+    degreesCalendar = {},
+    schedules = {},
+    subjects = {},
+  ) => {
     const dates = {};
     let datesArray = [];
     // Paso 1: Juntar todos los horarios
