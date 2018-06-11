@@ -17,13 +17,13 @@ class AdminDatesListContainer extends Component {
 
   handleDeleteItem = (type, id) => {
     const {
-      gradesCalendar,
+      degreesCalendar,
       ehuCalendar,
       navigation,
       deleteDateAction,
     } = this.props;
     const { selectedCalendar } = navigation.state.params;
-    const date = (selectedCalendar === 'ehu') ? ehuCalendar[type][id] : gradesCalendar[selectedCalendar][type][id];
+    const date = (selectedCalendar === 'ehu') ? ehuCalendar[type][id] : degreesCalendar[selectedCalendar][type][id];
     Alert.alert(
       Translate.t('admin.calendar.lisAlert'),
       `${type} => ${date.dateString}`,
@@ -42,18 +42,18 @@ class AdminDatesListContainer extends Component {
   }
 
   render() {
-    const { gradesCalendar, ehuCalendar, navigation } = this.props;
+    const { degreesCalendar, ehuCalendar, navigation } = this.props;
     const selectedCalendarName = navigation.state.params.selectedCalendar;
     return (<AdminDatesListScreen
       handleDeleteItem={this.handleDeleteItem}
-      dates={selectedCalendarName === 'ehu' ? ehuCalendar : gradesCalendar[selectedCalendarName]}
+      dates={selectedCalendarName === 'ehu' ? ehuCalendar : degreesCalendar[selectedCalendarName]}
     />);
   }
 }
 
 const mapStateToProps = (state, action) => ({
   loading: state.calendar.fetching,
-  gradesCalendar: state.calendar.grades,
+  degreesCalendar: state.calendar.degrees,
   ehuCalendar: state.calendar.ehu,
 });
 

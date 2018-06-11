@@ -43,11 +43,11 @@ const changeToTeachers = async (text, newTab, dispatch, getState) => {
   });
 };
 
-const changeToGrades = async (text, newTab, dispatch, getState) => {
-  const { searchGradeText, selectedIndex } = getState().search;
+const changeToDegrees = async (text, newTab, dispatch, getState) => {
+  const { searchDegreeText, selectedIndex } = getState().search;
 
   if (selectedIndex !== newTab) dispatch({ type: CHANGE_TAB, payload: newTab });
-  if (searchGradeText === text) return;
+  if (searchDegreeText === text) return;
   dispatch({
     type: START_SEARCHING,
   });
@@ -68,13 +68,13 @@ export const search = (text, index) => (dispatch, getState) => {
   const selectedIndex = index || getState().search.selectedIndex;
   switch (selectedIndex) {
     case 0:
-      return changeToGrades(text, selectedIndex, dispatch, getState);
+      return changeToDegrees(text, selectedIndex, dispatch, getState);
     case 1:
       return changeToSubjects(text, selectedIndex, dispatch, getState);
     case 2:
       return changeToTeachers(text, selectedIndex, dispatch, getState);
     default:
-      return changeToGrades(text, selectedIndex, dispatch, getState);
+      return changeToDegrees(text, selectedIndex, dispatch, getState);
   }
 };
 
@@ -86,12 +86,12 @@ export const changeTab = (text, newTab) => (dispatch, getState) => {
 
   switch (nextTab) {
     case 0:
-      return changeToGrades(text, nextTab, dispatch, getState);
+      return changeToDegrees(text, nextTab, dispatch, getState);
     case 1:
       return changeToSubjects(text, nextTab, dispatch, getState);
     case 2:
       return changeToTeachers(text, nextTab, dispatch, getState);
     default:
-      return changeToGrades(text, nextTab, dispatch, getState);
+      return changeToDegrees(text, nextTab, dispatch, getState);
   }
 };

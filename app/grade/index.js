@@ -1,1 +1,1 @@
-export * from './GradeProfile';
+export * from './DegreeProfile';

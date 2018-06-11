@@ -3,12 +3,12 @@ import { START_SEARCHING, SUBJECTS_FETCH, TEACHERS_FETCH, GRADES_FETCH, CHANGE_T
 const initialState = {
   searchSubjectText: '',
   searchTeacherText: '',
-  searchGradeText: '',
+  searchDegreeText: '',
   selectedIndex: 0,
   searching: false,
   subjects: [],
   teachers: [],
-  grades: [],
+  degrees: [],
 };
 
 
@@ -22,7 +22,7 @@ export const searchReducer = (state = initialState, action = {}) => {
     case START_SEARCHING_GRADES:
       return {
         ...state,
-        searchGradeText: action.payload,
+        searchDegreeText: action.payload,
       };
     case START_SEARCHING_SUBJECTS:
       return {
@@ -50,7 +50,7 @@ export const searchReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         searching: false,
-        grades: action.payload,
+        degrees: action.payload,
       };
     case CHANGE_TAB:
       return {

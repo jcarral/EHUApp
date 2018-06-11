@@ -55,7 +55,7 @@ export const LoginScreen = ({
     <View style={[styles.container]}>
       <View style={[styles.headerContainer]}>
         <Image style={{ width: 100, height: 100 }} source={require('../../assets/images/logo-ehu-white.png')} />
-        <Text style={[styles.titleTxt]}> SUBSUB </Text>
+        <Text style={[styles.titleTxt]}> EHUApp </Text>
       </View>
       <View style={[styles.formContainer]}>
         <FormInput

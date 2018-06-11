@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
-import { fetchCalendar, fetchGradeCalendar, fetchSchedules } from './calendar.action';
+import { fetchCalendar, fetchDegreeCalendar, fetchSchedules } from './calendar.action';
 import { MyCalendarScreen } from './screens';
 import { Helper, Calendar } from '../lib';
 
@@ -42,27 +42,27 @@ class MyCalendarContainer extends Component {
 
   loadCalendars = async () => {
     const {
-      fetchGradeCalendarAction,
+      fetchDegreeCalendarAction,
       subjects,
       loadedCalendars,
     } = this.props;
-    let requiredGrades = Object.keys(subjects).map(sub => sub.split('_')[1]);
-    requiredGrades = Helper.unique(requiredGrades);
-    requiredGrades = Helper.diff(requiredGrades, loadedCalendars);
-    // requiredGrades.forEach(grade => fetchGradeCalendarAction(grade));
-    for (const grade of requiredGrades) {
-      await fetchGradeCalendarAction(grade);
+    let requiredDegrees = Object.keys(subjects).map(sub => sub.split('_')[1]);
+    requiredDegrees = Helper.unique(requiredDegrees);
+    requiredDegrees = Helper.diff(requiredDegrees, loadedCalendars);
+    // requiredDegrees.forEach(degree => fetchDegreeCalendarAction(degree));
+    for (const degree of requiredDegrees) {
+      await fetchDegreeCalendarAction(degree);
     }
   }
 
   generateDates = () => {
     const {
       ehuCalendar,
-      gradesCalendar,
+      degreesCalendar,
       schedules,
       subjects,
     } = this.props;
-    const dates = Calendar.createUserSchedule(ehuCalendar, gradesCalendar, schedules, subjects);
+    const dates = Calendar.createUserSchedule(ehuCalendar, degreesCalendar, schedules, subjects);
     this.setState({ dates });
   }
   render() {
@@ -81,14 +81,14 @@ const mapStateToProps = (state, action) => ({
   loadedCalendars: state.calendar.loadedCalendars,
   loadedSchedules: state.calendar.loadedSchedules,
   ehuCalendar: state.calendar.ehu,
-  gradesCalendar: state.calendar.grades,
+  degreesCalendar: state.calendar.degrees,
   loading: state.calendar.fetching,
   schedules: state.calendar.schedules,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchCalendarAction: () => dispatch(fetchCalendar()),
-  fetchGradeCalendarAction: type => dispatch(fetchGradeCalendar(type)),
+  fetchDegreeCalendarAction: type => dispatch(fetchDegreeCalendar(type)),
   fetchSchedulesAction: list => dispatch(fetchSchedules(list)),
 });
 

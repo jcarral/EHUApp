@@ -39,17 +39,17 @@ export const fetchCalendar = () => async (dispatch) => {
   }
 };
 
-export const fetchGradeCalendar = grade => async (dispatch) => {
+export const fetchDegreeCalendar = degree => async (dispatch) => {
   try {
     dispatch({
       type: START_FETCH_CALENDAR,
     });
-    const calendar = await getCalendarFromFirebase(grade) || {};
+    const calendar = await getCalendarFromFirebase(degree) || {};
     dispatch({
       type: SUCCESS_FETCH_GRADE_CALENDAR,
       payload: {
         calendar,
-        name: grade,
+        name: degree,
       },
     });
   } catch (e) {

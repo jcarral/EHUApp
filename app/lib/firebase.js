@@ -31,20 +31,20 @@ export const searchByName = async (name, type) => {
 
 
 export const getTeacherFromFirebase = async (teacher) => {
-  const ref = firebase.database().ref(`/ehu/teachers/${teacher.code}_${teacher.grade}`);
+  const ref = firebase.database().ref(`/ehu/teachers/${teacher.code}_${teacher.degree}`);
   const data = await ref.once('value');
   const res = data.val();
   return res;
 };
 
 export const getSubjectFromFirebase = async (subject) => {
-  const ref = firebase.database().ref(`/ehu/subjects/${subject.code}_${subject.grade}`);
+  const ref = firebase.database().ref(`/ehu/subjects/${subject.code}_${subject.degree}`);
   const data = await ref.once('value');
   return data.val();
 };
 
-export const getGradeFromFirebase = (grade, school, campus) => {
-  const path = `/ehu/grades/${campus}/${school}/${grade}`;
+export const getDegreeFromFirebase = (degree, school, campus) => {
+  const path = `/ehu/degrees/${campus}/${school}/${degree}`;
   return getFromFirebasePath(path);
 };
 
@@ -93,13 +93,13 @@ export const getProfileFromFirebase = async (uid) => {
   uid = uid || firebase.auth().currentUser.uid;
   const profileRef = firebase.database().ref('users').child(uid);
   const {
-    data, teachers, subjects, grade,
+    data, teachers, subjects, degree,
   } = (await profileRef.once('value')).val();
   return {
     data,
     teachers: teachers || {},
     subjects: subjects || {},
-    grade: grade || '',
+    degree: degree || '',
   };
 };
 

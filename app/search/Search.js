@@ -5,7 +5,7 @@ import { SearchScreen } from './screens';
 import { search, changeTab } from '.';
 import { startSearching as startSearchingTeacher } from '../teacher/';
 import { startSearching as startSearchingSubject } from '../subject/';
-import { startSearching as startSearchingGrade } from '../grade/';
+import { startSearching as startSearchingDegree } from '../degree/';
 import { Translate } from '../lib';
 
 class SearchContainer extends Component {
@@ -34,7 +34,7 @@ class SearchContainer extends Component {
   goToPath = (path, index) => {
     let selectedItem;
     if (this.props.selectedIndex === 0) {
-      selectedItem = this.props.grades[index];
+      selectedItem = this.props.degrees[index];
     } else if (this.props.selectedIndex === 1) {
       selectedItem = this.props.subjects[index];
       this.props.dispatch(startSearchingSubject);
@@ -49,7 +49,7 @@ class SearchContainer extends Component {
 
   render() {
     const buttons = [
-      Translate.t('search.grades'),
+      Translate.t('search.degrees'),
       Translate.t('search.subjects'),
       Translate.t('search.teachers'),
     ];
@@ -63,7 +63,7 @@ class SearchContainer extends Component {
       loading={this.props.searching}
       subjects={this.props.subjects}
       teachers={this.props.teachers}
-      grades={this.props.grades}
+      degrees={this.props.degrees}
       goToPath={this.goToPath}
     />);
   }
@@ -72,7 +72,7 @@ class SearchContainer extends Component {
 const mapStateToProps = (state, action) => ({
   subjects: state.search.subjects,
   teachers: state.search.teachers,
-  grades: state.search.grades,
+  degrees: state.search.degrees,
   searching: state.search.searching,
   selectedIndex: state.search.selectedIndex,
 });

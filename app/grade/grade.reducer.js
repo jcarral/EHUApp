@@ -1,12 +1,12 @@
-import { GRADE_ERROR, GRADE_FETCH, START_SEARCHING } from './grade.types';
+import { GRADE_ERROR, GRADE_FETCH, START_SEARCHING } from './degree.types';
 
 const initialState = {
-  grade: {},
+  degree: {},
   error: false,
   searching: true,
 };
 
-export const gradeReducer = (state = initialState, action) => {
+export const degreeReducer = (state = initialState, action) => {
   switch (action.type) {
     case START_SEARCHING:
       return {
@@ -19,7 +19,7 @@ export const gradeReducer = (state = initialState, action) => {
         ...state,
         searching: false,
         error: false,
-        grade: action.payload,
+        degree: action.payload,
       };
     case GRADE_ERROR:
       return {

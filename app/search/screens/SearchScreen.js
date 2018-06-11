@@ -21,31 +21,31 @@ const styles = StyleSheet.create({
   },
 });
 
-const GradeItem = ({
+const DegreeItem = ({
   name, code, goToPath, index,
 }) => (
   <ListItem
     title={name}
-    onPressRightIcon={() => goToPath('GradeProfile', index)}
+    onPressRightIcon={() => goToPath('DegreeProfile', index)}
   />
 );
 
 const SubjectItem = ({
-  name, gradeName, code, goToPath, index,
+  name, degreeName, code, goToPath, index,
 }) => (
   <ListItem
     title={name}
-    subtitle={gradeName}
+    subtitle={degreeName}
     onPressRightIcon={() => goToPath('SubjectProfile', index)}
   />
 );
 
 const TeacherItem = ({
-  name, gradeName, code, goToPath, index,
+  name, degreeName, code, goToPath, index,
 }) => (
   <ListItem
     title={name}
-    subtitle={gradeName}
+    subtitle={degreeName}
     onPressRightIcon={() => goToPath('TeacherProfile', index)}
   />
 );
@@ -63,7 +63,7 @@ export const SearchScreen = ({
   buttons,
   selectedIndex,
   loading,
-  grades,
+  degrees,
   subjects,
   teachers,
   goToPath,
@@ -79,8 +79,8 @@ export const SearchScreen = ({
       {
         !loading
         && selectedIndex === T_GRADE
-        && grades.length === 0
-        && <EmptyList title={Translate.t('search.emptyListGrades')} />
+        && degrees.length === 0
+        && <EmptyList title={Translate.t('search.emptyListDegrees')} />
       }
       {
         !loading
@@ -100,9 +100,9 @@ export const SearchScreen = ({
         &&
         <List>
           <FlatList
-            data={grades}
+            data={degrees}
             renderItem={({ item, index }) => (
-              <GradeItem
+              <DegreeItem
                 goToPath={goToPath}
                 name={item.name}
                 code={item.code}
@@ -123,7 +123,7 @@ export const SearchScreen = ({
               <SubjectItem
                 goToPath={goToPath}
                 name={item.name}
-                gradeName={item.gradeName}
+                degreeName={item.degreeName}
                 index={index}
                 code={item.code}
               />)}
@@ -141,7 +141,7 @@ export const SearchScreen = ({
               <TeacherItem
                 goToPath={goToPath}
                 name={item.name}
-                gradeName={item.gradeName}
+                degreeName={item.degreeName}
                 index={index}
                 code={item.code}
               />)}
