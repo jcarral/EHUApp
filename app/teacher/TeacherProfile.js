@@ -14,7 +14,7 @@ class TeacherProfileContainer extends Component {
   componentWillMount = () => {
     const { params } = this.props.navigation.state;
     const { getTeacherAction } = this.props;
-    const teacherCode = `${params.params.code}_${params.params.grade}`;
+    const teacherCode = `${params.params.code}_${params.params.degree}`;
     this.setState({ teacherCode });
     getTeacherAction(params.params);
   }

@@ -58,18 +58,23 @@ const removeHolidays = (calendar = {}, holidays = {}) => {
 };
 
 export class Calendar {
-  static createUserScheduleAux = (ehu = {}, gradesCalendar = {}, schedules = {}, subjects = {}) => {
+  static createUserScheduleAux = (
+    ehu = {},
+    degreesCalendar = {},
+    schedules = {},
+    subjects = {},
+  ) => {
     const dates = {};
     let datesArray = [];
     // Paso 1: Juntar todos los horarios
     for (const key of Object.keys(schedules)) {
       const color = Color.randomColor();
-      const grade = key.split('_')[1];
+      const degree = key.split('_')[1];
       // Calendario de una asignatura. Una lista de objetos por semanas
       const schedule = schedules[key];
       // Lista de objetos donde cada uno esta formado por los días con sus horas
       const parsedSchedule = schedule
-        .map(weeksRange => getDatesByRange(weeksRange, gradesCalendar[grade].weekStart));
+        .map(weeksRange => getDatesByRange(weeksRange, degreesCalendar[degree].weekStart));
       // Objeto con todos los días juntos y la información añadida,
       // es decir, nombre de la asignatura y color.
       const infoSchedule = parsedSchedule
@@ -115,9 +120,9 @@ export class Calendar {
     return cleanObject;
   }
 
-  static createUserSchedule = (ehu = {}, gradesCalendar = {}, schedules = {}, subjects = {}) => {
+  static createUserSchedule = (ehu = {}, degreesCalendar = {}, schedules = {}, subjects = {}) => {
     try {
-      return Calendar.createUserScheduleAux(ehu, gradesCalendar, schedules, subjects);
+      return Calendar.createUserScheduleAux(ehu, degreesCalendar, schedules, subjects);
     } catch (e) {
       return {};
     }

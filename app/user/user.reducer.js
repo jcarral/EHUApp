@@ -22,7 +22,7 @@ const defaultState = {
   data: {},
   subjects: {},
   teachers: {},
-  grade: '',
+  degree: '',
   error: '',
   fetching: false,
 };
@@ -41,14 +41,14 @@ export const userReducer = (state = defaultState, action) => {
       };
     case SUCCESS_FETCHING_PROFILE:
       const {
-        data, subjects, teachers, grade,
+        data, subjects, teachers, degree,
       } = action.payload;
       return {
         ...state,
         data,
         subjects,
         teachers,
-        grade,
+        degree,
         fetching: false,
         error: '',
       };

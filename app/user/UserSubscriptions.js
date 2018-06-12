@@ -45,11 +45,11 @@ class UserSubscriptionContainer extends Component {
     const params = key.split('_');
     const navigationParams = {
       code: params[0],
-      grade: params[1],
+      degree: params[1],
     };
-    if (type === 'subject' && Helper.hasProperty(navigationParams, 'code') && Helper.hasProperty(navigationParams, 'grade')) {
+    if (type === 'subject' && Helper.hasProperty(navigationParams, 'code') && Helper.hasProperty(navigationParams, 'degree')) {
       navigation.navigate('SubjectProfile', { params: navigationParams });
-    } else if (type === 'teacher' && Helper.hasProperty(navigationParams, 'code') && Helper.hasProperty(navigationParams, 'grade')) {
+    } else if (type === 'teacher' && Helper.hasProperty(navigationParams, 'code') && Helper.hasProperty(navigationParams, 'degree')) {
       navigation.navigate('TeacherProfile', { params: navigationParams });
     }
   }

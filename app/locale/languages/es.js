@@ -32,7 +32,7 @@ export const es = {
   components: {
     emptyList: 'No hay elementos disponibles',
   },
-  grade: {
+  degree: {
     profile: {
       teachers: 'Profesores',
       subjects: 'Asignaturas',
@@ -47,12 +47,12 @@ export const es = {
     },
   },
   search: {
-    grades: 'Grados',
+    degrees: 'Grados',
     subjects: 'Asignaturas',
     teachers: 'Profesores',
     emptyListTeachers: 'No hay profesores disponibles',
     emptyListSubjects: 'No hay asignaturas disponibles',
-    emptyListGrades: 'No hay grados disponibles',
+    emptyListDegrees: 'No hay grados disponibles',
   },
   subject: {
     profile: {

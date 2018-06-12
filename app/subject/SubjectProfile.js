@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import { SubjectProfileScreen, SubscribeModal } from './screens';
 import { getSubject } from './subject.action';
-import { fetchGradeCalendar } from '../calendar';
+import { fetchDegreeCalendar } from '../calendar';
 import { startSearching } from '../teacher';
 import { Translate, Calendar } from '../lib';
 import { addNewSub, deleteSubscription } from '../user';
@@ -23,11 +23,11 @@ class SubjectProfileContainer extends Component {
 
   componentWillMount = () => {
     const { params } = this.props.navigation.state;
-    const { getSubjectAction, fetchGradeCalendarAction } = this.props;
-    const subjectCode = `${params.params.code}_${params.params.grade}`;
+    const { getSubjectAction, fetchDegreeCalendarAction } = this.props;
+    const subjectCode = `${params.params.code}_${params.params.degree}`;
     this.setState({ subjectCode });
     getSubjectAction(params.params);
-    fetchGradeCalendarAction(subjectCode);
+    fetchDegreeCalendarAction(subjectCode);
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -42,13 +42,13 @@ class SubjectProfileContainer extends Component {
     this.setState({ selectedIndex: index });
   }
 
-  goToPath = (code, grade) => {
+  goToPath = (code, degree) => {
     const { startSearchingAction } = this.props;
     startSearchingAction();
     this.props.navigation.navigate('TeacherProfile', {
       params: {
         code,
-        grade,
+        degree,
       },
     });
   }
@@ -89,7 +89,7 @@ class SubjectProfileContainer extends Component {
   generateCalendar = () => {
     const {
       ehuCalendar,
-      gradesCalendar,
+      degreesCalendar,
       subject,
     } = this.props;
     const { subjectCode } = this.state;
@@ -99,7 +99,7 @@ class SubjectProfileContainer extends Component {
     subjects[subjectCode] = {
       name: subject.detail.name,
     };
-    const dates = Calendar.createUserSchedule(ehuCalendar, gradesCalendar, schedules, subjects);
+    const dates = Calendar.createUserSchedule(ehuCalendar, degreesCalendar, schedules, subjects);
     this.setState({ dates });
   }
 
@@ -151,7 +151,7 @@ const mapStateToProps = (state, action) => ({
   error: state.subject.error,
   userSubjects: state.profile.subjects,
   ehuCalendar: state.calendar.ehu,
-  gradesCalendar: state.calendar.grades,
+  degreesCalendar: state.calendar.degrees,
 
 });
 
@@ -160,7 +160,7 @@ const mapDispatchToProps = dispatch => ({
   deleteSubscriptionAction: (type, key) => dispatch(deleteSubscription(type, key)),
   startSearchingAction: () => dispatch(startSearching()),
   getSubjectAction: params => dispatch(getSubject(params)),
-  fetchGradeCalendarAction: code => dispatch(fetchGradeCalendar(code)),
+  fetchDegreeCalendarAction: code => dispatch(fetchDegreeCalendar(code)),
 });
 
 export const SubjectProfile = connect(mapStateToProps, mapDispatchToProps)(SubjectProfileContainer);

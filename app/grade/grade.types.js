@@ -1,3 +1,0 @@
-export const START_SEARCHING = 'START_SEARCHING_GRADE';
-export const GRADE_FETCH = 'GRADE_FETCH';
-export const GRADE_ERROR = 'GRADE_ERROR';

@@ -2,7 +2,7 @@ import {
   ERROR_FETCH_CALENDAR,
   START_FETCH_CALENDAR,
   SUCCESS_FETCH_CALENDAR,
-  SUCCESS_FETCH_GRADE_CALENDAR,
+  SUCCESS_FETCH_DEGREE_CALENDAR,
   START_ADD_DATE,
   ERROR_ADD_DATE,
   SUCCESS_ADD_DATE,
@@ -17,7 +17,7 @@ import { Helper } from '../lib';
 
 const defaultState = {
   ehu: {},
-  grades: {},
+  degrees: {},
   loadedCalendars: [],
   loadedSchedules: [],
   schedules: {},
@@ -67,7 +67,7 @@ export const calendarReducer = (state = defaultState, action) => {
         error: null,
         ehu: action.payload,
       };
-    case SUCCESS_FETCH_GRADE_CALENDAR:
+    case SUCCESS_FETCH_DEGREE_CALENDAR:
       const tmpCalendar = {};
       tmpCalendar[action.payload.name] = action.payload.calendar;
       return {
@@ -75,7 +75,7 @@ export const calendarReducer = (state = defaultState, action) => {
         fetching: false,
         error: null,
         loadedCalendars: [...state.loadedCalendars, action.payload.name],
-        grades: Object.assign({}, state.grades, tmpCalendar),
+        degrees: Object.assign({}, state.degrees, tmpCalendar),
       };
     case SUCCESS_ADD_DATE:
       const {
@@ -92,14 +92,14 @@ export const calendarReducer = (state = defaultState, action) => {
           ehu: createObjectWithDates(date, type, key, state.ehu),
         };
       }
-      const tmpGrade = {};
-      tmpGrade[name] =
-        createObjectWithDates(date, type, key, state.grades[name]);
+      const tmpDegree = {};
+      tmpDegree[name] =
+        createObjectWithDates(date, type, key, state.degrees[name]);
       return {
         ...state,
         fetching: false,
         error: null,
-        grades: Object.assign({}, state.grades, tmpGrade),
+        degrees: Object.assign({}, state.degrees, tmpDegree),
       };
     case SUCCESS_DELETE_DATE:
       if (action.payload.calendar === 'ehu') {
@@ -110,14 +110,14 @@ export const calendarReducer = (state = defaultState, action) => {
           ehu: deleteDate(action.payload.type, action.payload.id, state.ehu),
         };
       }
-      const tmpDeleteGrade = {};
-      tmpDeleteGrade[action.payload.calendar] =
-        deleteDate(action.payload.type, action.payload.id, state.grades[action.payload.calendar]);
+      const tmpDeleteDegree = {};
+      tmpDeleteDegree[action.payload.calendar] =
+        deleteDate(action.payload.type, action.payload.id, state.degrees[action.payload.calendar]);
       return {
         ...state,
         fetching: false,
         error: null,
-        grades: Object.assign({}, state.grades, tmpDeleteGrade),
+        degrees: Object.assign({}, state.degrees, tmpDeleteDegree),
       };
     case ERROR_LOAD_SCHEDULE:
     case ERROR_DELETE_DATE:

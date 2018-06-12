@@ -209,7 +209,7 @@ const SubjectView = ({
     <View style={styles.header}>
       <Text style={styles.title}>{subject.detail.name || ''}</Text>
       <View style={[styles.rows]}>
-        <Text style={styles.subtitle}>{subject.detail.grade || ''}</Text>
+        <Text style={styles.subtitle}>{subject.detail.degree || ''}</Text>
         <Text style={styles.subtitle}>{subject.detail.course || ''}</Text>
       </View>
       <Icon
@@ -259,7 +259,7 @@ const SubjectSummary = ({ subject, goToPath }) => (
         <CategoryDivider iconName="school" title={Translate.t('subject.profile.teachers')} />
       </View>
       <List>
-        <FlatList data={subject.summary.teachers || []} renderItem={({ item }) => <ListItem title={item.name} onPress={() => goToPath(item['id_teacher'], item['code_grade'])} />} />
+        <FlatList data={subject.summary.teachers || []} renderItem={({ item }) => <ListItem title={item.name} onPress={() => goToPath(item['id_teacher'], item['code_degree'])} />} />
       </List>
     </View>
   </View>

@@ -21,7 +21,7 @@ import { Search } from '../search';
 
 import { TeacherProfile } from '../teacher';
 
-import { GradeProfile } from '../grade';
+import { DegreeProfile } from '../degree';
 
 import { SubjectProfile } from '../subject';
 
@@ -48,8 +48,8 @@ const sharedRoutes = {
       header: null,
     },
   },
-  GradeProfile: {
-    screen: GradeProfile,
+  DegreeProfile: {
+    screen: DegreeProfile,
     navigationOptions: {
       header: null,
     },

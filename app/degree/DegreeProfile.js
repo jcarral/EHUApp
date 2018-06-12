@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { GradeProfileScreen } from './screens';
-import { getGrade } from './grade.action';
+import { DegreeProfileScreen } from './screens';
+import { getDegree } from './degree.action';
 import { Translate } from '../lib';
 
-class GradeProfileContainer extends Component {
+class DegreeProfileContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +18,7 @@ class GradeProfileContainer extends Component {
 
   componentWillMount = () => {
     const { params } = this.props.navigation.state;
-    this.props.dispatch(getGrade(params.params));
+    this.props.dispatch(getDegree(params.params));
     this.setState({
       ...this.state,
       code: params.params.code,
@@ -27,8 +27,8 @@ class GradeProfileContainer extends Component {
   componentWillReceiveProps = (nextProps) => {
     this.setState({
       ...this.state,
-      subjects: nextProps.grade.subjects,
-      teachers: nextProps.grade.teachers,
+      subjects: nextProps.degree.subjects,
+      teachers: nextProps.degree.teachers,
     });
   }
 
@@ -42,7 +42,7 @@ class GradeProfileContainer extends Component {
     this.props.navigation.navigate(path, {
       params: {
         code: key,
-        grade: this.state.code,
+        degree: this.state.code,
       },
     });
   };
@@ -56,7 +56,7 @@ class GradeProfileContainer extends Component {
   }
 
   filterTeacher = (txt) => {
-    const { teachers } = this.props.grade;
+    const { teachers } = this.props.degree;
     const copy = Object.assign({}, teachers);
     Object.keys(teachers).forEach((key) => {
       if (!teachers[key].toLowerCase().includes(txt.toLowerCase())) delete copy[key];
@@ -69,7 +69,7 @@ class GradeProfileContainer extends Component {
   };
 
   filterSubjects = (txt) => {
-    const { subjects } = this.props.grade;
+    const { subjects } = this.props.degree;
     const copy = Object.assign({}, subjects);
     Object.keys(subjects).forEach((key) => {
       if (!subjects[key].toLowerCase().includes(txt.toLowerCase())) delete copy[key];
@@ -83,9 +83,9 @@ class GradeProfileContainer extends Component {
 
   render() {
     const buttons = [
-      Translate.t('grade.profile.info'),
-      Translate.t('grade.profile.subjects'),
-      Translate.t('grade.profile.teachers'),
+      Translate.t('degree.profile.info'),
+      Translate.t('degree.profile.subjects'),
+      Translate.t('degree.profile.teachers'),
     ];
     const modal = {
       visible: this.state.modalVisible,
@@ -93,11 +93,11 @@ class GradeProfileContainer extends Component {
       closeModal: this.closeModal,
     };
     return (
-      <GradeProfileScreen
+      <DegreeProfileScreen
         buttons={buttons}
         searching={this.props.searching}
         error={this.props.error}
-        gradeData={this.props.grade.data}
+        degreeData={this.props.degree.data}
         teachers={this.state.teachers}
         subjects={this.state.subjects}
         goToPath={this.goToPath}
@@ -111,9 +111,9 @@ class GradeProfileContainer extends Component {
 }
 
 const mapStateToProps = (state, action) => ({
-  grade: state.grade.grade,
-  error: state.grade.error,
-  searching: state.grade.searching,
+  degree: state.degree.degree,
+  error: state.degree.error,
+  searching: state.degree.searching,
 });
 
-export const GradeProfile = connect(mapStateToProps)(GradeProfileContainer);
+export const DegreeProfile = connect(mapStateToProps)(DegreeProfileContainer);

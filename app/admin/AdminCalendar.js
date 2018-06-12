@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AdminCalendarScreen } from './screens';
-import { fetchCalendar, addDateToCalendar, fetchGradeCalendar } from '../calendar/calendar.action';
+import { fetchCalendar, addDateToCalendar, fetchDegreeCalendar } from '../calendar/calendar.action';
 import { search } from '../search/search.action';
 import { Helper, Translate } from '../lib';
 
@@ -13,9 +13,9 @@ class AdminCalendarContainer extends Component {
     weekStartNumber: 0,
   };
   componentWillMount = () => {
-    const { fetchCalendarAction, searchGradesAction } = this.props;
+    const { fetchCalendarAction, searchDegreesAction } = this.props;
     fetchCalendarAction();
-    searchGradesAction();
+    searchDegreesAction();
   }
 
   handleAddDate = (date) => {
@@ -38,9 +38,9 @@ class AdminCalendarContainer extends Component {
   }
 
   handleChangeCalendar = (type) => {
-    const { gradesCalendar, fetchGradeCalendarAction } = this.props;
+    const { degreesCalendar, fetchDegreeCalendarAction } = this.props;
     this.setState({ selectedCalendar: type });
-    if (!Helper.hasProperty(gradesCalendar, type) && type !== 'ehu') fetchGradeCalendarAction(type);
+    if (!Helper.hasProperty(degreesCalendar, type) && type !== 'ehu') fetchDegreeCalendarAction(type);
   }
 
   handleChangeText = (key, value) => {
@@ -57,14 +57,14 @@ class AdminCalendarContainer extends Component {
     });
   }
   render() {
-    const { ehuCalendar, grades, gradesCalendar } = this.props;
+    const { ehuCalendar, degrees, degreesCalendar } = this.props;
     const {
       selectedCalendar,
       selectedIndex,
       holidayText,
       weekStartNumber,
     } = this.state;
-    const listOfCalendars = [...grades.map(grade => ({ label: grade.name, value: grade.code })), { label: 'EHU', value: 'ehu' }];
+    const listOfCalendars = [...degrees.map(degree => ({ label: degree.name, value: degree.code })), { label: 'EHU', value: 'ehu' }];
     const buttons = [
       Translate.t('admin.calendar.tabHoliday'),
       Translate.t('admin.calendar.tabWeek'),
@@ -77,7 +77,7 @@ class AdminCalendarContainer extends Component {
         listOfCalendars={listOfCalendars}
         selectedCalendar={selectedCalendar}
         handleChangeCalendar={this.handleChangeCalendar}
-        selectedCalendarDates={(selectedCalendar === 'ehu') ? ehuCalendar : gradesCalendar[selectedCalendar]}
+        selectedCalendarDates={(selectedCalendar === 'ehu') ? ehuCalendar : degreesCalendar[selectedCalendar]}
         buttons={buttons}
         selectedIndex={selectedIndex}
         handleChangeText={this.handleChangeText}
@@ -90,16 +90,16 @@ class AdminCalendarContainer extends Component {
 
 const mapStateToProps = (state, action) => ({
   ehuCalendar: state.calendar.ehu,
-  grades: state.search.grades,
-  gradesCalendar: state.calendar.grades,
+  degrees: state.search.degrees,
+  degreesCalendar: state.calendar.degrees,
   loadedCalendars: state.calendar.loadedCalendars,
   loadingCalendar: state.calendar.fetching,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchCalendarAction: () => dispatch(fetchCalendar()),
-  searchGradesAction: () => dispatch(search('Gra', 0)),
-  fetchGradeCalendarAction: code => dispatch(fetchGradeCalendar(code)),
+  searchDegreesAction: () => dispatch(search('Gra', 0)),
+  fetchDegreeCalendarAction: code => dispatch(fetchDegreeCalendar(code)),
   addDateToCalendarAction: (date, code, type) => dispatch(addDateToCalendar(date, code, type)),
 });
 
