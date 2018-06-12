@@ -1,31 +1,29 @@
-<!--- Provide a general summary of the issue in the Title above -->
+<!--- Introduce aquí un breve resumen de la incidencia -->
 
-## COmportamiento esperado
-<!--- If you're describing a bug, tell us what should happen -->
-<!--- If you're suggesting a change/improvement, tell us how it should work -->
+## Comportamiento esperado
+<!--- Si estas describiendo un error, explica lo que debería suceder -->
+<!--- Si estas proponiendo un cambio, explica como debería funcionar -->
 
 ## Comportamiento actual
-<!--- If describing a bug, tell us what happens instead of the expected behavior -->
-<!--- If suggesting a change/improvement, explain the difference from current behavior -->
+<!--- Si estas describiendo un error, explica lo sucede -->
+<!--- Si estas proponiendo un cambio, explica la diferencia frente al comportamiento actual -->
 
 ## Solución. (Opcional)
-<!--- Not obligatory, but suggest a fix/reason for the bug, -->
-<!--- or ideas how to implement the addition or change -->
+<!--- No es obligatorio, solo recomendable, descripción -->
+<!--- de como implementar la solución. -->
 
 ## Pasos que he seguido (para errores)
-<!--- Provide a link to a live example, or an unambiguous set of steps to -->
-<!--- reproduce this bug. Include code to reproduce, if relevant -->
+<!--- Reproduce los pasos seguidos para llegar hasta el error -->
 1.
 2.
 3.
 4.
 
 ## Contexto
-<!--- How has this issue affected you? What are you trying to accomplish? -->
-<!--- Providing context helps us come up with a solution that is most useful in the real world -->
+<!--- ¿En que te afecta la incidencia? ¿Cual es el objetivo?-->
 
 ## Entorno de trabajo
-<!--- Include as many relevant details about the environment you experienced the bug in -->
+<!--- Detalla al máximo el entorno sobre el que has encontrado el error. -->
 * Version utilizada:
 * Nombre y versión del entorno (e.g. Chrome 39, node.js 5.4):
 * Sistema operativo y versión (desktop or mobile):
