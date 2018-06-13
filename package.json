@@ -4,10 +4,15 @@
   "private": true,
   "devDependencies": {
     "babel-eslint": "^8.2.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^4.19.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.1.0",
     "jest-expo": "25.0.0",
     "react-native-scripts": "1.11.1",
-    "react-test-renderer": "16.2.0"
+    "react-test-renderer": "^16.2.0"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -15,11 +20,22 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js",
-    "eslint": "eslint ./app"
+    "eslint": "eslint ./app",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFiles": [
+      "./__tests__/jestsetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "identity-obj-proxy"
+    }
   },
   "dependencies": {
     "axios": "^0.17.1",
